@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.sys.SettingsDao">
+
+	<!-- 根据email和密码获取用户实体 -->
+	<select id="allSettings" resultType="SettingValue">
+		SELECT id, name, value, category
+		FROM setting
+	</select>
+
+	<select id="get" resultType="SettingValue">
+		SELECT id, name, value, category
+		FROM setting WHERE name = #{name}
+	</select>
+
+	<insert id="addSetting" parameterType="SettingValue">
+		INSERT INTO setting (name, value, category)
+		VALUES (#{name}, #{value}, #{category})
+	</insert>
+
+	<delete id="removeSetting">
+		DELETE FROM setting WHERE id = #{id}
+	</delete>
+
+	<update id="updateSettings">
+		<foreach item="item" collection="settings" separator=";">
+			UPDATE setting SET
+				name = #{item.name},
+				value = #{item.value},
+				category = #{item.category}
+			WHERE id = #{item.id}
+		</foreach>
+	</update>
+
+</mapper>

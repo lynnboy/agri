@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.E地块Dao">
+
+	<sql id="cols">
+		id,
+		地块编码,
+		地块地址,
+		农户姓名,
+		农户电话,
+		负责人姓名,
+		负责人电话,
+		负责人Email,
+		联系人姓名,
+		联系人电话,
+		联系人Email,
+		经度,
+		纬度,
+		海拔,
+		种植模式分区,
+		地貌类型,
+		地形,
+		是否梯田,
+		最高地下水位,
+		种植模式,
+		种植方式,
+		坡向,
+		坡度,
+		土壤质地,
+		土壤类型,
+		地方土名,
+		肥力水平,
+		有无障碍层,
+		障碍层类型,
+		障碍层深度,
+		障碍层厚度,
+		监测小区长,
+		监测小区宽,
+		监测小区面积,
+		田间渗滤池监测面积,
+		淋溶液收集桶埋深
+	</sql>
+
+	<select id="getById" resultType="E地块">
+		SELECT <include refid="cols" />
+		FROM `地块`
+	    WHERE id=#{id}
+	</select>
+
+	<select id="getBy地块编码" resultType="E地块">
+		SELECT <include refid="cols" />
+		FROM `地块`
+	    WHERE 地块编码=#{地块编码}
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT count(id)
+		FROM `地块`
+	</select>
+
+	<select id="queryCount" resultType="int">
+		SELECT count(id)
+		FROM `地块`
+		WHERE 1=1
+<!-- 		<if test="search.login != null and search.login != ''"> -->
+<!-- 			AND login like concat('%', #{search.login}, '%') -->
+<!-- 		</if> -->
+<!-- 		<if test="search.name != null and search.name != ''"> -->
+<!-- 			AND name like concat('%', #{search.name}, '%') -->
+<!-- 		</if> -->
+<!-- 		<if test="search.email != null and search.email != ''"> -->
+<!-- 			AND email like concat('%', #{search.email}, '%') -->
+<!-- 		</if> -->
+	</select>
+
+	<select id="query" resultType="E地块">
+		SELECT <include refid="cols"/>
+		FROM `地块`
+		WHERE 1=1
+<!-- 		<if test="search.login != null and search.login != ''"> -->
+<!-- 			AND login like concat('%', #{search.login}, '%') -->
+<!-- 		</if> -->
+<!-- 		<if test="search.name != null and search.name != ''"> -->
+<!-- 			AND name like concat('%', #{search.name}, '%') -->
+<!-- 		</if> -->
+<!-- 		<if test="search.email != null and search.email != ''"> -->
+<!-- 			AND email like concat('%', #{search.email}, '%') -->
+<!-- 		</if> -->
+		<if test="view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		LIMIT #{view.offset}, #{view.pageSize}
+	</select>
+	
+	<insert id="add" parameterType="E地块">
+		INSERT INTO
+			地块 (
+				地块编码,
+				地块地址,
+				农户姓名,
+				农户电话,
+				负责人姓名,
+				负责人电话,
+				负责人Email,
+				联系人姓名,
+				联系人电话,
+				联系人Email,
+				经度,
+				纬度,
+				海拔,
+				种植模式分区,
+				地貌类型,
+				地形,
+				是否梯田,
+				最高地下水位,
+				种植模式,
+				种植方式,
+				坡向,
+				坡度,
+				土壤质地,
+				土壤类型,
+				地方土名,
+				肥力水平,
+				有无障碍层,
+				障碍层类型,
+				障碍层深度,
+				障碍层厚度,
+				监测小区长,
+				监测小区宽,
+				田间渗滤池监测面积,
+				淋溶液收集桶埋深
+				)
+		VALUES (
+				#{地块编码},
+				#{地块地址},
+				#{农户姓名},
+				#{农户电话},
+				#{负责人姓名},
+				#{负责人电话},
+				#{负责人Email},
+				#{联系人姓名},
+				#{联系人电话},
+				#{联系人Email},
+				#{经度},
+				#{纬度},
+				#{海拔},
+				#{种植模式分区},
+				#{地貌类型},
+				#{地形},
+				#{是否梯田},
+				#{最高地下水位},
+				#{种植模式},
+				#{种植方式},
+				#{坡向},
+				#{坡度},
+				#{土壤质地},
+				#{土壤类型},
+				#{地方土名},
+				#{肥力水平},
+				#{有无障碍层},
+				#{障碍层类型},
+				#{障碍层深度},
+				#{障碍层厚度},
+				#{监测小区长},
+				#{监测小区宽},
+				#{田间渗滤池监测面积},
+				#{淋溶液收集桶埋深}
+				)
+	</insert>
+
+	<update id="update" parameterType="E地块">
+		UPDATE `地块`
+		SET
+			地块编码	= #{地块编码},
+			地块地址	= #{地块地址},
+			农户姓名	= #{农户姓名},
+			农户电话	= #{农户电话},
+			负责人姓名	= #{负责人姓名},
+			负责人电话	= #{负责人电话},
+			负责人Email	= #{负责人Email},
+			联系人姓名	= #{联系人姓名},
+			联系人电话	= #{联系人电话},
+			联系人Email	= #{联系人Email},
+			经度	= #{经度},
+			纬度	= #{纬度},
+			海拔	= #{海拔},
+			种植模式分区	= #{种植模式分区},
+			地貌类型	= #{地貌类型},
+			地形	= #{地形},
+			是否梯田	= #{是否梯田},
+			最高地下水位	= #{最高地下水位},
+			种植模式	= #{种植模式},
+			种植方式	= #{种植方式},
+			坡向	= #{坡向},
+			坡度	= #{坡度},
+			土壤质地	= #{土壤质地},
+			土壤类型	= #{土壤类型},
+			地方土名	= #{地方土名},
+			肥力水平	= #{肥力水平},
+			有无障碍层	= #{有无障碍层},
+			障碍层类型	= #{障碍层类型},
+			障碍层深度	= #{障碍层深度},
+			障碍层厚度	= #{障碍层厚度},
+			监测小区长	= #{监测小区长},
+			监测小区宽	= #{监测小区宽},
+			田间渗滤池监测面积	= #{田间渗滤池监测面积},
+			淋溶液收集桶埋深	= #{淋溶液收集桶埋深}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM 地块
+		WHERE
+			id = #{id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.LicenseDao">
+
+	<select id="count" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			license
+	</select>
+
+	<select id="queryCount" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			license
+		WHERE
+			1 = 1
+		<if test="search.licenseKey != null and search.licenseKey != ''">
+			AND license_key = #{search.licenseKey}
+		</if>
+		<if test="search.status != null">
+			AND status = #{search.status}
+		</if>
+	</select>
+
+	<select id="query" resultType="License">
+		SELECT
+			id,
+			license_key as licenseKey,
+			type,
+			status,
+			issue_date as issueDate,
+			create_date as createDate
+		FROM
+			license
+		WHERE
+			1 = 1
+		<if test="search.licenseKey != null and search.licenseKey != ''">
+			AND license_key = #{search.licenseKey}
+		</if>
+		<if test="search.status != null">
+			AND status = #{search.status}
+		</if>
+		<if test="view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		LIMIT #{view.offset}, #{view.pageSize}
+	</select>
+	
+	<select id="getByKeys" resultType="License">
+		SELECT
+			id,
+			license_key as licenseKey,
+			type,
+			status,
+			issue_date as issueDate,
+			create_date as createDate
+		FROM
+			license
+	    WHERE license_key in (
+	    	NULL
+	    <foreach item="key" collection="keys" separator="">
+	    	, #{key}
+	    </foreach>
+	    )
+	</select>
+	
+	<insert id="addByKeys">
+		INSERT INTO
+			license (license_key, type, status, issue_date, create_date)
+		VALUES
+		<foreach item="key" collection="keys" separator=",">
+			(#{key}, 0, 0, NULL, #{createDate})
+		</foreach>
+	</insert>
+
+	<update id="update">
+		<foreach item="lic" collection="liclist" separator=";">
+			UPDATE license SET
+				status = #{lic.status},
+				issue_date = #{lic.issueDate}
+			WHERE id = #{lic.id}
+		</foreach>
+	</update>
+
+</mapper>

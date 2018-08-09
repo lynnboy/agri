@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.sys.DealerDao">
+
+	<!-- 根据email和密码获取用户实体 -->
+	<select id="login" resultType="Dealer">
+		SELECT
+			dealer.id,
+			dealer.login,
+			dealer.hashed_pwd as password,
+			dealer.name,
+			dealer.phone,
+			dealer.mobile,
+			dealer.email,
+			dealer.contact_info as contactInfo,
+			dealer.create_date as createDate,
+			dealer.status,
+			dealer.modify_date as modifyDate,
+			dealer.organId,
+			dealer.delflag,
+			organ.name as organName,
+			dealer.remarks
+		FROM dealer
+		JOIN organ ON organ.id = dealer.organId
+	    WHERE dealer.login=#{login} and dealer.hashed_pwd=#{hashedPassword}
+	    	and dealer.status=0 and dealer.delflag=0
+	</select>
+
+	<select id="getByLogin" resultType="Dealer">
+		SELECT
+			dealer.id,
+			dealer.login,
+			dealer.hashed_pwd as password,
+			dealer.name,
+			dealer.phone,
+			dealer.mobile,
+			dealer.email,
+			dealer.contact_info as contactInfo,
+			dealer.create_date as createDate,
+			dealer.status,
+			dealer.modify_date as modifyDate,
+			dealer.organId,
+			dealer.delflag,
+			organ.name as organName,
+			dealer.remarks
+		FROM dealer
+		JOIN organ ON organ.id = dealer.organId
+	    WHERE dealer.login=#{login} and dealer.status=0 and dealer.delflag=0
+	</select>
+
+	<select id="getById" resultType="Dealer">
+		SELECT
+			dealer.id,
+			dealer.login,
+			dealer.hashed_pwd as password,
+			dealer.name,
+			dealer.phone,
+			dealer.mobile,
+			dealer.email,
+			dealer.contact_info as contactInfo,
+			dealer.create_date as createDate,
+			dealer.status,
+			dealer.modify_date as modifyDate,
+			dealer.organId,
+			dealer.delflag,
+			organ.name as organName,
+			dealer.remarks
+		FROM dealer
+		JOIN organ ON organ.id = dealer.organId
+	    WHERE dealer.id=#{id}
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT count(id)
+		FROM dealer
+		WHERE delflag = 0
+	</select>
+
+	<select id="queryCount" resultType="int">
+		SELECT count(id)
+		FROM dealer
+		WHERE dealer.delflag = 0
+		<if test="search.login != null and search.login != ''">
+			AND dealer.login like concat('%', #{search.login}, '%')
+		</if>
+		<if test="search.name != null and search.name != ''">
+			AND dealer.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.organName != null and search.organName != ''">
+			AND organ.name like concat('%', #{search.organName}, '%')
+		</if>
+	</select>
+
+	<select id="query" resultType="Dealer">
+		SELECT
+			dealer.id,
+			dealer.login,
+			dealer.hashed_pwd as password,
+			dealer.name,
+			dealer.phone,
+			dealer.mobile,
+			dealer.email,
+			dealer.contact_info as contactInfo,
+			dealer.create_date as createDate,
+			dealer.status,
+			dealer.modify_date as modifyDate,
+			dealer.organId,
+			dealer.delflag,
+			organ.name as organName,
+			dealer.remarks
+		FROM dealer
+		JOIN organ ON organ.id = dealer.organId
+		WHERE dealer.delflag = 0
+		<if test="search.login != null and search.login != ''">
+			AND dealer.login like concat('%', #{search.login}, '%')
+		</if>
+		<if test="search.name != null and search.name != ''">
+			AND dealer.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.organName != null and search.organName != ''">
+			AND organ.name like concat('%', #{search.organName}, '%')
+		</if>
+		<if test="search.status != null">
+			AND dealer.status = #{search.status}
+		</if>
+		<if test="view != null and view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		<if test="view != null">
+		LIMIT #{view.offset}, #{view.pageSize}
+		</if>
+	</select>
+	
+	<insert id="add" parameterType="Dealer"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO
+			dealer (
+				login, hashed_pwd, organId,
+				name, phone, mobile, email, contact_info, remarks,
+				create_date, modify_date, status)
+		VALUES (
+			#{login}, #{password}, #{organId},
+			#{name}, #{phone}, #{mobile}, #{email}, #{contactInfo}, #{remarks},
+			#{createDate}, #{modifyDate}, #{status})
+	</insert>
+
+	<update id="update" parameterType="Dealer">
+		UPDATE
+			dealer
+		SET
+			<if test="password != null and password != ''">
+			hashed_pwd = #{password},
+			</if>
+			name = #{name},
+			phone = #{phone},
+			mobile = #{mobile},
+			email = #{email},
+			contact_info = #{contactInfo},
+			remarks = #{remarks},
+			modify_date = #{modifyDate},
+			organId = #{organId}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		UPDATE
+			dealer
+		SET
+			delflag = 1
+		WHERE
+			id = #{id}
+	</delete>
+
+	<select id="queryGroupCount" resultType="int">
+		SELECT count(g.id)
+		FROM `group` AS g
+		JOIN proj AS p on g.projId = p.id
+		WHERE 1 = 1
+		<if test="search.name != null and search.name != ''">
+			AND g.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.action != null and search.action != ''">
+			AND g.action like concat('%', #{search.action}, '%')
+		</if>
+		<if test="search.projName != null and search.projName != ''">
+			AND p.name like concat('%', #{search.projName}, '%')
+		</if>
+	</select>
+
+	<select id="queryGroup" resultType="Group">
+		SELECT
+			g.id,
+			g.name,
+			g.projId,
+			p.name as projName,
+			g.action,
+			g.conditionText,
+			IFNULL(c.c, 0) as memberCount,
+			g.remarks,
+			g.createDate
+		FROM `group` AS g
+		JOIN proj AS p on g.projId = p.id
+		LEFT JOIN (
+			SELECT groupId, COUNT(dealerId) as c
+			FROM groupmember GROUP BY groupId
+			) AS c ON groupId = g.id
+		WHERE 1 = 1
+		<if test="search.name != null and search.name != ''">
+			AND g.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.action != null and search.action != ''">
+			AND g.action like concat('%', #{search.action}, '%')
+		</if>
+		<if test="search.projName != null and search.projName != ''">
+			AND p.name like concat('%', #{search.projName}, '%')
+		</if>
+		<if test="view != null and view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		<if test="view != null">
+		LIMIT #{view.offset}, #{view.pageSize}
+		</if>
+	</select>
+	
+	<insert id="addGroup" parameterType="Group">
+		INSERT INTO
+			`group` (name, projId, action, conditionText, remarks, createDate)
+		VALUES (
+			#{name}, #{projId}, #{action}, #{conditionText}, #{remarks}, #{createDate})
+	</insert>
+
+	<update id="updateGroup" parameterType="Group">
+		UPDATE
+			`group`
+		SET
+			name = #{name},
+			projId = #{projId},
+			action = #{action},
+			conditionText = #{conditionText},
+			remarks = #{remarks}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteGroup">
+		DELETE FROM `group` WHERE id = #{id};
+	</delete>
+
+	<delete id="clearGroupMembers">
+		DELETE FROM groupmember WHERE groupId = #{id}
+	</delete>
+
+	<select id="getGroupsOfDealer" resultType="Group">
+		SELECT
+			g.id,
+			g.name,
+			g.projId,
+			p.name as projName,
+			g.action,
+			g.conditionText,
+			-1 as memberCount,
+			g.remarks,
+			g.createDate
+		FROM `group` AS g
+		JOIN groupmember AS mem ON g.id = mem.groupId
+		JOIN proj AS p ON g.projId = p.id
+		WHERE mem.dealerId = #{dealerId}
+	</select>
+	
+	<delete id="deleteMemberFromGroup">
+		DELETE FROM groupmember WHERE groupId = #{id} AND dealerId = #{dealerId};
+	</delete>
+
+	<select id="getProjectGroupsOfDealer" resultType="Group">
+		SELECT
+			g.id,
+			g.name,
+			g.projId,
+			p.name as projName,
+			g.action,
+			g.conditionText,
+			-1 as memberCount,
+			g.remarks,
+			g.createDate
+		FROM `group` AS g
+		JOIN groupmember AS mem ON g.id = mem.groupId
+		JOIN proj AS p ON g.projId = p.id
+		WHERE mem.dealerId = #{dealerId} AND g.projId = #{projId}
+	</select>
+	
+	<select id="getGroup" resultType="Group">
+		SELECT
+			g.id,
+			g.name,
+			g.projId,
+			p.name as projName,
+			g.action,
+			g.conditionText,
+			-1 as memberCount,
+			g.remarks,
+			g.createDate
+		FROM `group` AS g
+		JOIN proj AS p ON g.projId = p.id
+		WHERE g.id = #{id}
+	</select>
+	
+	<select id="getGroupMembers" resultType="Dealer">
+		SELECT
+			dealer.id,
+			dealer.login,
+			dealer.hashed_pwd as password,
+			dealer.name,
+			dealer.phone,
+			dealer.mobile,
+			dealer.email,
+			dealer.contact_info as contactInfo,
+			dealer.create_date as createDate,
+			dealer.status,
+			dealer.modify_date as modifyDate,
+			dealer.organId,
+			organ.name as organName,
+			dealer.remarks
+		FROM groupmember AS mem
+		JOIN dealer ON dealer.id = mem.dealerId 
+		JOIN organ ON organ.id = dealer.organId
+	    WHERE mem.groupId = #{id} and dealer.status=0
+	</select>
+
+	<select id="isMemberInGroup">
+		SELECT EXISTS(
+			SELECT 1 FROM groupmember
+			WHERE groupId = #{id} and dealerId = #{dealerId})
+	</select>
+
+	<update id="addGroupMembers">
+		INSERT INTO groupmember (groupId, dealerId) VALUES
+		<foreach item="dealerId" collection="list" separator=",">
+			(#{id}, #{dealerId})
+		</foreach>
+	</update>
+
+</mapper>

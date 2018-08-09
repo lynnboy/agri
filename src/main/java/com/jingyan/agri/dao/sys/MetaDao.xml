@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.sys.MetaDao">
+
+	<select id="getTemplateTables" resultType="Meta">
+		SELECT id, tableName, tempId, projId, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText
+		FROM meta
+	    WHERE tempId = #{tempId} AND projId = -1
+	</select>
+	<select id="getTemplateKeyedTable" resultType="Meta">
+		SELECT id, tableName, tempId, projId, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText
+		FROM meta
+	    WHERE tempId = #{tempId} AND projId = -1 AND `key` = #{key}
+	</select>
+
+	<select id="getProjTables" resultType="Meta">
+		SELECT id, tableName, tempId, projId, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText
+		FROM meta
+	    WHERE projId = #{projId}
+	</select>
+	<select id="getProjectKeyedTable" resultType="Meta">
+		SELECT id, tableName, tempId, projId, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText
+		FROM meta
+	    WHERE projId = #{projId} AND `key` = #{key}
+	</select>
+
+	<insert id="cloneProjectKeyedTableFromTemplate">
+		INSERT INTO meta (
+			tableName, tempId, projId, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText)
+		SELECT
+			#{tableName}, tempId, #{projId}, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText
+		FROM meta
+		WHERE tempId = #{tempId} AND projId = -1 AND `key` = #{key}
+	</insert>
+
+	<insert id="addMeta" parameterType="Meta"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO meta (
+			tableName, tempId, projId, `key`, filterColumn, schemaText,
+			sortConfigText, searchConfigText, editConfigText, viewConfigText)
+		VALUES (
+			#{tableName}, #{tempId}, #{projId}, #{key}, #{filterColumn},
+			#{schemaText}, #{searchConfigText}, #{editConfigText}, #{viewConfigText})
+	</insert>
+
+	<insert id="cloneTable">
+		CREATE TABLE `${newTable}` LIKE `${srcTable}`
+	</insert>
+	
+	<insert id="createTable" parameterType="Meta">
+		CREATE TABLE `${tableName}` (
+		<foreach item="col" collection="schema.columns" separator=", ">
+		`${col.name}` ${col.type} <if test="col.isnull">NULL</if><if test="!col.isnull">NOT NULL</if>
+		</foreach>
+		<if test="schema.pk != null and !schema.pk.isEmpty()">
+		, PRIMARY KEY (<foreach item="col" collection="schema.pk" separator=", ">`${col}`</foreach>)
+		</if>
+		)
+	</insert>
+
+	<select id="queryCount" resultType="int">
+		SELECT count(*) FROM `${tableName}`
+		<if test="search != null and search.conditions != null">
+		<where>
+		<foreach item="sub" collection="search.conditions">
+		AND (<foreach item="cond" collection="sub" separator=" OR "> ${cond} </foreach>)
+		</foreach>
+		</where>
+		</if>
+	</select>
+
+	<select id="query" resultType="map">
+		SELECT * FROM `${tableName}`
+		<if test="search != null and search.conditions != null">
+		<where>
+		<foreach item="sub" collection="search.conditions" separator=" AND ">
+			(<foreach item="cond" collection="sub" separator=" OR "> ${cond} </foreach>)
+		</foreach>
+		</where>
+		</if>
+		<if test="view != null and view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		<if test="view != null">
+		LIMIT #{view.offset}, #{view.pageSize}
+		</if>
+	</select>
+
+	<select id="collectOptList" resultType="java.lang.String">
+		SELECT DISTINCT `${colName}` FROM `${tableName}` ORDER BY `${colName}`
+	</select>
+
+</mapper>

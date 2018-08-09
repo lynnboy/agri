@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.sys.ManagerDao">
+
+	<!-- 根据email和密码获取用户实体 -->
+	<select id="login" resultType="Manager">
+		SELECT
+		  	id,
+			login,
+			name,
+			hashed_pwd as password,
+			create_date as createDate
+		FROM
+			manager
+	    WHERE login=#{login} and hashed_pwd=#{password}
+	</select>
+	
+	<insert id="add" parameterType="Manager"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO
+			manager (login, name, hashed_pwd, create_date)
+		VALUES (#{login}, #{name}, #{password}, #{createDate})
+	</insert>
+
+	<update id="update" parameterType="Manager">
+		UPDATE
+			manager
+		SET
+			<if test="password != null and password != ''">
+			hashed_pwd = #{password},
+			</if>
+			name = #{name}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM
+			manager
+		WHERE
+			id = #{id}
+	</delete>
+
+	<select id="getTemplate" resultType="ProjectTemplate">
+		SELECT
+			id, name, version, info, `desc`, createDate, mapRoot
+		FROM
+			proj_temp
+		WHERE id = #{id}
+	</select>
+	
+	<select id="allTemplates" resultType="ProjectTemplate">
+		SELECT
+			id, name, version, info, `desc`, createDate, mapRoot
+		FROM
+			proj_temp
+	</select>
+	
+	<select id="allProjects" resultType="Project">
+		SELECT
+			id, name, `desc`, createDate, tempId, deprecated
+		FROM proj
+	</select>
+
+	<select id="getProjectOfTemplate" resultType="Project">
+		SELECT
+			id, name, `desc`, createDate, tempId, deprecated
+		FROM proj
+		WHERE
+			1 = 1
+		<if test="tempId != null">
+			AND tempId = #{tempId}
+		</if>
+			AND deprecated = 0
+	</select>
+
+	<select id="getProjectForUser" resultType="Project">
+		SELECT
+			id, name, `desc`, createDate, tempId, deprecated
+		FROM proj
+		WHERE
+			1 = 1
+		<if test="dealerId != null">
+			AND id IN (SELECT projId FROM `group` g
+				JOIN groupmember m ON g.id = m.groupId
+				WHERE m.dealerId = #{dealerId})
+		</if>
+			AND deprecated = 0
+	</select>
+
+	<select id="getProject" resultType="Project">
+		SELECT
+			id, name, `desc`, createDate, tempId, deprecated
+		FROM proj
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="addProject" parameterType="Project"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO
+			proj (name, `desc`, createDate, tempId)
+		VALUES (#{name}, #{desc}, #{createDate}, #{tempId})
+	</insert>
+
+	<update id="updateProject" parameterType="Project">
+		UPDATE
+			proj
+		SET
+			name = #{name},
+			`desc` = #{desc}
+		WHERE
+			id = #{id}
+	</update>
+
+	<update id="deprecateProject">
+		UPDATE proj
+		SET deprecated = 1
+		WHERE id = #{id}
+	</update>
+	
+	<select id="allOrgan" resultType="Organ">
+		SELECT
+			id, name, `desc`, addr, phone, postal, remarks, createDate, status
+		FROM organ
+		WHERE 1 = 1
+		<if test="normalOnly != 0">
+			AND status = 0
+		</if>
+	</select>
+
+	<select id="queryOrganCount" resultType="int">
+		SELECT count(id) FROM organ
+		WHERE 1 = 1
+		<if test="search.name != null and search.name != ''">
+			AND name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.desc != null and search.desc != ''">
+			AND `desc` like concat('%', #{search.desc}, '%')
+		</if>
+		<if test="search.status != null">
+			AND status = #{search.status}
+		</if>
+	</select>
+
+	<select id="queryOrgan" resultType="Organ">
+		SELECT
+			id, name, `desc`, addr, phone, postal, remarks, createDate, status, IFNULL(C.c, 0) as userCount 
+		FROM organ
+		LEFT JOIN (SELECT organId, COUNT(*) as c FROM dealer GROUP BY organId) C
+			ON C.organId = organ.id
+		WHERE 1 = 1
+		<if test="search.name != null and search.name != ''">
+			AND name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.desc != null and search.desc != ''">
+			AND `desc` like concat('%', #{search.desc}, '%')
+		</if>
+		<if test="search.status != null">
+			AND status = #{search.status}
+		</if>
+		<if test="view != null and view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		<if test="view != null">
+		LIMIT #{view.offset}, #{view.pageSize}
+		</if>
+	</select>
+	
+	<select id="getOrgan" resultType="Organ">
+		SELECT
+			id, name, `desc`, addr, phone, postal, remarks, createDate, status, IFNULL(C.c, 0) as userCount 
+		FROM organ
+		LEFT JOIN (SELECT organId, COUNT(*) as c FROM dealer GROUP BY organId) C
+			ON C.organId = organ.id
+		WHERE id = #{id}
+	</select>
+	
+	<insert id="addOrgan" parameterType="Organ">
+		INSERT INTO
+			organ (name, `desc`, addr, phone, postal, remarks, createDate, status)
+		VALUES (#{name}, #{desc}, #{addr}, #{phone}, #{postal}, #{remarks}, #{createDate}, #{status})
+	</insert>
+
+	<update id="updateOrgan" parameterType="Organ">
+		UPDATE
+			organ
+		SET
+			name = #{name},
+			`desc` = #{desc},
+			addr = #{addr},
+			phone = #{phone},
+			postal= #{postal},
+			remarks = #{remarks},
+			status = #{status}
+		WHERE
+			id = #{id}
+	</update>
+
+</mapper>

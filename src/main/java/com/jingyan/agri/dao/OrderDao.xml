@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.OrderDao">
+
+	<select id="count" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			`order`
+	</select>
+
+	<select id="queryCount" resultType="int">
+		SELECT
+			count(o.id)
+		FROM `order` AS o
+		<if test="(search.customerName != null and search.customerName != '') or
+				(search.tenantId != null and search.tenantId != '')">
+		INNER JOIN customer AS c ON o.customer_id = c.id
+		</if>
+		<if test="search.dealerName != null and search.dealerName != ''">
+		INNER JOIN dealer AS d ON o.dealer_id = d.id
+		</if>
+		WHERE
+			1 = 1
+		<if test="search.id != null and search.id != ''">
+			AND o.id = #{search.id}
+		</if>
+		<if test="search.customerName != null and search.customerName != ''">
+			AND c.name like concat('%', #{search.customerName}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="search.dealerName != null and search.dealerName != ''">
+			AND d.name like concat('%', #{search.dealerName}, '%')
+		</if>
+		<if test="search.status != null">
+			AND o.status = #{search.status}
+		</if>
+	</select>
+
+	<select id="query" resultType="OrderInfo">
+		SELECT
+			o.id as id,
+			c.name as customerName,
+			c.tenant_id as tenantId,
+			d.name as dealerName,
+			o.status,
+			o.create_date as createDate
+		FROM `order` AS o
+		INNER JOIN customer AS c ON o.customer_id = c.id
+		INNER JOIN dealer AS d ON o.dealer_id = d.id
+		WHERE
+			1 = 1
+		<if test="search.id != null and search.id != ''">
+			AND o.id = #{search.id}
+		</if>
+		<if test="search.customerName != null and search.customerName != ''">
+			AND c.name like concat('%', #{search.customerName}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="search.dealerName != null and search.dealerName != ''">
+			AND d.name like concat('%', #{search.dealerName}, '%')
+		</if>
+		<if test="search.status != null">
+			AND o.status = #{search.status}
+		</if>
+		<if test="view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		LIMIT #{view.offset}, #{view.pageSize}
+	</select>
+	
+	<select id="countForDealer" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			`order`
+	    WHERE dealer_id=#{dealerId}
+	</select>
+
+	<select id="queryCountForDealer" resultType="int">
+		SELECT
+			count(o.id)
+		FROM `order` AS o
+		<if test="(search.customerName != null and search.customerName != '') or
+				(search.tenantId != null and search.tenantId != '')">
+		INNER JOIN customer AS c ON o.customer_id = c.id
+		</if>
+	    WHERE o.dealer_id=#{dealerId}
+		<if test="search.id != null and search.id != ''">
+			AND o.id = #{search.id}
+		</if>
+		<if test="search.customerName != null and search.customerName != ''">
+			AND c.name like concat('%', #{search.customerName}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="search.status != null">
+			AND o.status = #{search.status}
+		</if>
+	</select>
+
+	<select id="queryForDealer" resultType="OrderInfo">
+		SELECT
+			o.id,
+			c.name as customerName,
+			c.tenant_id as tenantId,
+			d.name as dealerName,
+			o.status,
+			o.create_date as createDate
+		FROM `order` as o
+		INNER JOIN customer AS c ON o.customer_id = c.id
+		INNER JOIN dealer AS d ON o.dealer_id = d.id
+	    WHERE o.dealer_id=#{dealerId}
+		<if test="search.id != null and search.id != ''">
+			AND o.id = #{search.id}
+		</if>
+		<if test="search.customerName != null and search.customerName != ''">
+			AND c.name like concat('%', #{search.customerName}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="search.status != null">
+			AND o.status = #{search.status}
+		</if>
+		<if test="view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		LIMIT #{view.offset}, #{view.pageSize}
+	</select>
+	
+	<select id="countForCustomer" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			`order`
+	    WHERE customer_id=#{customerId}
+	</select>
+
+	<select id="getById" resultType="Order">
+		SELECT
+			id,
+			dealer_id as dealerId,
+			customer_id as customerId,
+			user_count as userCount,
+			month_count as monthCount,
+			status,
+			create_date as createDate,
+			issue_date as issueDate,
+			remarks
+		FROM `order` as o
+	    WHERE id=#{id}
+	</select>
+	
+	<select id="getKeysOfOrder" resultType="java.lang.String">
+		SELECT
+			license_key
+		FROM
+			order_key_map
+		WHERE order_id=#{orderId}
+	</select>
+
+	<insert id="add" parameterType="Order">
+		<selectKey keyProperty="id" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID() as id
+		</selectKey>
+		INSERT INTO
+			`order` (dealer_id, customer_id, user_count, month_count, status, create_date, issue_date, remarks)
+		VALUES
+			(#{dealerId}, #{customerId}, #{userCount}, #{monthCount}, #{status}, #{createDate}, #{issueDate}, #{remarks})
+	</insert>
+	
+	<insert id="addKeysToOrder">
+		INSERT INTO
+			order_key_map (order_id, license_key)
+		VALUES
+		<foreach item="key" collection="keys" separator=",">
+			(#{orderId}, #{key})
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="Order">
+		UPDATE
+			`order`
+		SET
+			user_count = #{userCount},
+			month_count = #{monthCount},
+			status = #{status},
+			issue_date = #{issueDate},
+			remarks = #{remarks}
+		WHERE
+			id = #{id}
+	</update>
+	
+</mapper>

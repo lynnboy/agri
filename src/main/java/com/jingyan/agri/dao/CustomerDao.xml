@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jingyan.agri.dao.CustomerDao">
+
+	<select id="count" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			customer
+	</select>
+
+	<select id="queryCount" resultType="int">
+		SELECT
+			count(c.id)
+		FROM customer AS c
+		INNER JOIN dealer AS d ON d.id = dealer_id
+		WHERE 1 = 1
+		<if test="search.id != null and search.id != ''">
+			AND c.id = #{search.id}
+		</if>
+		<if test="search.name != null and search.name != ''">
+			AND c.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="search.dealerName != null and search.dealerName != ''">
+			AND d.name like concat('%', #{search.dealerName}, '%')
+		</if>
+	</select>
+
+	<select id="query" resultType="Customer">
+		SELECT
+			c.id,
+			c.dealer_id as dealerId,
+			d.name as dealerName,
+			c.name,
+			c.tenant_id as tenantId,
+			c.contact_info as contactInfo,
+			c.create_date as createDate
+		FROM customer AS c
+		INNER JOIN dealer AS d ON d.id = c.dealer_id
+		WHERE 1 = 1
+		<if test="search.id != null and search.id != ''">
+			AND c.id = #{search.id}
+		</if>
+		<if test="search.name != null and search.name != ''">
+			AND c.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="search.dealerName != null and search.dealerName != ''">
+			AND d.name like concat('%', #{search.dealerName}, '%')
+		</if>
+		<if test="view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		LIMIT #{view.offset}, #{view.pageSize}
+	</select>
+	
+	<select id="countForDealer" resultType="int">
+		SELECT
+			count(id)
+		FROM
+			customer
+	    WHERE dealer_id=#{dealerId}
+	</select>
+
+	<select id="queryCountForDealer" resultType="int">
+		SELECT
+			count(c.id)
+		FROM customer AS c
+		INNER JOIN dealer AS d ON d.id = #{dealerId}
+	    WHERE c.dealer_id=#{dealerId}
+		<if test="search.id != null and search.id != ''">
+			AND c.id = #{search.id}
+		</if>
+		<if test="search.name != null and search.name != ''">
+			AND c.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+	</select>
+
+	<select id="queryForDealer" resultType="Customer">
+		SELECT
+			c.id,
+			c.dealer_id as dealerId,
+			d.name as dealerName,
+			c.name,
+			c.tenant_id as tenantId,
+			c.contact_info as contactInfo,
+			c.create_date as createDate,
+			CASE
+				WHEN EXISTS(SELECT 1 FROM `order` WHERE customer_id = c.id)
+				THEN 1 ELSE 0
+			END as hasOrder
+		FROM customer AS c
+		INNER JOIN dealer AS d ON d.id = #{dealerId}
+	    WHERE c.dealer_id=#{dealerId}
+		<if test="search.id != null and search.id != ''">
+			AND c.id = #{search.id}
+		</if>
+		<if test="search.name != null and search.name != ''">
+			AND c.name like concat('%', #{search.name}, '%')
+		</if>
+		<if test="search.tenantId != null and search.tenantId != ''">
+			AND c.tenant_id = #{search.tenantId}
+		</if>
+		<if test="view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		LIMIT #{view.offset}, #{view.pageSize}
+	</select>
+	
+	<select id="getById" resultType="Customer">
+		SELECT
+			c.id,
+			c.dealer_id as dealerId,
+			d.name as dealerName,
+			c.name,
+			c.tenant_id as tenantId,
+			c.contact_info as contactInfo,
+			c.create_date as createDate,
+			CASE
+				WHEN EXISTS(SELECT 1 FROM `order` WHERE customer_id = c.id)
+				THEN 1 ELSE 0
+			END as hasOrder
+		FROM customer AS c
+		JOIN dealer AS d ON d.id = c.dealer_id
+	    WHERE c.id=#{id}
+	</select>
+
+	<insert id="add" parameterType="Customer">
+		INSERT INTO
+			customer (dealer_id, name, tenant_id, contact_info, create_date)
+		VALUES (#{dealerId}, #{name}, #{tenantId}, #{contactInfo}, #{createDate})
+	</insert>
+
+	<update id="update" parameterType="Customer">
+		UPDATE
+			customer
+		SET
+			name = #{name},
+			tenant_id = #{tenantId},
+			contact_info = #{contactInfo}
+		WHERE
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		DELETE FROM
+			customer
+		WHERE
+			id = #{id}
+	</delete>
+
+</mapper>
