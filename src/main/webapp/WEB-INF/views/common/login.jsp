@@ -19,8 +19,10 @@ html, body, table {
 	text-align: center;
 }
 
-body { background: url("./static/img/field1.jpg") no-repeat;
- background-size: 100%
+body { background: url("${baseStatic}/img/field1.jpg") no-repeat;
+ background-size: 100%;
+ width:100%;
+ height:100%;
 }
 
 .form-signin-heading {

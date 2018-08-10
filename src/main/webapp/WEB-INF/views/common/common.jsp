@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
-<c:set var="baseStatic" value="${pageContext.request.contextPath}"/>
 <c:set var="base" value="${pageContext.request.contextPath}"/>
+<c:set var="baseStatic" value="${base}/static"/>
 <fmt:bundle basename="application">
 <fmt:message key="systemName" var="systemName"/>
 </fmt:bundle>

@@ -9,7 +9,6 @@ import com.jingyan.agri.common.persistence.ResultView;
 import com.jingyan.agri.common.persistence.annotation.Dao;
 import com.jingyan.agri.entity.Customer;
 
-@Dao("customerDao")
 @Mapper
 public interface CustomerDao {
 	int count();

@@ -14,10 +14,10 @@
  -->
 <sitemesh>
 <mapping decorator="/WEB-INF/views/layouts/default.jsp"/>
-<mapping path="/login" exclude="true"/>
-<mapping path="/logout" exclude="true"/>
-<mapping path="/sys/main" exclude="true"/>
-<mapping path="/main" exclude="true"/>
+<!-- <mapping path="/login" exclude="true"/> -->
+<!-- <mapping path="/logout" exclude="true"/> -->
+<!-- <mapping path="/sys/main" exclude="true"/> -->
+<!-- <mapping path="/main" exclude="true"/> -->
 <!-- <mapping path="/" exclude="true"/> -->
-<mapping path="/sys" exclude="true"/>
+<!-- <mapping path="/sys" exclude="true"/> -->
 </sitemesh>

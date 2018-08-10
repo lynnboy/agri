@@ -11,7 +11,7 @@ import com.jingyan.agri.common.persistence.Search;
 import com.jingyan.agri.common.persistence.annotation.Dao;
 import com.jingyan.agri.entity.sys.Meta;
 
-@Dao
+//@Dao
 @Mapper
 public interface MetaDao {
 
