@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,6 @@ import com.jingyan.agri.entity.Order;
 import com.jingyan.agri.entity.OrderInfo;
 import com.jingyan.agri.entity.sys.Dealer;
 import com.jingyan.agri.service.DealerService;
-import com.mysql.jdbc.StringUtils;
 
 /**
  * 绯荤粺绠＄悊鍛�
@@ -236,7 +236,7 @@ public class DealerController extends BaseController {
 	
 	static Pattern rePo = Pattern.compile("^(?:UFOP)?(\\d{5})$|^(\\d{1,5})$");
 	static Integer getIdFromPoNumber(String searchPoNumber, Model model) {
-		if (StringUtils.isNullOrEmpty(searchPoNumber))
+		if (StringUtils.isEmpty(searchPoNumber))
 				return null;
 		Matcher m = rePo.matcher(searchPoNumber);
 		if (!m.matches()) {
@@ -301,7 +301,7 @@ public class DealerController extends BaseController {
 		Set<String> keys = Sets.newTreeSet();
 		for(String code : text.split(",")) {
 			String key = code.replaceAll("'", "").toUpperCase().trim();
-			if (!StringUtils.isNullOrEmpty(key))
+			if (!StringUtils.isEmpty(key))
 				keys.add(key);
 		}
 		return keys;

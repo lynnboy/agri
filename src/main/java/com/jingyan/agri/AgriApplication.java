@@ -1,6 +1,7 @@
 package com.jingyan.agri;
 
 import javax.servlet.Filter;
+import javax.servlet.Servlet;
 
 import org.sitemesh.config.ConfigurableSiteMeshFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class AgriApplication {
 	@Bean
 	@Autowired 
 	public FilterRegistrationBean<? extends Filter>
-		securityFilter(SecurityFilter securityFilter) {
-	    var registration =
+		registerSecurityFilter(SecurityFilter securityFilter) {
+		FilterRegistrationBean<SecurityFilter> registration =
     			new FilterRegistrationBean<>(securityFilter);
 	    registration.setName("securityFilter");
 	    registration.addUrlPatterns("/*");
@@ -36,19 +37,21 @@ public class AgriApplication {
 	}
 
 	@Bean
-	public ServletRegistrationBean<ValidateCodeServlet> servletRegistrationBean(){
-	    var servlet = new ServletRegistrationBean<>(
-	    		new ValidateCodeServlet(), "/servlet/validateCode");
+	public ServletRegistrationBean<? extends Servlet> servletRegistrationBean(){
+		ServletRegistrationBean<? extends Servlet> servlet =
+				new ServletRegistrationBean<>(
+						new ValidateCodeServlet(), "/servlet/validateCode");
 	    servlet.setName("validateCode");
 	    return servlet;
 	}
 
 	@Bean
-	public FilterRegistrationBean<? extends Filter> siteMeshFilter() {
+	public FilterRegistrationBean<? extends Filter> registerSiteMeshFilter() {
 
-		var filter = new ConfigurableSiteMeshFilter();
+		Filter filter = new ConfigurableSiteMeshFilter();
 
-	    var registration = new FilterRegistrationBean<>(filter);
+		FilterRegistrationBean<? extends Filter> registration =
+				new FilterRegistrationBean<>(filter);
 	    registration.setName("sitemeshFilter");
 	    registration.addUrlPatterns("/*");
 	    return registration;

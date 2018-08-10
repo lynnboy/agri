@@ -1,10 +1,11 @@
-﻿/******************************************************
+/******************************************************
  * (c) Copyright CIB 2017
  * Function : 缁崵绮虹粻锛勬倞閸涳拷
  * Author : Guoyanbin
  * Date : 2017-10-17
  ********************************************************/
 package com.jingyan.agri.modules.sys;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -43,7 +45,6 @@ import com.jingyan.agri.entity.sys.Manager;
 import com.jingyan.agri.modules.obsolete.CreateLicenseParams;
 import com.jingyan.agri.service.AgriService;
 import com.jingyan.agri.service.ManagerService;
-import com.mysql.jdbc.StringUtils;
 
 @Controller
 @RequestMapping(value="agri", produces = MediaType.TEXT_HTML_VALUE)
@@ -421,7 +422,7 @@ public class AgriController extends BaseController {
 	
 	Pattern rePo = Pattern.compile("^(?:UFOP)?(\\d{5})$|^(\\d{1,5})$");
 	Integer getIdFromPoNumber(String searchPoNumber) {
-		if (StringUtils.isNullOrEmpty(searchPoNumber))
+		if (StringUtils.isEmpty(searchPoNumber))
 				return null;
 		Matcher m = rePo.matcher(searchPoNumber);
 		if (!m.matches())

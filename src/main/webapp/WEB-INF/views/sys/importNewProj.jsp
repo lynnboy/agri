@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>作为新项目导入</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 $(document).ready(function() {
 });

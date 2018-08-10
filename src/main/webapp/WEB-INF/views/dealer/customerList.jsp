@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>客户列表</title>
-<meta name="decorator" content="default" />
+
 	<script type="text/javascript">
 		function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
 		function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }

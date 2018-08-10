@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>${isAdd?"添加":"修改"}地块</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 function fillSelect(sel, list, nestlist) {
 	$.each(list, function(i, text) {

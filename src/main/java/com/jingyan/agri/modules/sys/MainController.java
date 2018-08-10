@@ -1,6 +1,7 @@
 package com.jingyan.agri.modules.sys;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -68,14 +69,11 @@ public class MainController extends BaseController {
 		if (params.getIsAdmin() == null)
 			params.setIsAdmin(false);
 		
-		// 鍒ゆ柇楠岃瘉鐮佹槸鍚﹁緭鍏ユ纭�
 		if (StringUtils.isNotBlank(params.getValidateCode()) &&
 				StringUtils.isNotBlank(code) &&
 				code.equalsIgnoreCase(params.getValidateCode())) {
-			// 娓呴櫎鏈楠岃瘉鐮�
 			request.getSession().removeAttribute(Constant.VALIDATE_CODE);
 			
-			// 楠岃瘉鐢ㄦ埛鍚嶆垨鑰呭瘑鐮佹槸鍚﹁緭鍏ユ纭�
 			String password = EncryptUtil.encryptPassword(params.getPassword() + salt);
 			params.setPassword(password);
 			
@@ -89,7 +87,6 @@ public class MainController extends BaseController {
 					return "redirect:/login";
 				}
 
-				// 灏嗛粯璁ession鍏抽棴锛屾墦寮�涓�涓柊鐨� 
 				request.getSession().invalidate();
 				if (request.getCookies() != null && request.getCookies().length > 0) {
 					request.getCookies()[0].setMaxAge(0);
@@ -106,7 +103,6 @@ public class MainController extends BaseController {
 					return "redirect:/login";
 				}
 
-				// 灏嗛粯璁ession鍏抽棴锛屾墦寮�涓�涓柊鐨� 
 				request.getSession().invalidate();
 				if (request.getCookies() != null && request.getCookies().length > 0) {
 					request.getCookies()[0].setMaxAge(0);
@@ -116,9 +112,7 @@ public class MainController extends BaseController {
 			}
 			
 			request.getSession(true).setAttribute(Constant.SYS_LOGIN, params);
-		// 杈撳叆涓嶆纭弽姝ｇ櫥褰曢〉闈�
 		} else {
-			// 娓呴櫎鏈楠岃瘉鐮�
 			request.getSession().removeAttribute(Constant.VALIDATE_CODE);
 			params.setPassword(tempPassword);
 			attr.addFlashAttribute("msg", messages.getMessage("MSG002", null, locale));

@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>代理商${isAdd?"添加":"修改"}</title>
-<meta name="decorator" content="default" />
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#inputForm").validate({

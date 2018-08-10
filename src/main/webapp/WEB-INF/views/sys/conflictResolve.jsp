@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>解决导入冲突: 典型地块监测-2018</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 function showData() {
 	top.$.jBox.open("iframe:${base}/sys/conflictData1",

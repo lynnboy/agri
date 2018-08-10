@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>导出: 地表径流与地下淋溶监测-2018</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 var schema = {
 	columns: [

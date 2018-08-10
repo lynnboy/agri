@@ -30,7 +30,7 @@ import lombok.val;
 @Component
 public class SecurityFilter implements Filter {
 
-	@Value("filter.unInterceptUrl")
+	@Value("${filter.unInterceptUrl}")
 	private String unInterceptUrl;
 	private String[] unInterceptUrls;
 

@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>工作组${isAdd?"添加":"修改"}</title>
-<meta name="decorator" content="default" />
 <script type="text/javascript">
 function fillSelect(sel, list, nestlist) {
 	var oldsel = $(sel).val();

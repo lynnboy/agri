@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>新建导出任务</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 function importNewProj() {
 	top.$.jBox.open("iframe:${base}/sys/importNewProj","作为新项目导入",

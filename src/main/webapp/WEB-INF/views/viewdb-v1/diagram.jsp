@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>${entry.title}</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#diagramtabs a:first').tab('show');

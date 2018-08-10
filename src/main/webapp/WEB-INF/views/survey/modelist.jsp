@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>种植模式数据</title>
-<meta name="decorator" content="default" />
+
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$('#btnSubmit').click(function(){

@@ -1,4 +1,4 @@
-﻿package com.jingyan.agri.dao;
+package com.jingyan.agri.dao;
 
 import java.util.List;
 

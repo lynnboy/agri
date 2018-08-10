@@ -3,8 +3,7 @@
 <html>
 <head>
 <title>个人信息</title>
-<meta name="decorator" content="default" />
-<%@include file="/WEB-INF/views/common/header.jsp"%>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#inputForm").validate({

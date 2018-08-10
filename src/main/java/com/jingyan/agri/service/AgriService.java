@@ -1,4 +1,4 @@
-﻿package com.jingyan.agri.service;
+package com.jingyan.agri.service;
 
 import java.io.File;
 import java.util.List;

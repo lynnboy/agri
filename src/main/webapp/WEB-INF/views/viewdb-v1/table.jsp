@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>${entry.title}</title>
-<meta name="decorator" content="default" />
 <script type="text/javascript">
 var schema = new Schema(JSON.parse('${schemaJson}'));
 var searchConfig = new SearchConfig(JSON.parse('${searchConfigJson}'));

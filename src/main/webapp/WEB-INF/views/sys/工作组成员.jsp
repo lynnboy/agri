@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>工作组成员</title>
-<meta name="decorator" content="default" />
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#inputForm").validate({

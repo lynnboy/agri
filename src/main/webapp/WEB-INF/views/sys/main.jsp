@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>${systemName}</title>
-<%@include file="/WEB-INF/views/common/header.jsp"%>
 <script type="text/javascript">
 function showaccount() {
 	$.jBox.open("iframe:${base}/account","个人信息",

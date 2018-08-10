@@ -1,4 +1,4 @@
-﻿package com.jingyan.agri.service.impl;
+package com.jingyan.agri.service.impl;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,6 @@ import com.jingyan.agri.entity.sys.Dealer;
 import com.jingyan.agri.entity.sys.Manager;
 import com.jingyan.agri.service.AgriService;
 import com.jingyan.agri.service.EmailService;
-import com.mysql.jdbc.StringUtils;
 
 @Service
 public class AgriServiceImpl extends BaseService implements AgriService {
@@ -145,7 +145,7 @@ public class AgriServiceImpl extends BaseService implements AgriService {
 		dbDealer.setRemarks(dealer.getRemarks());
 		
 		final String pwd = dealer.getPassword();
-		if (!StringUtils.isNullOrEmpty(pwd)) {
+		if (!StringUtils.isEmpty(pwd)) {
 			dbDealer.setPassword(pwd);
 		}
 		
@@ -208,7 +208,7 @@ public class AgriServiceImpl extends BaseService implements AgriService {
 		Customer customer = customerDao.getById(order.getCustomerId());
 		if (customer == null)
 			throw new RuntimeException("not found.");
-		if (StringUtils.isNullOrEmpty(customer.getTenantId()))
+		if (StringUtils.isEmpty(customer.getTenantId()))
 			throw new RuntimeException("No tenant ID.");
 		
 		order.setStatus(Order.Status.CONFIRMED.ordinal());
@@ -227,7 +227,7 @@ public class AgriServiceImpl extends BaseService implements AgriService {
 		Customer customer = customerDao.getById(order.getCustomerId());
 		if (customer == null)
 			throw new RuntimeException("not found.");
-		if (StringUtils.isNullOrEmpty(customer.getTenantId()))
+		if (StringUtils.isEmpty(customer.getTenantId()))
 			throw new RuntimeException("No tenant ID.");
 		
 		List<String> keys = orderDao.getKeysOfOrder(id);

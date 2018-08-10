@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>导入冲突</title>
-<meta name="decorator" content="default" />
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			

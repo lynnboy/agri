@@ -3,27 +3,26 @@
 <html>
 <head>
 <title>项目列表</title>
-<meta name="decorator" content="default" />
-	<script type="text/javascript">
-		$(document).ready(function() {
-		});
-		function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
-		function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }
-		function search(){
-			return pageTo(1);
-		}
-		function sort(o){ $("#orderBy").val(o); return pageTo(1); }
-		function refresh() { window.location.reload(); }
-		
-		function remove(id){
-			confirmx('确认要作废该项目吗？', function(){
-				$.post("${base}/sys/projectDeprecate", {id:id}, function(result,status){
-					alertx(result, function(){ refresh(); });
-				})
-			});
-			return false;
-		}
-	</script>
+<script type="text/javascript">
+$(document).ready(function() {
+});
+function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
+function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }
+function search(){
+	return pageTo(1);
+}
+function sort(o){ $("#orderBy").val(o); return pageTo(1); }
+function refresh() { window.location.reload(); }
+
+function remove(id){
+	confirmx('确认要作废该项目吗？', function(){
+		$.post("${base}/sys/projectDeprecate", {id:id}, function(result,status){
+			alertx(result, function(){ refresh(); });
+		})
+	});
+	return false;
+}
+</script>
 </head>
 <body>
 	<ul class="nav nav-tabs">

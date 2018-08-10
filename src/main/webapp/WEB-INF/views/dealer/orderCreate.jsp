@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>订单申请</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 var numkey = 1;
 function addRow(list){

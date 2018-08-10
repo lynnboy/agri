@@ -3,7 +3,6 @@
 <html>
 <head>
 <title>${systemName }</title>
-<%@include file="/WEB-INF/views/common/header.jsp"%>
 <script type="text/javascript">
 	$(function() {
 		$("#userName").focus();

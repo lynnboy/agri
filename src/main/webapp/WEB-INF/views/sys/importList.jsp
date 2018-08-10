@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>导入任务</title>
-<meta name="decorator" content="default" />
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			

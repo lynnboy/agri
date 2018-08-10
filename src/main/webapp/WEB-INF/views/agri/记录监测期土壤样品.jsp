@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>记录 - 监测期土壤样品</title>
-<meta name="decorator" content="default" />
+
 <script type="text/javascript">
 function fillSelect(sel, list, nestlist) {
 	$.each(list, function(i, text) {

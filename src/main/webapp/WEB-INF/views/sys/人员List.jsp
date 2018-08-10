@@ -3,55 +3,54 @@
 <html>
 <head>
 <title>人员列表</title>
-<meta name="decorator" content="default" />
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#ui_status").val($("#search_status").val());
-		});
-		function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
-		function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }
-		function search(){
-			$("#search_login").val($("#ui_login").val());
-			$("#search_name").val($("#ui_name").val());
-			$("#search_organ").val($("#ui_organ").val());
-			$("#search_status").val($("#ui_status").val());
-			return pageTo(1);
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#ui_status").val($("#search_status").val());
+});
+function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
+function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }
+function search(){
+	$("#search_login").val($("#ui_login").val());
+	$("#search_name").val($("#ui_name").val());
+	$("#search_organ").val($("#ui_organ").val());
+	$("#search_status").val($("#ui_status").val());
+	return pageTo(1);
+}
+function sort(o){ $("#orderBy").val(o); return pageTo(1); }
+function refresh() { return pageTo($("#pageNo").val()); }
+function merge(user){
+	top.$.jBox.open("iframe:${base}/sys/selectMergeUser", "选择合并的目标人员",
+		$(top.document).width()-220,$(top.document).height()-200,{
+		id:"targetSelectDialog",
+		buttons:{}, 
+		loaded:function(h){
+			var dialogwin = h.find("iframe")[0].contentWindow;
+			dialogwin.$("#user_" + user.id).remove();
+			dialogwin.choose = function(target) {
+				confirmx('是否将人员 "' + user.name + '" 及其相关数据合并到人员 "' + target.name + '" 之中？',
+				function() {
+					top.$.jBox.close("targetSelectDialog");
+					$.post("${base}/sys/userMerge", {id:user.id,targetId:target.id}, function(result,status) {
+						alertx(result, function() { refresh(); });
+					});
+				});
+			};
 		}
-		function sort(o){ $("#orderBy").val(o); return pageTo(1); }
-		function refresh() { return pageTo($("#pageNo").val()); }
-		function merge(user){
-			top.$.jBox.open("iframe:${base}/sys/selectMergeUser", "选择合并的目标人员",
-				$(top.document).width()-220,$(top.document).height()-200,{
-				id:"targetSelectDialog",
-				buttons:{}, 
-				loaded:function(h){
-					var dialogwin = h.find("iframe")[0].contentWindow;
-					dialogwin.$("#user_" + user.id).remove();
-					dialogwin.choose = function(target) {
-						confirmx('是否将人员 "' + user.name + '" 及其相关数据合并到人员 "' + target.name + '" 之中？',
-						function() {
-							top.$.jBox.close("targetSelectDialog");
-							$.post("${base}/sys/userMerge", {id:user.id,targetId:target.id}, function(result,status) {
-								alertx(result, function() { refresh(); });
-							});
-						});
-					};
-				}
-			});
-			return false;
-		}
-		function remove(id){
-			confirmx('确认要删除该用户吗？', function(){
-				$.post("${base}/sys/userDelete", {id:id}, function(result,status){
-					alertx(result, function(){ refresh(); });
-				})
-			});
-			return false;
-		}
-		function choose(o) {
-			console.log(o);
-		}
-	</script>
+	});
+	return false;
+}
+function remove(id){
+	confirmx('确认要删除该用户吗？', function(){
+		$.post("${base}/sys/userDelete", {id:id}, function(result,status){
+			alertx(result, function(){ refresh(); });
+		})
+	});
+	return false;
+}
+function choose(o) {
+	console.log(o);
+}
+</script>
 </head>
 <body>
 <c:if test="${!isSelecting}">

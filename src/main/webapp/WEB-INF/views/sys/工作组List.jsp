@@ -3,30 +3,29 @@
 <html>
 <head>
 <title>工作组列表</title>
-<meta name="decorator" content="default" />
-	<script type="text/javascript">
-		$(document).ready(function() {
-			
-		});
-		function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
-		function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }
-		function search(){
-			$("#search_name").val($("#ui_name").val());
-			$("#search_proj").val($("#ui_proj").val());
-			$("#search_action").val($("#ui_action").val());
-			return pageTo(1);
-		}
-		function sort(o){ $("#orderBy").val(o); return pageTo(1); }
-		function refresh() { return pageTo($("#pageNo").val()); }
-		function remove(id){
-			confirmx('确认要删除该工作组吗？', function(){
-				$.post("${base}/sys/wgDelete", {id:id}, function(result,status){
-					alertx(result, function(){ refresh(); });
-				})
-			});
-			return false;
-		}
-	</script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+});
+function pageTo(n){ $("#pageNo").val(n); $("#searchForm").submit(); return false; }
+function pageBy(s){ $("#pageSize").val(s); return pageTo(1); }
+function search(){
+	$("#search_name").val($("#ui_name").val());
+	$("#search_proj").val($("#ui_proj").val());
+	$("#search_action").val($("#ui_action").val());
+	return pageTo(1);
+}
+function sort(o){ $("#orderBy").val(o); return pageTo(1); }
+function refresh() { return pageTo($("#pageNo").val()); }
+function remove(id){
+	confirmx('确认要删除该工作组吗？', function(){
+		$.post("${base}/sys/wgDelete", {id:id}, function(result,status){
+			alertx(result, function(){ refresh(); });
+		})
+	});
+	return false;
+}
+</script>
 </head>
 <body>
 	<ul class="nav nav-tabs">

@@ -1,4 +1,4 @@
-﻿package com.jingyan.agri.entity;
+package com.jingyan.agri.entity;
 
 import java.util.List;
 
