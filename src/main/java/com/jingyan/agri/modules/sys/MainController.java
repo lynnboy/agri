@@ -216,7 +216,7 @@ public class MainController extends BaseController {
 			Project proj = projMap.get(group.getProjId());
 			ProjectTemplate temp = tempMap.get(proj.getTempId());
 			Integer actionId = group.getAction();
-			String actionName = temp.getProjectInfo().getActionMap().get(actionId);
+			String actionName = temp.getProjectInfo().getTaskMap().get(actionId).getName();
 
 			menuList.putIfAbsent(actionName, Maps.newLinkedHashMap());
 //			groupMap.putIfAbsent(group.getProjId(), Lists.newArrayList());

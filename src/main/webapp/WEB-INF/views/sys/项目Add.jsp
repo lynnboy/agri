@@ -36,8 +36,8 @@ $(document).ready(function() {
 版本：<i class="icon-list-alt"></i> <strong><c:out value='${temp.version}'/></strong><br>
 工作流：
 <c:forEach items='${temp.projectInfo.workflow}' var='flow'>
-	<span class="label label-info"><c:out value='${temp.projectInfo.stateMap[flow.srcState]}'/></span>
-	<span class="label label-success"><c:out value='${temp.projectInfo.actionMap[flow.action]}'/><span class="icon-arrow-right"></span></span>
+	<span class="label label-info"><c:out value='${temp.projectInfo.stateMap[flow.srcState].name}'/></span>
+	<span class="label label-success"><c:out value='${temp.projectInfo.taskMap[flow.action].name}'/><span class="icon-arrow-right"></span></span>
 </c:forEach>
 
 </div>

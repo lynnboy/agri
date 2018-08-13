@@ -16,13 +16,14 @@
 html, body, table {
 	background-color: #f5f5f5;
 	width: 100%;
+	height: 100%;
 	text-align: center;
 }
 
 body { background: url("${baseStatic}/img/field1.jpg") no-repeat;
- background-size: 100%;
- width:100%;
- height:100%;
+ background-size: cover;
+ margin:0;
+ min-height:100%;
 }
 
 .form-signin-heading {

@@ -9,7 +9,7 @@
 	<select id="getEntry" resultType="Entry">
 		SELECT id, `type`, `key`, title
 		FROM `${tableName}`
-		WHERE `key` = #{keyOrId} OR id = #{keyOrId}
+		WHERE `key` = #{keyOrId} OR CAST(id AS CHAR) = #{keyOrId}
 	</select>
 
 	<select id="getDiagrams" resultType="Diagram">

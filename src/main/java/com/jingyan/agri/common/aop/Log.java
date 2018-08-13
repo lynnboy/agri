@@ -1,19 +1,19 @@
 package com.jingyan.agri.common.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+//import org.aspectj.lang.annotation.Around;
+//import org.aspectj.lang.annotation.Aspect;
+//import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 
 @Component
-@Aspect
-@Slf4j
+//@Aspect
+@Log4j2
 public class Log {
 	
-	@Pointcut("execution(public * com.jingyan.agri.service..*.*(..))")
+//	@Pointcut("execution(public * com.jingyan.agri.service..*.*(..))")
     public void recordLog(){}
 	
 	/**
@@ -21,7 +21,7 @@ public class Log {
 	 * @param pjp
 	 * @throws Throwable
 	 */
-	@Around("recordLog()")
+//	@Around("recordLog()")
 	public Object around(ProceedingJoinPoint pjp) throws Throwable {
 		// 代理对象
 		String strClassName = pjp.getTarget().getClass().getName();

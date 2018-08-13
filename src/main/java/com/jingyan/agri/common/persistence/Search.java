@@ -20,7 +20,7 @@ public class Search {
 	public static enum Op {
 		EQ {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val))
 					return "`" + col.getName() + "` IS NULL OR `" + col.getName() + "` = ''";
 				else if (col.ext().isNumber())
@@ -29,12 +29,13 @@ public class Search {
 					return "CAST(`" + col.getName() + "` as DATE) = CAST('" + val + "' as DATE)";
 				//else throw new Exception("Not supported");
 				//if (col.isText())
+				if (escapeInLiteral) val = val.replace("\\", "\\\\");
 				return "`" + col.getName() + "` = '" + val.replace("'", "''") + "'";
 			}
 		},
 		LE {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val)) return "";
 				if (col.ext().isNumber())
 					return "`" + col.getName() + "` <= " + NumberUtils.createNumber(val);
@@ -45,7 +46,7 @@ public class Search {
 		},
 		GE {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val)) return "";
 				if (col.ext().isNumber())
 					return "`" + col.getName() + "` >= " + NumberUtils.createNumber(val);
@@ -56,73 +57,101 @@ public class Search {
 		},
 		STR_BEGIN {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val)) return "";
 				//if (col.isText()) {
-					String pat = val.replace("\\", "\\\\").replace("'", "''")
-						.replace("_", "\\_").replace("%", "\\%") + '%';
-					return "`" + col.getName() + "` LIKE '" + pat + "'";
+					String pat = "'" +
+						val.replace("\\", "\\\\").replace("'", "''")
+						.replace("_", "\\_").replace("%", "\\%") + '%'
+						+ "' ESCAPE '\\'";
+					if (escapeInLiteral) pat = pat.replace("\\", "\\\\");
+					return "`" + col.getName() + "` LIKE " + pat;
 //				}
 //				else throw new Exception("Not supported");
 			}
 		},
 		STR_END {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val)) return "";
 //				if (col.isText()) {
-					String pat = '%' + val.replace("\\", "\\\\").replace("'", "''")
-						.replace("_", "\\_").replace("%", "\\%");
-					return "`" + col.getName() + "` LIKE '" + pat + "'";
+					String pat = "'" +
+						'%' + val.replace("\\", "\\\\").replace("'", "''")
+						.replace("_", "\\_").replace("%", "\\%")
+						+ "' ESCAPE '\\'";
+					if (escapeInLiteral) pat = pat.replace("\\", "\\\\");
+					return "`" + col.getName() + "` LIKE " + pat;
 //				}
 //				else throw new Exception("Not supported");
 			}
 		},
 		STR_MATCH {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val)) return "";
-//				if (col.isText()) {
-					String pat = val.replace("\\", "\\\\").replace("'", "''")
-						.replace("_", "\\_").replace("%", "\\%")
-						.replace("?", "_").replace("*", "%");
-					if (pat.replace("\\_", "").contains("_") ||
-							pat.replace("\\%", "").contains("%"))
-						return "`" + col.getName() + "` LIKE '" + pat + "'";
-					else return "`" + col.getName() + "` LIKE '%" + pat + "%'";
-//				}
-//				else throw new Exception("Not supported");
+				String colName = "`" + col.getName() + "`";
+				if (!col.ext().isText())
+					colName = "CAST(" + colName + " AS CHAR)";
+
+				String pat = val.replace("\\", "\\\\").replace("'", "''")
+					.replace("_", "\\_").replace("%", "\\%")
+					.replace("?", "_").replace("*", "%");
+				if (!pat.replace("\\_", "").contains("_") &&
+					!pat.replace("\\%", "").contains("%"))
+					pat = "%" + pat + "%";
+				pat = "'" + pat + "' ESCAPE '\\'";
+				if (escapeInLiteral) pat = pat.replace("\\", "\\\\");
+				return colName + " LIKE " + pat;
 			}
 		},
 		STR_REGEX {
 			@Override
-			public String sql(Column col, String val) throws Exception {
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 				if (StringUtils.isEmpty(val)) return "";
 				//if (col.isText()) {
-					String pat = val.replace("\\", "\\\\").replace("'", "''");
-					return "`" + col.getName() + "` REGEXP '" + pat + "'";
+				if (escapeInLiteral) val = val.replace("\\", "\\\\");
+				return "`" + col.getName() + "` REGEXP '" + val.replace("'", "''") + "'";
 //				}
 //				else throw new Exception("Not supported");
 			}
 		},
 		IS {
 			@Override
-			public String sql(Column col, String val) throws Exception {
-				return EQ.sql(col, val);
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
+				return EQ.sql(col, val, escapeInLiteral);
 			}
 		},
 		IN {
 			@Override
-			public String sql(Column col, String val) throws Exception {
-				String[] values = val.split(",");
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
+				String[] values = val.split("(?<!\\\\),");
 				List<String> list = new ArrayList<>();
-				
+
 				for (String item : values) {
+					item = item.replace("\\,", ",");
+					if (escapeInLiteral) item = item.replace("\\", "\\\\");
 					list.add("'" + item.replace("'", "''") + "'");
 				}
 				String items = String.join(",", list);
 				if (StringUtils.isEmpty(items)) return "";
 				return "`" + col.getName() + "` IN (" + items + ")";
+			}
+		},
+		TAGS {
+			@Override
+			public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
+				String[] values = val.split("(?<!\\\\),");
+				List<String> list = new ArrayList<>();
+				
+				for (String item : values) {
+					item = item.replace("\\,", ",");
+					if (StringUtils.isNotBlank(item))
+						list.add(item.replace("?", "\\?"));
+				}
+				if (list.isEmpty()) return "";
+
+				String pattern = "(" + String.join("|", list) + ")";
+				return STR_REGEX.sql(col, pattern, escapeInLiteral);
 			}
 		};
 
@@ -137,10 +166,10 @@ public class Search {
 			return item;
 		}
 		
-		public String sql(Item item, Column col) throws Exception {
-			return sql(col, item.getVal());
+		public String sql(Item item, Column col, boolean escapeInLiteral) throws Exception {
+			return sql(col, item.getVal(), escapeInLiteral);
 		}
-		public String sql(Column col, String val) throws Exception {
+		public String sql(Column col, String val, boolean escapeInLiteral) throws Exception {
 			return "`" + col.getName() + "` = '" + val.replace("'", "''") + "'";
 		}
 	}
@@ -179,7 +208,7 @@ public class Search {
 	@Getter @Setter
 	private Query query = new Query();
 	
-	public void normalize(Meta meta, List<Group> groups) throws Exception {
+	public void normalize(Meta meta, List<Group> groups, boolean escapeInLiteral) throws Exception {
 		String queryText = new String(Base64.getDecoder().decode(getQueryB64()), "UTF-8");
 		if (StringUtils.isEmpty(queryText)) return;
 		
@@ -198,7 +227,7 @@ public class Search {
 
 			this.query.add(item);
 			try {
-				String sql = item.op.sql(item, column);
+				String sql = item.op.sql(item, column, escapeInLiteral);
 				if (StringUtils.isNotEmpty(sql))
 					conditions.add(sql);
 			} catch (Exception e) { }
@@ -213,7 +242,7 @@ public class Search {
 			}
 			//TODO: only 1 filters is now supported.
 			Group.ConditionItem cond = group.getCondition().getItems().get(0);
-			String sql = Op.STR_MATCH.sql(filterColumn, cond.getPattern());
+			String sql = Op.STR_MATCH.sql(filterColumn, cond.getPattern(), escapeInLiteral);
 			groupFilter.add(sql);
 		}
 		if (!groupFilter.isEmpty())

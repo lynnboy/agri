@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jingyan.agri.dao.sys.MetaDao">
 
+	<select id="detectSQLLiteralIsEscaped" resultType="Boolean">
+		SELECT 'a' = '\a';
+	</select>
+
 	<select id="getTemplateTables" resultType="Meta">
 		SELECT id, tableName, tempId, projId, `key`, filterColumn, schemaText,
 			sortConfigText, searchConfigText, editConfigText, viewConfigText
@@ -57,6 +61,7 @@
 		CREATE TABLE `${tableName}` (
 		<foreach item="col" collection="schema.columns" separator=", ">
 		`${col.name}` ${col.type} <if test="col.isnull">NULL</if><if test="!col.isnull">NOT NULL</if>
+		<if test="col.as != null and col.as != ''">AS (${col.as})</if>
 		</foreach>
 		<if test="schema.pk != null and !schema.pk.isEmpty()">
 		, PRIMARY KEY (<foreach item="col" collection="schema.pk" separator=", ">`${col}`</foreach>)

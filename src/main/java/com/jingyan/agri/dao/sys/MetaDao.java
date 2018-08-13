@@ -15,6 +15,8 @@ import com.jingyan.agri.entity.sys.Meta;
 @Mapper
 public interface MetaDao {
 
+	boolean detectSQLLiteralIsEscaped();
+
 	List<Meta> getTemplateTables(@Param("tempId") int tempId);
 	Meta getTemplateKeyedTable(@Param("tempId") int tempId, @Param("key") String key);
 	List<Meta> getProjTables(@Param("projId") int projId);

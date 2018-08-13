@@ -55,6 +55,7 @@ import com.jingyan.agri.entity.sys.Manager;
 import com.jingyan.agri.entity.sys.Organ;
 import com.jingyan.agri.entity.sys.Project;
 import com.jingyan.agri.entity.sys.ProjectTemplate;
+import com.jingyan.agri.entity.sys.ProjectTemplate.Task;
 import com.jingyan.agri.entity.sys.SettingValue;
 import com.jingyan.agri.modules.obsolete.CreateLicenseParams;
 import com.jingyan.agri.service.ManagerService;
@@ -555,11 +556,11 @@ public class SysController extends BaseController {
 		view.normalize(Dealer.getSortableFields());
 		
 		List<ProjectTemplate> allTemp = managerDao.allTemplates();
-		Map<Integer, Map<Integer,String>> tempActionMap =
+		Map<Integer, Map<Integer,Task>> tempActionMap =
 				allTemp.stream().collect(Collectors.toMap(
-						t -> t.getId(), t -> t.getProjectInfo().getActionMap()));
+						t -> t.getId(), t -> t.getProjectInfo().getTaskMap()));
 		List<Project> projs = managerDao.getProjectOfTemplate(null);
-		Map<Integer, Map<Integer,String>> projActionMap =
+		Map<Integer, Map<Integer,Task>> projActionMap =
 				projs.stream().collect(Collectors.toMap(
 						p -> p.getId(), p -> tempActionMap.get(p.getTempId())));
 
@@ -590,7 +591,7 @@ public class SysController extends BaseController {
 		Map<String, String> actionJsList = Maps.newLinkedHashMap();
 		actionJsList.put("", "== 请选择 ==");
 		for (ProjectTemplate temp : tempList)
-			for (ProjectTemplate.Item action : temp.getProjectInfo().getActions())
+			for (ProjectTemplate.Task action : temp.getProjectInfo().getTasks())
 				actionJsList.putIfAbsent(action.getId().toString(), action.getName());
 		
 		Map<Integer, List<String>> actionJsMap = Maps.newLinkedHashMap();
@@ -598,7 +599,7 @@ public class SysController extends BaseController {
 		for (Project proj : projList) {
 			ProjectTemplate temp = tempMap.get(proj.getTempId());
 			List<String> list = Lists.newArrayList( 
-					temp.getProjectInfo().getActionMap().keySet()
+					temp.getProjectInfo().getTaskMap().keySet()
 					.stream().map(actid -> actid.toString()).iterator());
 			list.add(0, "");
 			actionJsMap.put(proj.getId(), list);
@@ -656,7 +657,7 @@ public class SysController extends BaseController {
 		Map<String, String> actionJsList = Maps.newLinkedHashMap();
 		actionJsList.put("", "== 请选择 ==");
 		for (ProjectTemplate temp : tempList)
-			for (ProjectTemplate.Item action : temp.getProjectInfo().getActions())
+			for (ProjectTemplate.Task action : temp.getProjectInfo().getTasks())
 				actionJsList.putIfAbsent(action.getId().toString(), action.getName());
 		
 		Map<Integer, List<String>> actionJsMap = Maps.newLinkedHashMap();
@@ -664,7 +665,7 @@ public class SysController extends BaseController {
 		for (Project proj : projList) {
 			ProjectTemplate temp = tempMap.get(proj.getTempId());
 			List<String> list = Lists.newArrayList( 
-					temp.getProjectInfo().getActionMap().keySet()
+					temp.getProjectInfo().getTaskMap().keySet()
 					.stream().map(actid -> actid.toString()).iterator());
 			list.add(0, "");
 			actionJsMap.put(temp.getId(), list);
@@ -727,7 +728,8 @@ public class SysController extends BaseController {
 		model.addAttribute("memberList", memberList);
 		Project proj = managerDao.getProject(group.getProjId());
 		ProjectTemplate temp = managerDao.getTemplate(proj.getTempId());
-		String actionName = temp.getProjectInfo().getActionMap().get(group.getAction());
+		String actionName = temp.getProjectInfo().getTaskMap()
+				.get(group.getAction()).getName();
 		model.addAttribute("group", group);
 		model.addAttribute("actionName", actionName);
 		return "sys/工作组成员";

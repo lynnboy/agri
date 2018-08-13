@@ -396,6 +396,9 @@ var SearchConfig = function(obj) {
 SearchConfig.prototype.hasOptList = function(key) {
 	return key in this._map && !$.isEmptyObject(this._map[key].optList);
 }
+SearchConfig.prototype.isTags = function(key) {
+	return key == "tags" && this.hasOptList(key);
+}
 SearchConfig.prototype.optListOf = function(key) {
 	return this._map[key].optList;
 }
@@ -426,11 +429,20 @@ var Searcher = function(div, schema, searchConfig, viewConfig, queryList) {
 	var $ul = $('<ul class="dropdown-menu">').appendTo($divbtn);
 
 	$.each(schema.colMap, function(key, column) {
+		if (searchConfig.isTags(key)) {
+			var $li = $('<li></li>').appendTo($ul);
+			$('<a href="javascript:;">' + viewConfig.headerOf(key) + '</a>').appendTo($li)
+				.click(function(){self.addTagsQuery(key)});
+			var $subul = $('<ul class="dropdown-menu"></ul>').appendTo($li);
+
+			return;
+		}
+		
 		var submenu = [];
 		if (searchConfig.hasOptList(key)) {
 			submenu.push({ text: "选项", act: function(){self.addOptListQuery(key);} });
 			submenu.push({ text: "多选", act: function(){self.addOptMultiQuery(key);} });
-		};
+		}
 		if (column.isText()) {
 			submenu.push({ text: "匹配", act: function(){self.addTextQuery(key, "STR_MATCH");} });
 			submenu.push(false);
@@ -474,9 +486,10 @@ var Searcher = function(div, schema, searchConfig, viewConfig, queryList) {
 Searcher.prototype.addQuery = function(key, op, val) {
 	var column = this.schema.col(key);
 
+	if (op == "TAGS") return this.addTagsQuery(key, op, val);
 	if (op == "IS") return this.addOptListQuery(key, op, val);
 	if (op == "IN") return this.addOptMultiQuery(key, op, val);
-	if ($.inArray(type, ["EQ", "LE", "GE"]) != -1) {
+	if ($.inArray(op, ["EQ", "LE", "GE"]) != -1) {
 		if (column.isNumber()) return this.addNumQuery(key, op, val);
 		if (column.isDateTime()) return this.addDateQuery(key, op, val);
 	}
@@ -528,7 +541,7 @@ Searcher.prototype.addOptListQuery = function(key, op, value) {
 	var $sel = $('<select>').attr('id', idval).addClass('input-medium').appendTo($div);
 	var optList = this.searchConfig.optListOf(key);
 	$.each(optList, function(opt, text) {
-		$opt = $('<option>').val(opt).text(text).appendTo($sel);
+		var $opt = $('<option>').val(opt).text(text).appendTo($sel);
 		if (value == opt) $opt.attr('selected', 'selected');
 	});
 }
@@ -556,8 +569,41 @@ Searcher.prototype.addOptMultiQuery = function(key, op, value) {
 	var optList = this.searchConfig.optListOf(key);
 	var values = value ? value.split(',') : [];
 	$.each(optList, function(opt, text) {
-		$lbl = $('<label>').addClass("checkbox inline").text(text).appendTo($div);
-		$chk = $('<input type="checkbox">')
+		var $lbl = $('<label>').addClass("checkbox inline").text(text).appendTo($div);
+		var $chk = $('<input type="checkbox">')
+			.attr('id', idval).val(opt).prependTo($lbl);
+		if ($.inArray(opt, values) != -1) $chk.attr('checked', 'checked');
+	});
+}
+Searcher.prototype.addTagsQuery = function(key, op, value) {
+	if (!this.searchConfig.hasOptList(key)) return;
+
+	op = op || "TAGS";
+	if (op != "TAGS") return;
+
+	var idkey = "qkey_" + this.nextNo,
+	idop = "qop_" + this.nextNo,
+	idval = "qval_" + this.nextNo;
+	this.nextNo ++;
+	var $row = this.addQueryCommon(key, this.viewConfig.headerOf(key), op, idkey, idop, idval);
+
+	var $div = $('<div>').css({
+		display: "inline-block",
+		verticalAlign: "middle",
+		padding: "0 10px 4px 10px",
+		marginBottom: 10,
+		border: "solid 1px #ccc",
+		borderRadius: 4,
+	}).appendTo($row);
+
+	var optList = this.searchConfig.optListOf(key);
+	var values = value ? value.split(',') : [];
+	$.each(optList, function(opt, text) {
+		var $lbl = $('<label>').addClass("checkbox inline").appendTo($div);
+		var $tag = $('<span class="label">').text(text).appendTo($lbl);
+		if (text.indexOf('?') != -1) $tag.addClass('label-warning');
+		if (text.indexOf('!') != -1) $tag.addClass('label-important');
+		var $chk = $('<input type="checkbox">')
 			.attr('id', idval).val(opt).prependTo($lbl);
 		if ($.inArray(opt, values) != -1) $chk.attr('checked', 'checked');
 	});
@@ -605,7 +651,7 @@ Searcher.prototype.addNumQuery = function(key, op, value) {
 }
 Searcher.prototype.addDateQuery = function(key, opvalue) {
 	op = op || "EQ";
-	if ($.inArray(type, ["EQ", "LE", "GE"]) == -1) return;
+	if ($.inArray(op, ["EQ", "LE", "GE"]) == -1) return;
 
 	var idkey = "qkey_" + this.nextNo,
 	idop = "qop_" + this.nextNo,
@@ -633,7 +679,7 @@ Searcher.prototype.collectQuery = function() {
 
 		var key = $('#' + idkey).val();
 		var op = $('#' + idop).val();
-		var val = op != "IN" ? $('#' + idval).val() :
+		var val = !/IN|TAGS/.test(op) ? $('#' + idval).val() :
 			$.map($("[id=" + idval + "]:checked"),
 					function(e) {return $(e).val()}).join(',');
 		queryList.push({ key: key, op: op, val: val });

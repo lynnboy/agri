@@ -14,11 +14,20 @@ import lombok.Setter;
 
 public class ProjectTemplate extends BaseEntity<ProjectTemplate> {
 
-	public static class Item {
+	public static class State {
 		@Getter @Setter
 		private Integer id;
 		@Getter @Setter
 		private String name;
+	}
+	public static class Task {
+		public static enum Type { DEFAULT, 填报, 审核, 汇总, 查看 }
+		@Getter @Setter
+		private Integer id;
+		@Getter @Setter
+		private String name;
+		@Getter @Setter
+		private Type type = Type.DEFAULT;
 	}
 	public static class WorkflowItem {
 		@Getter @Setter
@@ -29,30 +38,29 @@ public class ProjectTemplate extends BaseEntity<ProjectTemplate> {
 		private Integer dstState;
 	}
 
-
 	public static class Info extends BaseEntity<Info> {
 		private static final long serialVersionUID = 1L;
 
 		@Getter @Setter
 		private List<WorkflowItem> workflow = Lists.newArrayList();
 		@Getter @Setter
-		private List<Item> states = Lists.newArrayList();
+		private List<State> states = Lists.newArrayList();
 		@Getter @Setter
-		private List<Item> actions = Lists.newArrayList();
+		private List<Task> tasks = Lists.newArrayList();
 		@JsonIgnore
 		@Getter
-		private Map<Integer,String> actionMap = Maps.newTreeMap();
+		private Map<Integer,Task> taskMap = Maps.newTreeMap();
 		@JsonIgnore
 		@Getter
-		private Map<Integer,String> stateMap = Maps.newTreeMap();
+		private Map<Integer,State> stateMap = Maps.newTreeMap();
 		
 		@Override
 		public Info fromJson(String info) {
 			Info p = super.fromJson(info);
-			for (Item item : p.getActions())
-				p.getActionMap().putIfAbsent(item.getId(), item.getName());
-			for (Item item : p.getStates())
-				p.getStateMap().putIfAbsent(item.getId(), item.getName());
+			for (Task item : p.getTasks())
+				p.getTaskMap().putIfAbsent(item.getId(), item);
+			for (State item : p.getStates())
+				p.getStateMap().putIfAbsent(item.getId(), item);
 			return p;
 		}
 	}

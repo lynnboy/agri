@@ -12,7 +12,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -140,7 +142,7 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 		Meta.SearchConfig searchConfig = table.getSearchConfig();
 		Meta.SortConfig sortConfig = table.getSortConfig();
 		
-		search.normalize(table, groups);
+		search.normalize(table, groups, metaService.isEscapeInSQLLiteral());
 		final int totalCount = metaDao.queryCount(null, table.getTableName());
 		final int queryCount = metaDao.queryCount(search, table.getTableName());
 		view.setTotalCount(totalCount);
@@ -152,15 +154,15 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 		model.addAttribute("list", list);
 		model.addAttribute("entry", entry);
 		model.addAttribute("schema", schema);
-		model.addAttribute("schemaJson", schema.toJson());
+		model.addAttribute("schemaJson", StringEscapeUtils.escapeEcmaScript(schema.toJson()));
 		model.addAttribute("viewConfig", viewConfig);
-		model.addAttribute("viewConfigJson", viewConfig.toJson());
+		model.addAttribute("viewConfigJson", StringEscapeUtils.escapeEcmaScript(viewConfig.toJson()));
 		model.addAttribute("searchConfig", searchConfig);
-		model.addAttribute("searchConfigJson", searchConfig.toJson());
+		model.addAttribute("searchConfigJson", StringEscapeUtils.escapeEcmaScript(searchConfig.toJson()));
 		model.addAttribute("sortConfig", sortConfig);
-		model.addAttribute("sortConfigJson", sortConfig.toJson());
+		model.addAttribute("sortConfigJson", StringEscapeUtils.escapeEcmaScript(sortConfig.toJson()));
 		model.addAttribute("pager", view);
-		model.addAttribute("query", JsonUtils.serialize(search.getQuery()));
+		model.addAttribute("query", StringEscapeUtils.escapeEcmaScript(JsonUtils.serialize(search.getQuery())));
 
 		return VIEW_ROOT + "/table";
 	}
@@ -172,7 +174,7 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 		Meta table = metaService.getProjectTableMetaByKey(proj, META_KEY_DIAGRAM);
 
 		Search search = new Search();
-		search.normalize(table, groups);
+		search.normalize(table, groups, metaService.isEscapeInSQLLiteral());
 		search.getConditions().add("`group` = '" + entry.getKey().replace("'", "''") + "'");
 
 		List<Diagram> list = viewDBDao.getDiagrams(search, table.getTableName());
@@ -194,7 +196,7 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 		Meta table = metaService.getProjectTableMetaByKey(proj, META_KEY_DIAGRAM);
 
 		Search search = new Search();
-		search.normalize(table, groups);
+		search.normalize(table, groups, metaService.isEscapeInSQLLiteral());
 		search.getConditions().add("id = " + diagId);
 		List<Diagram> list = viewDBDao.getDiagrams(search, table.getTableName());
 		if (list.isEmpty()) throw new Exception ("No such diagram");

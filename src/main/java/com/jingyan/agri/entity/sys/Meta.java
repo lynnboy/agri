@@ -25,6 +25,8 @@ public class Meta extends BaseEntity<Meta> {
 		private String type = "VARCHAR(45)";
 		@Getter @Setter
 		private boolean isnull = true;
+		@Getter @Setter
+		private String as = "";
 
 		public class Ext {
 			@JsonProperty("isText")
