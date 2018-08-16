@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,10 @@ import com.jingyan.agri.entity.sys.ProjectTemplate;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
+import lombok.val;
 
 import com.jingyan.agri.entity.sys.Meta.OptionList;
+import com.jingyan.agri.entity.sys.Meta.Schema;
 
 @Service
 public class MetaService extends BaseService {
@@ -180,7 +183,7 @@ public class MetaService extends BaseService {
 		return map;
 	}
 
-	public Project checkProject(int projId, int actionId,
+	public Pair<Project, ProjectTemplate> checkProject(int projId, int taskId,
 			String version, int... actionIds) throws Exception
 	{
 		Project proj = sysDao.getProject(projId);
@@ -189,10 +192,13 @@ public class MetaService extends BaseService {
 		ProjectTemplate temp = sysDao.getTemplate(proj.getTempId());
 		if (!temp.getVersion().equals(version))
 			throw new Exception("Project doesn't match template version.");
-		if (IntStream.of(actionIds).noneMatch(id -> id == actionId))
-			throw new Exception("Not supported action.");
+		if (IntStream.of(actionIds).noneMatch(id -> id == taskId))
+			throw new Exception("Not supported task.");
+		val info = temp.getProjectInfo();
+		if (!info.getTaskMap().containsKey(taskId))
+			throw new Exception("Not supported task.");
 		
-		return proj;
+		return Pair.of(proj, temp);
 	}
 
 	public Meta getProjectTableMetaByKey(Project project, String key)
@@ -227,6 +233,17 @@ public class MetaService extends BaseService {
 			metaDao.createTable(table);
 		}
 	}
-
 	
+	@SneakyThrows
+	public SearchHandler prepareSearch(int projId, int actionId, String version) {
+		Pair<Project, ProjectTemplate> projPair =
+				checkProject(projId, actionId, version);
+		Project proj = projPair.getLeft();
+		return new SearchHandler();
+	}
+
+	public class SearchHandler {
+		@Getter
+		Schema viewSchema;
+	}
 }

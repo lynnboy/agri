@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -77,8 +78,10 @@ public class PlantingController extends BaseController implements ProjectTemplat
 			@PathVariable("actionId") int actionId,
 			ModelMap model) throws Exception
 	{
-		Project proj = metaService.checkProject(projId, actionId,
-				VERSION_NAME, ACTION_ID_VIEW);
+		Pair<Project, ProjectTemplate> projPair =
+				metaService.checkProject(projId, actionId,
+						VERSION_NAME, ACTION_ID_VIEW);
+		Project proj = projPair.getLeft();
 
 		return "forward:" + PATH_ROOT + "/" + projId + "/" + actionId + "/list";
 	}
@@ -91,8 +94,10 @@ public class PlantingController extends BaseController implements ProjectTemplat
 			Search search, ResultView view,
 			ModelMap model, HttpSession session) throws Exception
 	{
-		Project proj = metaService.checkProject(projId, actionId,
-				VERSION_NAME, ACTION_ID_VIEW);
+		Pair<Project, ProjectTemplate> projPair =
+				metaService.checkProject(projId, actionId,
+						VERSION_NAME, ACTION_ID_VIEW);
+		Project proj = projPair.getLeft();
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
 
 		model.addAttribute("proj", proj);

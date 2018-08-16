@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -79,8 +80,10 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 			@PathVariable("actionId") int actionId,
 			ModelMap model) throws Exception
 	{
-		Project proj = metaService.checkProject(projId, actionId,
-				VERSION_NAME, ACTION_ID_VIEW);
+		Pair<Project, ProjectTemplate> projPair =
+				metaService.checkProject(projId, actionId,
+						VERSION_NAME, ACTION_ID_VIEW);
+		Project proj = projPair.getLeft();
 
 		model.addAttribute("proj", proj);
 
@@ -101,8 +104,10 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 			Search search, ResultView view,
 			ModelMap model, HttpSession session) throws Exception
 	{
-		Project proj = metaService.checkProject(projId, actionId,
-				VERSION_NAME, ACTION_ID_VIEW);
+		Pair<Project, ProjectTemplate> projPair =
+				metaService.checkProject(projId, actionId,
+						VERSION_NAME, ACTION_ID_VIEW);
+		Project proj = projPair.getLeft();
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
 
 		model.addAttribute("proj", proj);
@@ -190,8 +195,10 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 			@PathVariable("diagId") int diagId) throws Exception
 	{
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
-		Project proj = metaService.checkProject(projId, ACTION_ID_VIEW,
-				VERSION_NAME, ACTION_ID_VIEW);
+		Pair<Project, ProjectTemplate> projPair =
+				metaService.checkProject(projId, ACTION_ID_VIEW,
+						VERSION_NAME, ACTION_ID_VIEW);
+		Project proj = projPair.getLeft();
 		List<Group> groups = userDao.getProjectGroupsOfDealer(user.getId(), proj.getId());
 		Meta table = metaService.getProjectTableMetaByKey(proj, META_KEY_DIAGRAM);
 

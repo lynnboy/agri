@@ -30,7 +30,7 @@ CREATE TABLE `customer` (
   `contact_info` varchar(1000) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `dealer` (
   `organId` int(11) NOT NULL DEFAULT '0',
   `delflag` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `group` (
   `remarks` varchar(2048) DEFAULT NULL,
   `createDate` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `group` (
 
 -- LOCK TABLES `group` WRITE;
 /*!40000 ALTER TABLE `group` DISABLE KEYS */;
-INSERT INTO `group` VALUES (4,'查看调查数据2008',10,1,'{"items":[]}','','2018-07-19 16:17:27'),(5,'畜禽2017填报',9,1,'{"items":[]}','','2018-07-19 16:17:46'),(6,'畜禽2017审核',9,2,'{"items":[]}','','2018-07-19 16:18:05'),(7,'畜禽2017汇总',9,3,'{"items":[]}','','2018-07-19 16:18:19'),(8,'调查2017填报',8,1,'{"items":[]}','','2018-07-19 16:18:52'),(9,'调查2017审核',8,2,'{"items":[]}','','2018-07-19 16:19:13'),(10,'调查2017汇总',8,3,'{"items":[]}','','2018-07-19 16:19:29'),(11,'清查2017填报',1,1,'{"items":[]}','','2018-07-19 16:19:41'),(12,'清查2017审核',1,2,'{"items":[]}','','2018-07-19 16:19:52'),(13,'清查2017汇总',1,3,'{"items":[]}','','2018-07-19 16:20:07'),(14,'查看调查数据2010',11,1,'{"items":[]}','','2018-07-29 11:50:10'),(15,'查看调查数据2012',12,1,'{"items":[]}','','2018-07-29 12:22:31'),(16,'查看调查数据2014',13,1,'{"items":[]}','','2018-07-29 14:45:32'),(17,'查看调查数据2016',14,1,'{"items":[]}','','2018-07-29 16:21:13'),(18,'查看监测数据',15,1,'{"items":[]}','','2018-07-29 16:38:30'),(19,'查看统计数据',16,1,'{"items":[]}','','2018-07-30 09:46:24'),(20,'查看文献数据',17,1,'{"items":[]}','','2018-07-30 11:00:44'),(21,'查看流失数据',18,1,'{"items":[]}','','2018-07-30 11:48:39'),(22,'查看评估数据',19,1,'{"items":[]}','','2018-07-30 13:54:27'),(23,'查看预警数据',20,1,'{"items":[]}','','2018-07-30 14:56:55'),(24,'查看减排数据',21,1,'{"items":[]}','','2018-07-30 14:57:12');
+INSERT INTO `group` VALUES (4,'查看调查数据2008',10,1,'{\"items\":[]}','','2018-07-19 16:17:27'),(5,'畜禽2017填报',9,1,'{\"items\":[]}','','2018-07-19 16:17:46'),(6,'畜禽2017审核',9,2,'{\"items\":[]}','','2018-07-19 16:18:05'),(7,'畜禽2017汇总',9,3,'{\"items\":[]}','','2018-07-19 16:18:19'),(8,'调查2017填报',8,1,'{\"items\":[]}','','2018-07-19 16:18:52'),(9,'调查2017审核',8,2,'{\"items\":[]}','','2018-07-19 16:19:13'),(10,'调查2017汇总',8,3,'{\"items\":[]}','','2018-07-19 16:19:29'),(11,'清查2017填报',1,1,'{\"items\":[]}','','2018-07-19 16:19:41'),(12,'清查2017审核',1,2,'{\"items\":[]}','','2018-07-19 16:19:52'),(13,'清查2017汇总',1,3,'{\"items\":[]}','','2018-07-19 16:20:07'),(14,'查看调查数据2010',11,1,'{\"items\":[]}','','2018-07-29 11:50:10'),(15,'查看调查数据2012',12,1,'{\"items\":[]}','','2018-07-29 12:22:31'),(16,'查看调查数据2014',13,1,'{\"items\":[]}','','2018-07-29 14:45:32'),(17,'查看调查数据2016',14,1,'{\"items\":[]}','','2018-07-29 16:21:13'),(18,'查看监测数据',15,1,'{\"items\":[]}','','2018-07-29 16:38:30'),(19,'查看统计数据',16,1,'{\"items\":[]}','','2018-07-30 09:46:24'),(20,'查看文献数据',17,1,'{\"items\":[]}','','2018-07-30 11:00:44'),(21,'查看流失数据',18,1,'{\"items\":[]}','','2018-07-30 11:48:39'),(22,'查看评估数据',19,1,'{\"items\":[]}','','2018-07-30 13:54:27'),(23,'查看预警数据',20,1,'{\"items\":[]}','','2018-07-30 14:56:55'),(24,'查看减排数据',21,1,'{\"items\":[]}','','2018-07-30 14:57:12');
 /*!40000 ALTER TABLE `group` ENABLE KEYS */;
 -- UN-- LOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `groupmember` (
   `groupId` int(11) NOT NULL,
   `dealerId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +147,7 @@ CREATE TABLE `license` (
   `issue_date` datetime DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +173,7 @@ CREATE TABLE `manager` (
   `hashed_pwd` varchar(45) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `meta` (
   `editConfigText` varchar(4096) NOT NULL DEFAULT '{}',
   `viewConfigText` varchar(1024) NOT NULL DEFAULT '{}',
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=410 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +215,7 @@ CREATE TABLE `meta` (
 
 -- LOCK TABLES `meta` WRITE;
 /*!40000 ALTER TABLE `meta` DISABLE KEYS */;
-INSERT INTO `meta` VALUES (1,'viewdb1_t4_proto_entry',4,-1,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(2,'viewdb1_t4_proto_diagram',4,-1,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(3,'viewdb1_p10_entry',4,10,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(4,'viewdb1_p10_模式面积',4,10,'模式面积','行政区划代码','{"columns":[{"name":"区县","isnull":"false"},{"name":"行政区划代码","isnull":"false"},{"name":"地形坡度"},{"name":"如果是坡地，是否为梯田"},{"name":"非梯田种植方向"},{"name":"模式类型"},{"name":"种植方式"},{"name":"面积","type":"DOUBLE"},{"name":"模式代码最终"}],"pk":[]}','{}','{ "items": [{ "key":"区县","optListMode":"COLLECT"},{ "key": "地形坡度", "optListMode": "COLLECT" }, { "key": "如果是坡地，是否为梯田", "optListMode": "COLLECT" }, { "key": "非梯田种植方向", "optListMode": "COLLECT" }, { "key": "模式类型", "optListMode": "COLLECT" }, { "key": "种植方式", "optListMode": "COLLECT" }] }','{}','{}'),(5,'viewdb1_p10_diagram',4,10,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(6,'viewdb1_p10_地块模式',4,10,'地块模式','代码','{"columns":[{"name":"代码","isnull":"false"},{"name":"地块种植模式②代码1","type":"VARCHAR(10)"},{"name":"地块种植模式②代码2","type":"VARCHAR(10)"},{"name":"地块种植模式②代码3","type":"VARCHAR(10)"},{"name":"地块种植模式a"},{"name":"地块种植模式b"}],"pk":[]}','{}','{"items":[{"key":"地块种植模式②代码1","optListMode":"NAMED","optListName":"NamedCropCodes"},{"key":"地块种植模式②代码2","optListMode":"NAMED","optListName":"NamedCropCodes"},{"key":"地块种植模式②代码3","optListMode":"NAMED","optListName":"NamedCropCodes"},{"key":"地块种植模式a","optListMode":"SPECIFIED","optList":{"1":"1","2":"2","3":"3","":"(空白)"}},{"key":"地块种植模式b","optListMode":"SPECIFIED","optList":{"1":"1","2":"2","3":"3","":"(空白)"}}]}','{}','{}'),(7,'viewdb1_p10_地块肥料',4,10,'地块肥料','代码','{"columns":[{"name":"代码","isnull":"false"},{"name":"作物名称"},{"name":"作物代码","type":"VARCHAR(10)"},{"name":"肥料名称"},{"name":"肥料代码","type":"VARCHAR(10)"},{"name":"施用量","type":"DOUBLE"},{"name":"养分含量N","type":"DOUBLE"},{"name":"养分含量P2O5","type":"DOUBLE"},{"name":"养分含量K2O","type":"DOUBLE"},{"name":"施肥方式","type":"INT"}],"pk":[]}','{}','{"items":[{"key":"作物代码","optListMode":"NAMED","optListName":"NamedCropCodes"},{"key":"肥料代码","optListMode":"NAMED","optListName":"肥料代码"},{"key":"施肥方式","optListMode":"NAMED","optListName":"施肥方式ID"}]}','{}','{"headerMap":{"施用量":"施用量(公斤/亩)","养分含量N":"养分含量-N","养分含量P2O5":"养分含量-P<sub>2</sub>O<sub>5</sub>","养分含量K2O":"养分含量-K<sub>2</sub>O"}}'),(8,'viewdb1_p11_entry',4,11,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(9,'viewdb1_p11_diagram',4,11,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(10,'viewdb1_p11_面积肥料',4,11,'面积肥料','行政区划代码','{"columns":[{"name":"行政区划代码","type":"VARCHAR(10)","isnull":"false"},{"name":"模式名称","type":"VARCHAR(45)","isnull":"true"},{"name":"模式代码","type":"VARCHAR(10)","isnull":"true"},{"name":"面积","type":"INT","isnull":"true"},{"name":"化肥1","type":"DOUBLE","isnull":"true"},{"name":"化肥2","type":"DOUBLE","isnull":"true"},{"name":"化肥3","type":"DOUBLE","isnull":"true"},{"name":"有机肥1","type":"DOUBLE","isnull":"true"},{"name":"有机肥2","type":"DOUBLE","isnull":"true"},{"name":"有机肥3","type":"DOUBLE","isnull":"true"},{"name":"化肥总施用量1","type":"DOUBLE","isnull":"true"},{"name":"化肥总施用量2","type":"DOUBLE","isnull":"true"},{"name":"化肥总施用量3","type":"DOUBLE","isnull":"true"},{"name":"有机肥总施用量1","type":"DOUBLE","isnull":"true"},{"name":"有机肥总施用量2","type":"DOUBLE","isnull":"true"},{"name":"有机肥总施用量3","type":"DOUBLE","isnull":"true"}],"pk":[]}','{}','{"items":[{"key":"行政区划代码","optListMode":"COLLECT"},{"key":"模式代码","optListMode":"NAMED","optListName":"种植模式代码"}]}','{}','{"headerMap":{"化肥1":"化肥① N(公斤/亩)","化肥2":"化肥② P<sub>2</sub>O<sub>5</sub>(公斤/亩)","化肥3":"化肥③ K<sub>2</sub>O(公斤/亩)","有机肥1":"有机肥① N(公斤/亩)","有机肥2":"有机肥② P<sub>2</sub>O<sub>5</sub>(公斤/亩)","有机肥3":"有机肥③ K<sub>2</sub>O(公斤/亩)","化肥总施用量1":"化肥总施用量① N(公斤)","化肥总施用量2":"化肥总施用量② P<sub>2</sub>O<sub>5</sub>(公斤)","化肥总施用量3":"化肥总施用量③ K<sub>2</sub>O(公斤)","有机肥总施用量1":"有机肥总施用量① N(公斤)","有机肥总施用量2":"有机肥总施用量② P<sub>2</sub>O<sub>5</sub>(公斤)","有机肥总施用量3":"有机肥总施用量③ K<sub>2</sub>O(公斤)"}}'),(11,'viewdb1_p12_entry',4,12,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(12,'viewdb1_p12_diagram',4,12,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(13,'viewdb1_p12_普查',4,12,'普查','县名与行政区域代码','{"columns":[{"name":"县名与行政区域代码","isnull":"false"},{"name":"耕地面积","type":"DOUBLE"},{"name":"旱地","type":"DOUBLE"},{"name":"水田","type":"DOUBLE"},{"name":"菜地面积","type":"DOUBLE"},{"name":"保护地面积","type":"DOUBLE"},{"name":"园地面积","type":"DOUBLE"},{"name":"平地面积","type":"DOUBLE"},{"name":"缓坡地面积","type":"DOUBLE"},{"name":"陡坡地面积","type":"DOUBLE"},{"name":"梯田面积","type":"DOUBLE"},{"name":"非梯田面积","type":"DOUBLE"},{"name":"全县地膜用量","type":"DOUBLE"},{"name":"厚地膜用量","type":"DOUBLE"},{"name":"全县地膜覆盖面积","type":"DOUBLE"},{"name":"作物代码1","type":"VARCHAR(10)","isnull":"false"},{"name":"覆盖面积1","type":"DOUBLE"},{"name":"覆膜比例1","type":"DOUBLE"},{"name":"作物代码2","type":"VARCHAR(10)","isnull":"false"},{"name":"覆盖面积2","type":"DOUBLE"},{"name":"覆膜比例2","type":"DOUBLE"},{"name":"作物代码3","type":"VARCHAR(10)","isnull":"false"},{"name":"覆盖面积3","type":"DOUBLE"},{"name":"覆膜比例3","type":"DOUBLE"},{"name":"作物代码4","type":"VARCHAR(10)","isnull":"false"},{"name":"覆盖面积4","type":"DOUBLE"},{"name":"覆膜比例4","type":"DOUBLE"},{"name":"作物代码5","type":"VARCHAR(10)","isnull":"false"},{"name":"覆盖面积5","type":"DOUBLE"},{"name":"覆膜比例5","type":"DOUBLE"},{"name":"作物代码6","type":"VARCHAR(10)","isnull":"false"},{"name":"覆盖面积6","type":"DOUBLE"},{"name":"覆膜比例6","type":"DOUBLE"},{"name":"本县地膜企业回收量","type":"DOUBLE"},{"name":"本县地膜利用量","type":"DOUBLE"},{"name":"回收企业1"},{"name":"回收企业2"},{"name":"回收企业3"},{"name":"填报人"},{"name":"联系电话","type":"VARCHAR(16)"},{"name":"填报单位"},{"name":"审核人"},{"name":"填报年份","type":"VARCHAR(10)"},{"name":"填报日期","type":"VARCHAR(10)"},{"name":"isok","type":"INT"},{"name":"状态","type":"INT"}],"pk":[]}','{}','{"items":[{"key":"县名与行政区域代码","optListMode":"COLLECT"}]}','{}','{"headerMap":{"厚地膜用量":"厚度>=0.008mm地膜用量"}}'),(14,'viewdb1_p12_模式面积',4,12,'模式面积','县名与行政区域代码','{"columns":[{"name":"县名与行政区划代码","type":"VARCHAR(45)","isnull":"false"},{"name":"模式代码","type":"VARCHAR(10)","isnull":"true"},{"name":"模式名称","type":"VARCHAR(45)","isnull":"true"},{"name":"面积","type":"DOUBLE","isnull":"true"}],"pk":[]}','{}','{"items":[{"key":"县名与行政区划代码","optListMode":"COLLECT"},{"key":"模式代码","optListMode":"NAMED","optListName":"种植模式代码"}]}','{}','{"headerMap":{"面积":"面积(亩)"}}'),(15,'viewdb1_p12_抽样',4,12,'抽样','地块编码','{"columns":[{"name":"户主"},{"name":"行政区划代码"},{"name":"组"},{"name":"联系电话"},{"name":"经度","isnull":"false"},{"name":"纬度","isnull":"false"},{"name":"地块编码","isnull":"false"},{"name":"种植模式","isnull":"false"},{"name":"地块面积","type":"DOUBLE"},{"name":"作物1","isnull":"false"},{"name":"作物2","isnull":"false"},{"name":"作物3","isnull":"false"},{"name":"是否覆盖地膜","type":"INT"},{"name":"地膜厚度","type":"DOUBLE"},{"name":"覆膜量","type":"DOUBLE"},{"name":"地膜回收量","type":"DOUBLE"},{"name":"填报人"},{"name":"填报人联系电话"},{"name":"填报单位"},{"name":"填报年份","type":"VARCHAR(10)"},{"name":"状态","type":"INT"},{"name":"isok","type":"INT"}],"pk":[]}','{}','{"items":[{"key":"种植模式","optListMode":"COLLECT"},{"key":"作物1","optListMode":"COLLECT"},{"key":"作物2","optListMode":"COLLECT"},{"key":"作物3","optListMode":"COLLECT"},{"key":"是否覆盖地膜","optListMode":"NAMED","optListName":"是否列表"}]}','{}','{}'),(16,'viewdb1_p12_抽样施肥',4,12,'抽样施肥','地块编码','{"columns":[{"name":"地块编码","isnull":"false"},{"name":"作物名称"},{"name":"作物代码","type":"VARCHAR(10)"},{"name":"肥料名称"},{"name":"肥料代码","type":"VARCHAR(10)"},{"name":"施用量","type":"DOUBLE"},{"name":"N","type":"DOUBLE"},{"name":"P2O5","type":"DOUBLE"},{"name":"K2O","type":"DOUBLE"}],"pk":[]}','{}','{"items":[{"key":"作物代码","optListMode":"NAMED","optListName":"作物代码"},{"key":"肥料代码","optListMode":"NAMED","optListName":"肥料代码"}]}','{}','{"headerMap":{"P2O5":"P<sub>2</sub>O<sub>5</sub>","K2O":"K<sub>2</sub>O"}}'),(17,'viewdb1_p13_entry',4,13,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(18,'viewdb1_p13_diagram',4,13,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(19,'viewdb1_p13_普查',4,13,'普查','行政区划代码','{"columns":[{"name":"年度","type":"INT"},{"name":"区县名"},{"name":"行政区划代码","isnull":"false"},{"name":"耕地面积","type":"DOUBLE"},{"name":"旱地面积","type":"DOUBLE"},{"name":"水田面积","type":"DOUBLE"},{"name":"露地菜园面积","type":"DOUBLE"},{"name":"保护地菜园面积","type":"DOUBLE"},{"name":"园地面积","type":"DOUBLE"},{"name":"平地面积1","type":"DOUBLE"},{"name":"平地面积2","type":"DOUBLE"},{"name":"平地面积3","type":"DOUBLE"},{"name":"缓坡地梯田面积","type":"DOUBLE"},{"name":"缓坡地非梯田面积","type":"DOUBLE"},{"name":"缓坡地非梯田顺坡面积","type":"DOUBLE"},{"name":"缓坡地非梯田横坡面积","type":"DOUBLE"},{"name":"陡坡地梯田面积","type":"DOUBLE"},{"name":"陡坡地非梯田面积","type":"DOUBLE"},{"name":"陡坡地非梯田顺坡面积","type":"DOUBLE"},{"name":"陡坡地非梯田横坡面积","type":"DOUBLE"},{"name":"地膜用量","type":"DOUBLE"},{"name":"厚地膜用量","type":"DOUBLE"},{"name":"地膜覆盖面积","type":"DOUBLE"},{"name":"本县地膜企业回收量","type":"DOUBLE"},{"name":"地膜利用量","type":"DOUBLE"},{"name":"填报人"},{"name":"联系电话","type":"VARCHAR(16)"},{"name":"录入单位"},{"name":"状态","type":"VARCHAR(10)"}],"pk":[]}','{}','{"items":[{"key":"行政区划代码","optListMode":"COLLECT"}]}','{}','{"headerMap":{"厚地膜用量":"厚度大于0.008mm地膜用量"}}'),(20,'viewdb1_p13_模式面积',4,13,'模式面积','区划代码','{"columns":[{"name":"年度","type":"INT","isnull":"false"},{"name":"区县","isnull":"false"},{"name":"区划代码","isnull":"false"},{"name":"模式名称"},{"name":"模式代码","type":"VARCHAR(10)"},{"name":"模式面积","type":"DOUBLE"}],"pk":[]}','{}','{"items":[{"key":"年度","optListMode":"COLLECT"},{"key":"区县","optListMode":"COLLECT"},{"key":"区划代码","optListMode":"COLLECT"},{"key":"模式代码","optListMode":"NAMED","optListName":"种植模式代码"}]}','{}','{"headerMap":{"模式面积":"模式面积(亩)"}}'),(21,'viewdb1_p13_抽样',4,13,'抽样','地块编码','{"columns":[{"name":"年度","type":"INT","isnull":"false"},{"name":"户主姓名"},{"name":"地址"},{"name":"乡（镇）"},{"name":"村"},{"name":"组"},{"name":"联系电话"},{"name":"经度","isnull":"false"},{"name":"纬度","isnull":"false"},{"name":"地块面积","type":"DOUBLE"},{"name":"区划代码","type":"VARCHAR(10)","isnull":"false"},{"name":"地块编码","type":"VARCHAR(10)","isnull":"false"},{"name":"地块种植模式代码","type":"VARCHAR(10)","isnull":"false"},{"name":"是否覆盖地膜","type":"VARCHAR(5)"},{"name":"地膜厚度","type":"DOUBLE"},{"name":"覆膜量","type":"DOUBLE"},{"name":"地膜回收量","type":"DOUBLE"},{"name":"填报人"},{"name":"填报人联系电话"},{"name":"填报单位"},{"name":"状态","type":"VARCHAR(10)"}],"pk":[]}','{}','{"items":[{"key":"年度","optListMode":"COLLECT"},{"key":"区划代码","optListMode":"COLLECT"},{"key":"地块种植模式代码","optListMode":"NAMED","optListName":"种植模式代码"},{"key":"是否覆盖地膜","optListMode":"NAMED","optListName":"是否列表"}]}','{}','{}'),(22,'viewdb1_p13_抽样施肥',4,13,'抽样施肥','区划代码','{"columns":[{"name":"年度","type":"INT","isnull":"false"},{"name":"区划代码","type":"VARCHAR(10)","isnull":"false"},{"name":"地块","type":"VARCHAR(10)","isnull":"false"},{"name":"区县"},{"name":"作物名称"},{"name":"作物代码","type":"VARCHAR(10)"},{"name":"肥料名称"},{"name":"肥料代码","type":"VARCHAR(10)"},{"name":"肥料类型"},{"name":"施用量","type":"DOUBLE"},{"name":"N","type":"DOUBLE"},{"name":"P2O5","type":"DOUBLE"},{"name":"K2O","type":"DOUBLE"},{"name":"状态","type":"VARCHAR(10)"}],"pk":[]}','{}','{"items":[{"key":"年度","optListMode":"COLLECT"},{"key":"区县","optListMode":"COLLECT"},{"key":"区划代码","optListMode":"COLLECT"},{"key":"作物代码","optListMode":"NAMED","optListName":"作物代码"},{"key":"肥料代码","optListMode":"NAMED","optListName":"肥料代码"},{"key":"肥料类型","optListMode":"NAMED","optListName":"肥料类型"}]}','{}','{"headerMap":{"P2O5":"P<sub>2</sub>O<sub>5</sub>","K2O":"K<sub>2</sub>O"}}'),(23,'viewdb1_p14_entry',4,14,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(24,'viewdb1_p14_diagram',4,14,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(25,'viewdb1_p14_模式面积',4,14,'模式面积','区划代码','{"columns":[{"name":"年度","type":"INT","isnull":"false"},{"name":"区县","isnull":"false"},{"name":"区划代码","isnull":"false"},{"name":"模式名称"},{"name":"模式代码","type":"VARCHAR(10)"},{"name":"模式面积","type":"DOUBLE"}],"pk":[]}','{}','{"items":[{"key":"年度","optListMode":"COLLECT"},{"key":"区县","optListMode":"COLLECT"},{"key":"区划代码","optListMode":"COLLECT"},{"key":"模式代码","optListMode":"NAMED","optListName":"种植模式代码"}]}','{}','{}'),(26,'viewdb1_p14_地块施肥',4,14,'地块施肥','地块编码','{"columns":[{"name":"年度","type":"INT","isnull":"false"},{"name":"区划代码","type":"VARCHAR(10)","isnull":"false"},{"name":"地块","type":"VARCHAR(10)","isnull":"false"},{"name":"地块编码","type":"VARCHAR(15)","isnull":"false"},{"name":"区县"},{"name":"作物名称"},{"name":"作物代码","type":"VARCHAR(10)"},{"name":"肥料名称"},{"name":"肥料代码","type":"VARCHAR(10)"},{"name":"肥料类型"},{"name":"施用量","type":"DOUBLE"},{"name":"N","type":"DOUBLE"},{"name":"P2O5","type":"DOUBLE"},{"name":"K2O","type":"DOUBLE"}],"pk":[]}','{}','{"items":[{"key":"年度","optListMode":"COLLECT"},{"key":"区县","optListMode":"COLLECT"},{"key":"区划代码","optListMode":"COLLECT"},{"key":"作物代码","optListMode":"NAMED","optListName":"作物代码"},{"key":"肥料代码","optListMode":"NAMED","optListName":"肥料代码"},{"key":"肥料类型","optListMode":"NAMED","optListName":"肥料类型"}]}','{}','{"headerMap":{"P2O5":"P<sub>2</sub>O<sub>5</sub>","K2O":"K<sub>2</sub>O"}}'),(27,'viewdb1_p15_地块信息',4,15,'地块信息','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"承担单位"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"地块地址"}, {"name":"农户姓名"}, {"name":"农户电话"}, {"name":"负责人姓名"}, {"name":"负责人电话"}, {"name":"负责人Email"}, {"name":"联系人姓名"}, {"name":"联系人电话"}, {"name":"联系人Email"}, {"name":"经度"}, {"name":"纬度"}, {"name":"海拔"}, {"name":"种植模式分区"}, {"name":"地貌类型"}, {"name":"地形"}, {"name":"是否梯田"}, {"name":"最高地下水位","type":"DOUBLE"}, {"name":"种植模式"}, {"name":"种植方式"}, {"name":"坡向"}, {"name":"坡度"}, {"name":"土壤质地"}, {"name":"土壤类型"}, {"name":"地方土名"}, {"name":"肥力水平"}, {"name":"有无障碍层"}, {"name":"障碍层类型"}, {"name":"障碍层深度","type":"DOUBLE"}, {"name":"障碍层厚度","type":"DOUBLE"}, {"name":"监测小区面积","type":"DOUBLE"}, {"name":"监测小区长","type":"DOUBLE"}, {"name":"监测小区宽","type":"DOUBLE"}, {"name":"田间径流池内侧长","type":"DOUBLE"}, {"name":"田间径流池内侧宽","type":"DOUBLE"}, {"name":"田间径流池内侧深","type":"DOUBLE"}, {"name":"田间渗滤池监测面积","type":"DOUBLE"}, {"name":"淋溶液收集桶埋深","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"种植模式分区","optListMode":"COLLECT"}, {"key":"地貌类型","optListMode":"COLLECT"}, {"key":"地形","optListMode":"COLLECT"}, {"key":"是否梯田","optListMode":"NAMED","optListName":"是否列表"}, {"key":"种植模式","optListMode":"COLLECT"}, {"key":"种植方式","optListMode":"COLLECT"}, {"key":"坡向","optListMode":"COLLECT"}, {"key":"坡度","optListMode":"COLLECT"}, {"key":"土壤质地","optListMode":"COLLECT"}, {"key":"土壤类型","optListMode":"COLLECT"}, {"key":"地方土名"}, {"key":"肥力水平"}, {"key":"有无障碍层","optListMode":"NAMED", "optListName":"有无列表"}, {"key":"障碍层类型","optListMode":"COLLECT"} ]}','{}','{}'),(28,'viewdb1_p15_entry',4,15,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(29,'viewdb1_p15_diagram',4,15,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(30,'viewdb1_p15_土壤剖面信息',4,15,'土壤剖面信息','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"发生层次"}, {"name":"土层厚度","type":"DOUBLE"}, {"name":"土壤颜色"}, {"name":"土壤结构"}, {"name":"新生体类别"}, {"name":"新生体形态"}, {"name":"新生体数量"}, {"name":"坚实度"}, {"name":"根系类型"}, {"name":"动物穴"}, {"name":"石灰反应"}],"pk":[]}','{}','{}','{}','{}'),(31,'viewdb1_p15_处理描述耕作',4,15,'处理描述耕作','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)"}, {"name":"种植季","type":"INT"}, {"name":"是否翻耕","type":"VARCHAR(5)"}, {"name":"翻耕深度","type":"DOUBLE"}, {"name":"有无排水沟","type":"VARCHAR(5)"}, {"name":"排水沟深","type":"DOUBLE"}, {"name":"排水沟宽","type":"DOUBLE"}, {"name":"排水沟间距","type":"DOUBLE"}, {"name":"垄高1","type":"DOUBLE"}, {"name":"垄宽1","type":"DOUBLE"}, {"name":"垄间距1","type":"DOUBLE"}, {"name":"种植方向1"}, {"name":"种植方向2"}, {"name":"垄高2","type":"DOUBLE"}, {"name":"垄宽2","type":"DOUBLE"}, {"name":"垄间距2","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"处理代码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"是否翻耕","optListMode":"NAMED", "optListName":"是否列表"}, {"key":"有无排水沟","optListMode":"NAMED","optListName":"有无列表"}]}','{}','{"headerMap":{"是否翻耕":"平地或梯田平作-是否翻耕", "翻耕深度":"平地或梯田平作-翻耕深度(cm)", "有无排水沟":"平地或梯田平作-有无排水沟", "排水沟深":"平地或梯田平作-排水沟深(cm)", "排水沟宽":"平地或梯田平作-排水沟宽(cm)", "排水沟间距":"平地或梯田平作-排水沟间距(m)", "垄高1":"平地或梯田垄作-垄高(cm)", "垄宽1":"平地或梯田垄作-垄宽(cm)", "垄间距1":"平地或梯田垄作-垄间距(cm)", "种植方向1":"坡地非梯田平作-种植方向", "种植方向2":"坡地非梯田垄作-种植方向", "垄高2":"坡地非梯田垄作-垄高(cm)", "垄宽2":"坡地非梯田垄作-垄宽(cm)", "垄间距2":"坡地非梯田垄作-垄间距(cm)"}}'),(32,'viewdb1_p15_处理描述施肥',4,15,'处理描述施肥','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)"}, {"name":"种植季","type":"INT"}, {"name":"化肥N","type":"DOUBLE"}, {"name":"化肥P2O5","type":"DOUBLE"}, {"name":"化肥K2O","type":"DOUBLE"}, {"name":"有机肥种类"}, {"name":"有机肥含水率","type":"DOUBLE"}, {"name":"有机肥投入量","type":"DOUBLE"}, {"name":"有机肥N","type":"DOUBLE"}, {"name":"有机肥P2O5","type":"DOUBLE"}, {"name":"有机肥K2O","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"处理代码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"有机肥种类","optListMode":"COLLECT"}]}','{}','{"headerMap":{ "化肥N":"化肥 N (kg/667m<sup>2</sup>)", "化肥P2O5":"化肥 P<sub>2</sub>O<sub>5</sub> (kg/667m<sup>2</sup>)", "化肥K2O":"化肥 K<sub>2</sub>O (kg/667m<sup>2</sup>)", "有机肥含水率":"有机肥含水率(%)", "有机肥投入量":"有机肥-投入量(kg/667m<sup>2</sup>)", "有机肥N":"有机肥 N (kg/667m<sup>2</sup>)", "有机肥P2O5":"有机肥 P<sub>2</sub>O<sub>5</sub> (kg/667m<sup>2</sup>)", "有机肥K2O":"有机肥 K<sub>2</sub>O (kg/667m<sup>2</sup>)" }}'),(33,'viewdb1_p15_处理描述灌溉秸秆还田',4,15,'处理描述灌溉秸秆还田','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)"}, {"name":"种植季","type":"INT"}, {"name":"是否灌溉","type":"VARCHAR(5)"}, {"name":"灌溉方式"}, {"name":"灌水量","type":"DOUBLE"}, {"name":"是否秸秆还田","type":"VARCHAR(5)"}, {"name":"秸秆名称"}, {"name":"还田方式"}, {"name":"还田量","type":"DOUBLE"}, {"name":"还田比例","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"处理代码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"是否灌溉","optListMode":"NAMED","optListName":"是否列表"}, {"key":"灌溉方式","optListMode":"COLLECT"}, {"key":"是否秸秆还田","optListMode":"NAMED","optListName":"是否列表"}]}','{}','{"headerMap":{ "灌水量":"灌水量(mm)", "秸秆名称":"还田秸秆-名称", "还田方式":"秸秆还田-方式", "还田量":"秸秆-还田量(kg/667m<sup>2</sup>)", "还田比例":"秸秆-还田比例(%)" }}'),(34,'viewdb1_p15_处理描述地膜植物篱',4,15,'处理描述地膜植物篱','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)"}, {"name":"种植季","type":"INT"}, {"name":"是否覆膜","type":"VARCHAR(5)"}, {"name":"地膜厚度","type":"DOUBLE"}, {"name":"覆膜日期","type":"DATE"}, {"name":"覆膜量","type":"DOUBLE"}, {"name":"覆膜比例","type":"DOUBLE"}, {"name":"是否揭膜","type":"VARCHAR(5)"}, {"name":"揭膜日期","type":"DATE"}, {"name":"植物篱是否种植","type":"VARCHAR(5)"}, {"name":"植物篱种类"}, {"name":"栽种日期","type":"DATE"}, {"name":"植物篱带宽","type":"DOUBLE"}, {"name":"植物篱间距","type":"DOUBLE"}, {"name":"植物篱条带数量","type":"INT"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"处理代码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"是否覆膜","optListMode":"NAMED","optListName":"是否列表"}, {"key":"是否揭膜","optListMode":"NAMED","optListName":"是否列表"}, {"key":"植物篱是否种植","optListMode":"NAMED","optListName":"是否列表"}]}','{}','{"headerMap":{ "是否覆膜":"地膜-是否覆膜", "地膜厚度":"地膜-厚度(mm)", "覆膜日期":"覆膜日期(年/月/日)", "覆膜量":"覆膜量(公斤/667m<sup>2</sup>)", "覆膜比例":"覆膜比例(%)", "揭膜日期":"揭膜日期(年/月/日)", "植物篱是否种植":"植物篱-是否种植", "植物篱种类":"植物篱-种类", "栽种日期":"栽种日期（年/月/日）", "植物篱带宽":"植物篱-带宽(cm)", "植物篱间距":"植物篱-间距(cm)", "植物篱条带数量":"植物篱条带数量(条)" }}'),(35,'viewdb1_p15_种植季与作物对应',4,15,'种植季与作物对应','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"种植季","type":"INT"}, {"name":"作物类别及代码"}, {"name":"作物名称"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"作物类别及代码","optListMode":"COLLECT"}, {"key":"作物名称","optListMode":"COLLECT"} ]}','{}','{}'),(36,'viewdb1_p15_小区编码与处理对应',4,15,'小区编码与处理对应','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"小区编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)","isnull":"false"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"小区编码","optListMode":"NAMED","optListName":"小区编码"}, {"key":"处理代码","optListMode":"COLLECT"} ]}','{}','{}'),(37,'viewdb1_p15_种植记录',4,15,'种植记录','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)"}, {"name":"种植季","type":"INT"}, {"name":"作物名称"}, {"name":"作物品种"}, {"name":"种植方式"}, {"name":"种植日期","type":"DATE"}, {"name":"收获日期","type":"DATE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"处理代码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}]}','{}','{}'),(38,'viewdb1_p15_植株产量记载及植株样品记录',4,15,'植株产量记载及植株样品记录','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"植株样品编码","type":"VARCHAR(15)"}, {"name":"种植季","type":"INT"}, {"name":"作物名称"}, {"name":"产量","type":"DOUBLE"}, {"name":"植株样品鲜重","type":"DOUBLE"}, {"name":"植株样品烘干重","type":"DOUBLE"}, {"name":"取样日期","type":"DATE"}, {"name":"含水率","type":"DOUBLE"}, {"name":"全氮","type":"DOUBLE"}, {"name":"全磷","type":"DOUBLE"}, {"name":"全钾","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"作物名称","optListMode":"COLLECT"}]}','{}','{"headerMap":{ "产量":"产量(公斤/667m<sup>2</sup>)", "植株样品鲜重":"植株样品鲜重(g)", "植株样品烘干重":"植株样品烘干重(g)", "含水率":"含水率(%)(烘干基)", "全氮":"全氮(N, %)(烘干基)", "全磷":"全磷(P, %)(烘干基)", "全钾":"全钾(K, %)(烘干基)" }}'),(39,'viewdb1_p15_施肥记录',4,15,'施肥记录','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"处理代码","type":"VARCHAR(10)"}, {"name":"种植季","type":"INT"}, {"name":"作物名称"}, {"name":"肥料名称"}, {"name":"肥料类别及编码"}, {"name":"肥料含水率","type":"DOUBLE"}, {"name":"N","type":"DOUBLE"}, {"name":"P2O5","type":"DOUBLE"}, {"name":"K2O","type":"DOUBLE"}, {"name":"施肥日期","type":"DATE"}, {"name":"施肥方式"}, {"name":"施肥量","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"处理代码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"}, {"key":"作物名称","optListMode":"COLLECT"}, {"key":"肥料名称","optListMode":"COLLECT"}, {"key":"肥料类别及编码","optListMode":"COLLECT"}, {"key":"施肥方式","optListMode":"COLLECT"}]}','{}','{"headerMap":{ "肥料含水率":"肥料含水率(以烘干基计, %)", "施肥量":"施肥量(公斤/667m<sup>2</sup>)", "P2O5":"P<sub>2</sub>O<sub>5</sub>", "K2O":"K<sub>2</sub>O" }}'),(40,'viewdb1_p15_降水灌溉水样品',4,15,'降水灌溉水样品','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"水样编码","type":"VARCHAR(10)"}, {"name":"日期","type":"DATE"}, {"name":"水量","type":"DOUBLE"}, {"name":"生育时期"}, {"name":"是否产流","type":"VARCHAR(5)"}, {"name":"取样日期","type":"DATE"}, {"name":"总氮","type":"DOUBLE"}, {"name":"可溶性总氮","type":"DOUBLE"}, {"name":"硝态氮","type":"DOUBLE"}, {"name":"铵态氮","type":"DOUBLE"}, {"name":"总磷","type":"DOUBLE"}, {"name":"可溶性总磷","type":"DOUBLE"}, {"name":"ph","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"生育时期","optListMode":"COLLECT"}, {"key":"是否产流","optListMode":"NAMED","optListName":"是否列表"} ]}','{}','{"headerMap":{ "水样编码":"灌溉/降水水样编码", "日期":"灌溉/降水日期", "水量":"水量(mm)", "总氮":"总氮(N, mg/L)", "可溶性总氮":"可溶性总氮(N, mg/L)", "硝态氮":"硝态氮(N, mg/L)", "铵态氮":"铵态氮(N, mg/L)", "总磷":"总磷(P, mg/L)", "可溶性总磷":"可溶性总磷(P, mg/L)", "ph":"pH" }}'),(41,'viewdb1_p15_小区产流记载及水样品记录',4,15,'小区产流记载及水样品记录','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"产流样品编码","type":"VARCHAR(15)"}, {"name":"种植季","type":"INT"}, {"name":"产流量","type":"DOUBLE"}, {"name":"产流日期","type":"DATE"}, {"name":"总氮","type":"DOUBLE"}, {"name":"可溶性总氮","type":"DOUBLE"}, {"name":"硝态氮","type":"DOUBLE"}, {"name":"铵态氮","type":"DOUBLE"}, {"name":"总磷","type":"DOUBLE"}, {"name":"可溶性总磷","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}, {"key":"种植季","optListMode":"NAMED","optListName":"种植季"} ]}','{}','{"headerMap":{ "产流量":"产流量(L/监测单元)", "总氮":"总氮(N, mg/L)", "可溶性总氮":"可溶性总氮(N, mg/L)", "硝态氮":"硝态氮(N, mg/L)", "铵态氮":"铵态氮(N, mg/L)", "总磷":"总磷(P, mg/L)", "可溶性总磷":"可溶性总磷(P, mg/L)" }}'),(42,'viewdb1_p15_基础土壤样品',4,15,'基础土壤样品','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"基础土壤样品编码","type":"VARCHAR(10)"}, {"name":"样品鲜重","type":"DOUBLE"}, {"name":"样品风干重","type":"DOUBLE"}, {"name":"采样日期","type":"DATE"}, {"name":"含水率","type":"DOUBLE"}, {"name":"土壤容重20","type":"DOUBLE"}, {"name":"土壤容重40","type":"DOUBLE"}, {"name":"土壤容重60","type":"DOUBLE"}, {"name":"土壤容重80","type":"DOUBLE"}, {"name":"土壤容重100","type":"DOUBLE"}, {"name":"硝态氮","type":"DOUBLE"}, {"name":"铵态氮","type":"DOUBLE"}, {"name":"可溶性总氮","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"} ]}','{}','{"headerMap":{ "样品鲜重":"样品鲜重(g)", "样品风干重":"样品风干重(g)", "含水率":"含水率(风干基)(%)", "土壤容重20":"0-20cm土壤容重(g/cm<sup>3</sup>)", "土壤容重40":"20-40cm土壤容重(g/cm<sup>3</sup>)", "土壤容重60":"40-60cm土壤容重(g/cm<sup>3</sup>)", "土壤容重80":"60-80cm土壤容重(g/cm<sup>3</sup>)", "土壤容重100":"80-100cm土壤容重(g/cm<sup>3</sup>)", "可溶性总氮":"可溶性总氮(N, mg/kg)", "硝态氮":"硝态氮(N, mg/kg)", "铵态氮":"铵态氮(N, mg/kg)" }}'),(43,'viewdb1_p15_监测期土壤样品',4,15,'监测期土壤样品','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"监测期土壤样品编码","type":"VARCHAR(10)"}, {"name":"样品鲜重","type":"DOUBLE"}, {"name":"样品风干重","type":"DOUBLE"}, {"name":"采样日期","type":"DATE"}, {"name":"含水率","type":"DOUBLE"}, {"name":"硝态氮","type":"DOUBLE"}, {"name":"铵态氮","type":"DOUBLE"}, {"name":"有机质","type":"DOUBLE"}, {"name":"全氮","type":"DOUBLE"}, {"name":"全磷","type":"DOUBLE"}, {"name":"全钾","type":"DOUBLE"}, {"name":"OlsenP","type":"DOUBLE"}, {"name":"CaCl2P","type":"DOUBLE"}, {"name":"有效钾","type":"DOUBLE"}, {"name":"ph","type":"DOUBLE"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"} ]}','{}','{"headerMap":{ "样品鲜重":"样品鲜重(g)", "样品风干重":"样品风干重(g)", "含水率":"含水率(风干基)(%)", "硝态氮":"硝态氮(N, mg/kg)", "铵态氮":"铵态氮(N, mg/kg)", "有机质":"有机质(风干基)(g/kg)", "全氮":"全氮(风干基)(N, g/kg)", "全磷":"全磷(风干基)(P, g/kg)", "全钾":"全钾(风干基)(K, g/kg)", "OlsenP":"Olsen-P(风干基)(mg/kg)", "CaCl2P":"CaCl<sub>2</sub>-P(风干基)(mg/kg)", "有效钾":"有效钾(风干基)(K, mg/kg)", "ph":"pH(风干基)" }}'),(44,'viewdb1_p15_试验进程及操作记录',4,15,'试验进程及操作记录','地块编码','{"columns":[ {"name":"监测年度","type":"INT","isnull":"false"}, {"name":"地块编码","type":"VARCHAR(10)","isnull":"false"}, {"name":"日期","type":"DATE"}, {"name":"各项田间工作简述","type":"VARCHAR(1024)"}, {"name":"备注","type":"VARCHAR(4096)"}],"pk":[]}','{}','{"items":[ {"key":"地块编码","optListMode":"COLLECT"}]}','{}','{}'),(45,'viewdb1_p16_分年度农产品产量',4,16,'分年度农产品产量','','{"columns":[ {"name":"指标","type":"VARCHAR(45)","isnull":"false"}, {"name":"2016年","type":"DOUBLE"}, {"name":"2015年","type":"DOUBLE"}, {"name":"2014年","type":"DOUBLE"}, {"name":"2013年","type":"DOUBLE"}, {"name":"2012年","type":"DOUBLE"}, {"name":"2011年","type":"DOUBLE"}, {"name":"2010年","type":"DOUBLE"}, {"name":"2009年","type":"DOUBLE"}, {"name":"2008年","type":"DOUBLE"}, {"name":"2007年","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(46,'viewdb1_p16_entry',4,16,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(47,'viewdb1_p16_diagram',4,16,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(48,'viewdb1_p16_分年度农产品产量2',4,16,'分年度农产品产量2','','{"columns":[ {"name":"年份","type":"INT","isnull":"false"}, {"name":"稻谷","type":"DOUBLE"}, {"name":"小麦","type":"DOUBLE"}, {"name":"玉米","type":"DOUBLE"}, {"name":"谷子","type":"DOUBLE"}, {"name":"高粱","type":"DOUBLE"}, {"name":"其他谷物","type":"DOUBLE"}, {"name":"大麦","type":"DOUBLE"}, {"name":"豆类","type":"DOUBLE"}, {"name":"大豆","type":"DOUBLE"}, {"name":"绿豆","type":"DOUBLE"}, {"name":"红小豆","type":"DOUBLE"}, {"name":"薯类","type":"DOUBLE"}, {"name":"马铃薯","type":"DOUBLE"}, {"name":"棉花","type":"DOUBLE"}, {"name":"油料","type":"DOUBLE"}, {"name":"花生","type":"DOUBLE"}, {"name":"油菜籽","type":"DOUBLE"}, {"name":"芝麻","type":"DOUBLE"}, {"name":"向日葵","type":"DOUBLE"}, {"name":"胡麻籽","type":"DOUBLE"}, {"name":"糖料","type":"DOUBLE"}, {"name":"麻类","type":"DOUBLE"}, {"name":"黄红麻","type":"DOUBLE"}, {"name":"亚麻","type":"DOUBLE"}, {"name":"大麻","type":"DOUBLE"}, {"name":"苎麻","type":"DOUBLE"}, {"name":"甘蔗","type":"DOUBLE"}, {"name":"甜菜","type":"DOUBLE"}, {"name":"烟叶","type":"DOUBLE"}, {"name":"烤烟","type":"DOUBLE"}, {"name":"蔬菜类","type":"DOUBLE"}, {"name":"瓜果类","type":"DOUBLE"}, {"name":"西瓜","type":"DOUBLE"}, {"name":"甜瓜","type":"DOUBLE"}, {"name":"草莓","type":"DOUBLE"}, {"name":"蔬菜","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(49,'viewdb1_p16_分年度农产品播种面积',4,16,'分年度农产品播种面积','','{"columns":[ {"name":"指标","type":"VARCHAR(45)","isnull":"false"}, {"name":"2016年","type":"DOUBLE"}, {"name":"2015年","type":"DOUBLE"}, {"name":"2014年","type":"DOUBLE"}, {"name":"2013年","type":"DOUBLE"}, {"name":"2012年","type":"DOUBLE"}, {"name":"2011年","type":"DOUBLE"}, {"name":"2010年","type":"DOUBLE"}, {"name":"2009年","type":"DOUBLE"}, {"name":"2008年","type":"DOUBLE"}, {"name":"2007年","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(50,'viewdb1_p16_分年度农产品播种面积2',4,16,'分年度农产品播种面积2','','{"columns":[ {"name":"年份","type":"INT","isnull":"false"}, {"name":"稻谷","type":"DOUBLE"}, {"name":"小麦","type":"DOUBLE"}, {"name":"玉米","type":"DOUBLE"}, {"name":"谷子","type":"DOUBLE"}, {"name":"高粱","type":"DOUBLE"}, {"name":"其他谷物","type":"DOUBLE"}, {"name":"大麦","type":"DOUBLE"}, {"name":"豆类","type":"DOUBLE"}, {"name":"大豆","type":"DOUBLE"}, {"name":"绿豆","type":"DOUBLE"}, {"name":"红小豆","type":"DOUBLE"}, {"name":"薯类","type":"DOUBLE"}, {"name":"马铃薯","type":"DOUBLE"}, {"name":"油料","type":"DOUBLE"}, {"name":"花生","type":"DOUBLE"}, {"name":"油菜籽","type":"DOUBLE"}, {"name":"芝麻","type":"DOUBLE"}, {"name":"向日葵","type":"DOUBLE"}, {"name":"胡麻籽","type":"DOUBLE"}, {"name":"棉花","type":"DOUBLE"}, {"name":"麻类","type":"DOUBLE"}, {"name":"黄红麻","type":"DOUBLE"}, {"name":"亚麻","type":"DOUBLE"}, {"name":"大麻","type":"DOUBLE"}, {"name":"苎麻","type":"DOUBLE"}, {"name":"糖料","type":"DOUBLE"}, {"name":"甘蔗","type":"DOUBLE"}, {"name":"甜菜","type":"DOUBLE"}, {"name":"烟叶","type":"DOUBLE"}, {"name":"烤烟","type":"DOUBLE"}, {"name":"蔬菜类","type":"DOUBLE"}, {"name":"瓜果类","type":"DOUBLE"}, {"name":"西瓜","type":"DOUBLE"}, {"name":"甜瓜","type":"DOUBLE"}, {"name":"草莓","type":"DOUBLE"}, {"name":"蔬菜","type":"DOUBLE"}, {"name":"药材","type":"DOUBLE"}, {"name":"其他农作物","type":"DOUBLE"}, {"name":"青饲料","type":"DOUBLE"} ],"pk":[]}','{}','{}','{}','{}'),(51,'viewdb1_p17_entry',4,17,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(52,'viewdb1_p17_diagram',4,17,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(53,'viewdb1_p17_作物养分含量',4,17,'作物养分含量','','{"columns":[ {"name":"作物种类"}, {"name":"播种量","type":"DOUBLE","isnull":"false"}, {"name":"N含量","type":"DOUBLE"}, {"name":"P含量","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(54,'viewdb1_p17_农田固氮',4,17,'农田固氮','','{"columns":[ {"name":"固氮途径"}, {"name":"固氮量","type":"DOUBLE","isnull":"false"}],"pk":[]}','{}','{}','{}','{}'),(55,'viewdb1_p17_大气降水',4,17,'大气降水','','{"columns":[ {"name":"降水分区"}, {"name":"N","type":"DOUBLE"}, {"name":"P","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(56,'viewdb1_p17_农田灌溉',4,17,'农田灌溉','','{"columns":[ {"name":"灌溉分区"}, {"name":"年份","type":"INT"}, {"name":"N","type":"DOUBLE"}, {"name":"P","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(57,'viewdb1_p17_秸秆参数',4,17,'秸秆参数','','{"columns":[ {"name":"作物秸秆种类"}, {"name":"草谷比","type":"DOUBLE"}, {"name":"N","type":"DOUBLE"}, {"name":"P","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(58,'viewdb1_p17_氨挥发参数',4,17,'氨挥发参数','','{"columns":[ {"name":"肥料种类"}, {"name":"氨挥发系数","type":"DOUBLE"}],"pk":[]}','{}','{}','{}','{}'),(59,'viewdb1_p18_entry',4,18,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(60,'viewdb1_p18_diagram',4,18,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(61,'viewdb1_p18_区县',4,18,'区县','行标签','{"columns":[ {"name":"行标签","type":"VARCHAR(10)"}, {"name":"区县名称"}, {"name":"年份","type":"INT"}, {"name":"模式面积","type":"DOUBLE"}, {"name":"化肥N","type":"DOUBLE"}, {"name":"化肥P2O5","type":"DOUBLE"}, {"name":"有机肥N","type":"DOUBLE"}, {"name":"有机肥P2O5","type":"DOUBLE"}, {"name":"地表径流总氮","type":"DOUBLE"}, {"name":"地下淋溶总氮","type":"DOUBLE"}, {"name":"地表径流总磷","type":"DOUBLE"}, {"name":"总氮排放强度","type":"DOUBLE"}, {"name":"总磷排放强度","type":"DOUBLE"}, {"name":"总氮排放强度评价"}, {"name":"总磷排放强度评价"}],"pk":[]}','{}','{"items":[ {"key":"行标签","optListMode":"COLLECT"}, {"key":"区县名称","optListMode":"COLLECT"}, {"key":"年份","optListMode":"SPECIFIED","optList":{"2008":"2008","2010":"2010","2012":"2012","2014":"2014","2016":"2016"}},  {"key":"总氮排放强度评价","optListMode":"SPECIFIED","optList":{"排放1级":"排放1级","排放2级":"排放2级","排放3级":"排放3级","排放4级":"排放4级","排放5级":"排放5级"}}, {"key":"总磷排放强度评价","optListMode":"SPECIFIED","optList":{"排放1级":"排放1级","排放2级":"排放2级","排放3级":"排放3级","排放4级":"排放4级","排放5级":"排放5级"}} ]}','{}','{"headerMap":{ "模式面积":"模式面积(亩)", "化肥N":"化肥-N(公斤)", "化肥P2O5":"化肥-P<sub>2</sub>O<sub>5</sub>(公斤)", "有机肥N":"有机肥-N(公斤)", "有机肥P2O5":"有机肥-P<sub>2</sub>O<sub>5</sub>(公斤)", "地表径流总氮":"地表径流-总氮(公斤)", "地下淋溶总氮":"地下淋溶-总氮(公斤)", "地表径流总磷":"地表径流-总磷(公斤)", "总氮排放强度":"总氮排放强度(公斤/亩)", "总磷排放强度":"总磷排放强度(公斤/亩)" }}'),(62,'viewdb1_p18_模式',4,18,'模式','县','{"columns":[ {"name":"县","type":"VARCHAR(10)"}, {"name":"县名称"}, {"name":"年份","type":"INT"}, {"name":"模式代码","type":"VARCHAR(10)"}, {"name":"模式名称"}, {"name":"面源污染分区"}, {"name":"模式面积","type":"DOUBLE"}, {"name":"化肥N强度","type":"DOUBLE"}, {"name":"化肥P2O5强度","type":"DOUBLE"}, {"name":"有机肥N强度","type":"DOUBLE"}, {"name":"有机肥P2O5强度","type":"DOUBLE"}, {"name":"化肥N","type":"DOUBLE"}, {"name":"化肥P2O5","type":"DOUBLE"}, {"name":"有机肥N","type":"DOUBLE"}, {"name":"有机肥P2O5","type":"DOUBLE"}, {"name":"地表径流总氮当年流失量","type":"DOUBLE"}, {"name":"地表径流总氮基础流失量","type":"DOUBLE"}, {"name":"地下淋溶总氮当年流失量","type":"DOUBLE"}, {"name":"地下淋溶总氮基础流失量","type":"DOUBLE"}, {"name":"地表径流总磷当年流失量","type":"DOUBLE"}, {"name":"地表径流总磷基础流失量","type":"DOUBLE"}, {"name":"地表径流总氮","type":"DOUBLE"}, {"name":"地下淋溶总氮","type":"DOUBLE"}, {"name":"地表径流总磷","type":"DOUBLE"}, {"name":"地表径流总氮减排","type":"DOUBLE"}, {"name":"地下淋溶总氮减排","type":"DOUBLE"}, {"name":"地表径流总磷减排","type":"DOUBLE"} ],"pk":[]}','{}','{"items":[ {"key":"县","optListMode":"COLLECT"}, {"key":"县名称","optListMode":"COLLECT"}, {"key":"年份","optListMode":"SPECIFIED","optList":{"2008":"2008","2010":"2010","2012":"2012","2014":"2014","2016":"2016"}}, {"key":"模式代码","optListMode":"NAMED","optListName":"种植模式代码"}, {"key":"模式名称","optListMode":"COLLECT"}, {"key":"面源污染分区","optListMode":"NAMED","optListName":"种植模式分区"} ]}','{}','{"headerMap":{ "模式面积":"模式面积(亩)", "化肥N强度":"化肥-N(公斤/亩)", "化肥P2O5强度":"化肥-P<sub>2</sub>O<sub>5</sub>(公斤/亩)", "有机肥N强度":"有机肥-N(公斤/亩)", "有机肥P2O5强度":"有机肥-P<sub>2</sub>O<sub>5</sub>(公斤/亩)", "化肥N":"化肥-N(公斤)", "化肥P2O5":"化肥-P<sub>2</sub>O<sub>5</sub>(公斤)", "有机肥N":"有机肥-N(公斤)", "有机肥P2O5":"有机肥-P<sub>2</sub>O<sub>5</sub>(公斤)",  "地表径流总氮当年流失量":"地表径流-总氮-当年流失量(公斤)", "地下淋溶总氮当年流失量":"地下淋溶-总氮-当年流失量(公斤)", "地表径流总磷当年流失量":"地表径流-总磷-当年流失量(公斤)",  "地表径流总氮基础流失量":"地表径流-总氮-基础流失量(公斤)", "地下淋溶总氮基础流失量":"地下淋溶-总氮-基础流失量(公斤)", "地表径流总磷基础流失量":"地表径流-总磷-基础流失量(公斤)",  "地表径流总氮":"地表径流-总氮(公斤)", "地下淋溶总氮":"地下淋溶-总氮(公斤)", "地表径流总磷":"地表径流-总磷(公斤)",  "地表径流总氮减排":"地表径流-总氮减排(公斤)", "地下淋溶总氮减排":"地下淋溶-总氮减排(公斤)", "地表径流总磷减排":"地表径流-总磷减排(公斤)" }}'),(63,'viewdb1_p19_entry',4,19,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(64,'viewdb1_p19_diagram',4,19,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(65,'viewdb1_p19_评估',4,19,'评估','区县','{"columns":[ {"name":"区县","type":"VARCHAR(10)"}, {"name":"年份","type":"INT"}, {"name":"分区"}, {"name":"模式面积","type":"DOUBLE"},  {"name":"N-氨挥发","type":"DOUBLE"}, {"name":"N-灌溉携入","type":"DOUBLE"}, {"name":"N-化肥投入","type":"DOUBLE"}, {"name":"N-降水携入","type":"DOUBLE"},  {"name":"N-秸秆还田","type":"DOUBLE"}, {"name":"N-秸秆移除","type":"DOUBLE"}, {"name":"N-生物固氮","type":"DOUBLE"}, {"name":"N-氧化亚氮排放","type":"DOUBLE"}, {"name":"N-有机肥投入","type":"DOUBLE"}, {"name":"N-种子投入","type":"DOUBLE"}, {"name":"N-作物收获","type":"DOUBLE"},  {"name":"P-灌溉携入","type":"DOUBLE"}, {"name":"P-化肥投入","type":"DOUBLE"}, {"name":"P-降水携入","type":"DOUBLE"}, {"name":"P-秸秆还田","type":"DOUBLE"}, {"name":"P-秸秆移除","type":"DOUBLE"}, {"name":"P-有机肥投入","type":"DOUBLE"}, {"name":"P-种子投入","type":"DOUBLE"}, {"name":"P-作物收获","type":"DOUBLE"} ],"pk":[]}','{}','{"items":[ {"key":"区县","optListMode":"COLLECT"}, {"key":"分区","optListMode":"NAMED","optListName":"种植模式分区"}, {"key":"年份","optListMode":"SPECIFIED","optList":{"2008":"2008","2010":"2010","2012":"2012","2014":"2014","2016":"2016"}} ]}','{}','{}'),(66,'viewdb1_p20_entry',4,20,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(67,'viewdb1_p20_diagram',4,20,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(401,'viewdb1_p20_预警数据',4,20,'预警数据','行标签','{"columns":[ {"name":"行标签","type":"VARCHAR(10)"}, {"name":"区县名称"}, {"name":"年份","type":"INT"}, {"name":"模式面积","type":"DOUBLE"}, {"name":"地表径流总氮","type":"DOUBLE"}, {"name":"地下淋溶总氮","type":"DOUBLE"}, {"name":"地表径流总磷","type":"DOUBLE"}, {"name":"总氮排放强度","type":"DOUBLE"}, {"name":"总磷排放强度","type":"DOUBLE"}, {"name":"总氮排放强度评价"}, {"name":"总磷排放强度评价"}],"pk":[]}','{}','{"items":[ {"key":"行标签","optListMode":"COLLECT"}, {"key":"区县名称","optListMode":"COLLECT"}, {"key":"年份","optListMode":"SPECIFIED","optList":{"2018":"2018"}}, {"key":"总氮排放强度评价","optList":{"排放1级":"排放1级","排放2级":"排放2级","排放3级":"排放3级","排放4级":"排放4级","排放5级":"排放5级"}}, {"key":"总磷排放强度评价","optList":{"排放1级":"排放1级","排放2级":"排放2级","排放3级":"排放3级","排放4级":"排放4级","排放5级":"排放5级"}} ]}','{}','{"headerMap":{ "模式面积":"模式面积(亩)", "地表径流总氮":"地表径流-总氮(公斤)", "地下淋溶总氮":"地下淋溶-总氮(公斤)", "地表径流总磷":"地表径流-总磷(公斤)", "总氮排放强度":"总氮排放强度(公斤/亩)", "总磷排放强度":"总磷排放强度(公斤/亩)" }}'),(402,'viewdb1_p21_entry',4,21,'entry','','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"key","isnull":"false"},{"name":"title","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(403,'viewdb1_p21_diagram',4,21,'diagram','divCode','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"type","type":"INT","isnull":"false"},{"name":"divCode","type":"VARCHAR(45)","isnull":"false"},{"name":"name","type":"VARCHAR(128)","isnull":"false"},{"name":"filename","type":"VARCHAR(512)","isnull":"false"},{"name":"group","type":"VARCHAR(45)","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}'),(404,'viewdb1_p21_减排数据',4,21,'减排数据','行标签','{"columns":[ {"name":"行标签","type":"VARCHAR(10)"}, {"name":"区县名称"}, {"name":"年份","type":"INT"}, {"name":"地表径流总氮减排","type":"DOUBLE"}, {"name":"地下淋溶总氮减排","type":"DOUBLE"}, {"name":"地表径流总磷减排","type":"DOUBLE"} ],"pk":[]}','{}','{"items":[ {"key":"行标签","optListMode":"COLLECT"}, {"key":"区县名称","optListMode":"COLLECT"}, {"key":"年份","optListMode":"SPECIFIED","optList":{"2008":"2008","2010":"2010","2012":"2012","2014":"2014","2016":"2016","2018":"2018"}}]}','{}','{"headerMap":{ "模式面积":"模式面积(亩)", "地表径流总氮减排":"地表径流-总氮减排(公斤)", "地下淋溶总氮减排":"地下淋溶-总氮减排(公斤)", "地表径流总磷减排":"地表径流-总磷减排(公斤)" }}'),(405,'planting1_t5_清查',5,-1,'清查','行政区划代码','{"columns":[{"name":"行政区划代码","type":"VARCHAR(45)","isnull":"false"},{"name":"耕地","type":"DOUBLE","as":"(`旱地`+`水田`)",},{"name":"旱地","type":"DOUBLE"},{"name":"水田","type":"DOUBLE"},{"name":"露地菜园","type":"DOUBLE"},{"name":"保护地菜园","type":"DOUBLE"},{"name":"园地","type":"DOUBLE"},{"name":"平地","type":"DOUBLE"},{"name":"缓坡地梯田","type":"DOUBLE"},{"name":"缓坡地非梯田","type":"DOUBLE","as":"(`缓坡地顺坡`+`缓坡地横坡`)",},{"name":"缓坡地顺坡","type":"DOUBLE"},{"name":"缓坡地横坡","type":"DOUBLE"},{"name":"缓坡地","type":"DOUBLE","as":"(`缓坡地梯田`+`缓坡地非梯田`)",},{"name":"陡坡地梯田","type":"DOUBLE"},{"name":"陡坡地非梯田","type":"DOUBLE","as":"(`陡坡地顺坡`+`陡坡地横坡`)",},{"name":"陡坡地顺坡","type":"DOUBLE"},{"name":"陡坡地横坡","type":"DOUBLE"},{"name":"陡坡地","type":"DOUBLE","as":"(`陡坡地梯田`+`陡坡地非梯田`)",},{"name":"地膜覆盖","type":"DOUBLE"},{"name":"地膜用量","type":"DOUBLE"},{"name":"厚地膜用量","type":"DOUBLE"},{"name":"地膜回收总量","type":"DOUBLE"},{"name":"地膜利用总量","type":"DOUBLE"}],"pk":["行政区划代码"]}','{}','{"items":[{"key":"行政区划代码","optListMode":"COLLECT"}]}','{}','{}'),(406,'planting1_t5_作物覆膜情况',5,-1,'作物覆膜情况','','{"columns":[{"name":"行政区划代码","type":"VARCHAR(45)","isnull":"false"},{"name":"作物代码","type":"VARCHAR(45)","isnull":"false"},{"name":"覆膜面积","type":"DOUBLE"},{"name":"覆膜比例","type":"DOUBLE"}],"pk":["行政区划代码","作物代码"]}','{}','{"items":[ {"key":"作物代码","optListMode":"NAMED","optListName":"作物代码"}]}','{}','{}'),(407,'planting1_t5_模式面积',5,-1,'模式面积','','{"columns":[{"name":"行政区划代码","type":"VARCHAR(45)","isnull":"false"},{"name":"模式代码","type":"VARCHAR(45)","isnull":"false"},{"name":"覆膜面积","type":"DOUBLE"}],"pk":["行政区划代码","模式代码"]}','{}','{"items":[ {"key":"模式代码","optListMode":"NAMED","optListName":"种植模式代码"}]}','{}','{}'),(408,'planting1_t5_status',5,-1,'status','datakey','{"columns":[{"name":"datakey","type":"VARCHAR(45)","isnull":"false"},{"name":"state","type":"INT","isnull":"false"},{"name":"commitUserId","type":"INT","isnull":"false"},{"name":"commitTime","type":"DATETIME","isnull":"false"},{"name":"createUserId","type":"INT","isnull":"false"},{"name":"createTime","type":"DATETIME","isnull":"false"},{"name":"remark","type":"VARCHAR(4096)","isnull":"false"}],"pk":["datakey"]}','{}','{}','{}','{}'),(409,'planting1_t5_log',5,-1,'log','datakey','{"columns":[{"name":"id","type":"INT","isnull":"false"},{"name":"datakey","type":"VARCHAR(45)","isnull":"false"},{"name":"action","type":"VARCHAR(45)","isnull":"false"},{"name":"affected","type":"VARCHAR(45)","isnull":"false"},{"name":"userId","type":"INT","isnull":"false"},{"name":"time","type":"DATETIME","isnull":"false"}],"pk":["id"]}','{}','{}','{}','{}');
+INSERT INTO `meta` VALUES (1,'viewdb1_t4_proto_entry',4,-1,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(2,'viewdb1_t4_proto_diagram',4,-1,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(3,'viewdb1_p10_entry',4,10,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(4,'viewdb1_p10_模式面积',4,10,'模式面积','行政区划代码','{\"columns\":[{\"name\":\"区县\",\"isnull\":\"false\"},{\"name\":\"行政区划代码\",\"isnull\":\"false\"},{\"name\":\"地形坡度\"},{\"name\":\"如果是坡地，是否为梯田\"},{\"name\":\"非梯田种植方向\"},{\"name\":\"模式类型\"},{\"name\":\"种植方式\"},{\"name\":\"面积\",\"type\":\"DOUBLE\"},{\"name\":\"模式代码最终\"}],\"pk\":[]}','{}','{ \"items\": [{ \"key\":\"区县\",\"optListMode\":\"COLLECT\"},{ \"key\": \"地形坡度\", \"optListMode\": \"COLLECT\" }, { \"key\": \"如果是坡地，是否为梯田\", \"optListMode\": \"COLLECT\" }, { \"key\": \"非梯田种植方向\", \"optListMode\": \"COLLECT\" }, { \"key\": \"模式类型\", \"optListMode\": \"COLLECT\" }, { \"key\": \"种植方式\", \"optListMode\": \"COLLECT\" }] }','{}','{}'),(5,'viewdb1_p10_diagram',4,10,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(6,'viewdb1_p10_地块模式',4,10,'地块模式','代码','{\"columns\":[{\"name\":\"代码\",\"isnull\":\"false\"},{\"name\":\"地块种植模式②代码1\",\"type\":\"VARCHAR(10)\"},{\"name\":\"地块种植模式②代码2\",\"type\":\"VARCHAR(10)\"},{\"name\":\"地块种植模式②代码3\",\"type\":\"VARCHAR(10)\"},{\"name\":\"地块种植模式a\"},{\"name\":\"地块种植模式b\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"地块种植模式②代码1\",\"optListMode\":\"NAMED\",\"optListName\":\"NamedCropCodes\"},{\"key\":\"地块种植模式②代码2\",\"optListMode\":\"NAMED\",\"optListName\":\"NamedCropCodes\"},{\"key\":\"地块种植模式②代码3\",\"optListMode\":\"NAMED\",\"optListName\":\"NamedCropCodes\"},{\"key\":\"地块种植模式a\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"1\":\"1\",\"2\":\"2\",\"3\":\"3\",\"\":\"(空白)\"}},{\"key\":\"地块种植模式b\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"1\":\"1\",\"2\":\"2\",\"3\":\"3\",\"\":\"(空白)\"}}]}','{}','{}'),(7,'viewdb1_p10_地块肥料',4,10,'地块肥料','代码','{\"columns\":[{\"name\":\"代码\",\"isnull\":\"false\"},{\"name\":\"作物名称\"},{\"name\":\"作物代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"肥料名称\"},{\"name\":\"肥料代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"施用量\",\"type\":\"DOUBLE\"},{\"name\":\"养分含量N\",\"type\":\"DOUBLE\"},{\"name\":\"养分含量P2O5\",\"type\":\"DOUBLE\"},{\"name\":\"养分含量K2O\",\"type\":\"DOUBLE\"},{\"name\":\"施肥方式\",\"type\":\"INT\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"作物代码\",\"optListMode\":\"NAMED\",\"optListName\":\"NamedCropCodes\"},{\"key\":\"肥料代码\",\"optListMode\":\"NAMED\",\"optListName\":\"肥料代码\"},{\"key\":\"施肥方式\",\"optListMode\":\"NAMED\",\"optListName\":\"施肥方式ID\"}]}','{}','{\"headerMap\":{\"施用量\":\"施用量(公斤/亩)\",\"养分含量N\":\"养分含量-N\",\"养分含量P2O5\":\"养分含量-P<sub>2</sub>O<sub>5</sub>\",\"养分含量K2O\":\"养分含量-K<sub>2</sub>O\"}}'),(8,'viewdb1_p11_entry',4,11,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(9,'viewdb1_p11_diagram',4,11,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(10,'viewdb1_p11_面积肥料',4,11,'面积肥料','行政区划代码','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"模式名称\",\"type\":\"VARCHAR(45)\",\"isnull\":\"true\"},{\"name\":\"模式代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"true\"},{\"name\":\"面积\",\"type\":\"INT\",\"isnull\":\"true\"},{\"name\":\"化肥1\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"化肥2\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"化肥3\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"有机肥1\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"有机肥2\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"有机肥3\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"化肥总施用量1\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"化肥总施用量2\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"化肥总施用量3\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"有机肥总施用量1\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"有机肥总施用量2\",\"type\":\"DOUBLE\",\"isnull\":\"true\"},{\"name\":\"有机肥总施用量3\",\"type\":\"DOUBLE\",\"isnull\":\"true\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"行政区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}]}','{}','{\"headerMap\":{\"化肥1\":\"化肥① N(公斤/亩)\",\"化肥2\":\"化肥② P<sub>2</sub>O<sub>5</sub>(公斤/亩)\",\"化肥3\":\"化肥③ K<sub>2</sub>O(公斤/亩)\",\"有机肥1\":\"有机肥① N(公斤/亩)\",\"有机肥2\":\"有机肥② P<sub>2</sub>O<sub>5</sub>(公斤/亩)\",\"有机肥3\":\"有机肥③ K<sub>2</sub>O(公斤/亩)\",\"化肥总施用量1\":\"化肥总施用量① N(公斤)\",\"化肥总施用量2\":\"化肥总施用量② P<sub>2</sub>O<sub>5</sub>(公斤)\",\"化肥总施用量3\":\"化肥总施用量③ K<sub>2</sub>O(公斤)\",\"有机肥总施用量1\":\"有机肥总施用量① N(公斤)\",\"有机肥总施用量2\":\"有机肥总施用量② P<sub>2</sub>O<sub>5</sub>(公斤)\",\"有机肥总施用量3\":\"有机肥总施用量③ K<sub>2</sub>O(公斤)\"}}'),(11,'viewdb1_p12_entry',4,12,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(12,'viewdb1_p12_diagram',4,12,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(13,'viewdb1_p12_普查',4,12,'普查','县名与行政区域代码','{\"columns\":[{\"name\":\"县名与行政区域代码\",\"isnull\":\"false\"},{\"name\":\"耕地面积\",\"type\":\"DOUBLE\"},{\"name\":\"旱地\",\"type\":\"DOUBLE\"},{\"name\":\"水田\",\"type\":\"DOUBLE\"},{\"name\":\"菜地面积\",\"type\":\"DOUBLE\"},{\"name\":\"保护地面积\",\"type\":\"DOUBLE\"},{\"name\":\"园地面积\",\"type\":\"DOUBLE\"},{\"name\":\"平地面积\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地面积\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地面积\",\"type\":\"DOUBLE\"},{\"name\":\"梯田面积\",\"type\":\"DOUBLE\"},{\"name\":\"非梯田面积\",\"type\":\"DOUBLE\"},{\"name\":\"全县地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"厚地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"全县地膜覆盖面积\",\"type\":\"DOUBLE\"},{\"name\":\"作物代码1\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"覆盖面积1\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例1\",\"type\":\"DOUBLE\"},{\"name\":\"作物代码2\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"覆盖面积2\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例2\",\"type\":\"DOUBLE\"},{\"name\":\"作物代码3\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"覆盖面积3\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例3\",\"type\":\"DOUBLE\"},{\"name\":\"作物代码4\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"覆盖面积4\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例4\",\"type\":\"DOUBLE\"},{\"name\":\"作物代码5\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"覆盖面积5\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例5\",\"type\":\"DOUBLE\"},{\"name\":\"作物代码6\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"覆盖面积6\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例6\",\"type\":\"DOUBLE\"},{\"name\":\"本县地膜企业回收量\",\"type\":\"DOUBLE\"},{\"name\":\"本县地膜利用量\",\"type\":\"DOUBLE\"},{\"name\":\"回收企业1\"},{\"name\":\"回收企业2\"},{\"name\":\"回收企业3\"},{\"name\":\"填报人\"},{\"name\":\"联系电话\",\"type\":\"VARCHAR(16)\"},{\"name\":\"填报单位\"},{\"name\":\"审核人\"},{\"name\":\"填报年份\",\"type\":\"VARCHAR(10)\"},{\"name\":\"填报日期\",\"type\":\"VARCHAR(10)\"},{\"name\":\"isok\",\"type\":\"INT\"},{\"name\":\"状态\",\"type\":\"INT\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"县名与行政区域代码\",\"optListMode\":\"COLLECT\"}]}','{}','{\"headerMap\":{\"厚地膜用量\":\"厚度>=0.008mm地膜用量\"}}'),(14,'viewdb1_p12_模式面积',4,12,'模式面积','县名与行政区域代码','{\"columns\":[{\"name\":\"县名与行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"模式代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"true\"},{\"name\":\"模式名称\",\"type\":\"VARCHAR(45)\",\"isnull\":\"true\"},{\"name\":\"面积\",\"type\":\"DOUBLE\",\"isnull\":\"true\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"县名与行政区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}]}','{}','{\"headerMap\":{\"面积\":\"面积(亩)\"}}'),(15,'viewdb1_p12_抽样',4,12,'抽样','地块编码','{\"columns\":[{\"name\":\"户主\"},{\"name\":\"行政区划代码\"},{\"name\":\"组\"},{\"name\":\"联系电话\"},{\"name\":\"经度\",\"isnull\":\"false\"},{\"name\":\"纬度\",\"isnull\":\"false\"},{\"name\":\"地块编码\",\"isnull\":\"false\"},{\"name\":\"种植模式\",\"isnull\":\"false\"},{\"name\":\"地块面积\",\"type\":\"DOUBLE\"},{\"name\":\"作物1\",\"isnull\":\"false\"},{\"name\":\"作物2\",\"isnull\":\"false\"},{\"name\":\"作物3\",\"isnull\":\"false\"},{\"name\":\"是否覆盖地膜\",\"type\":\"INT\"},{\"name\":\"地膜厚度\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜回收量\",\"type\":\"DOUBLE\"},{\"name\":\"填报人\"},{\"name\":\"填报人联系电话\"},{\"name\":\"填报单位\"},{\"name\":\"填报年份\",\"type\":\"VARCHAR(10)\"},{\"name\":\"状态\",\"type\":\"INT\"},{\"name\":\"isok\",\"type\":\"INT\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"种植模式\",\"optListMode\":\"COLLECT\"},{\"key\":\"作物1\",\"optListMode\":\"COLLECT\"},{\"key\":\"作物2\",\"optListMode\":\"COLLECT\"},{\"key\":\"作物3\",\"optListMode\":\"COLLECT\"},{\"key\":\"是否覆盖地膜\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}]}','{}','{}'),(16,'viewdb1_p12_抽样施肥',4,12,'抽样施肥','地块编码','{\"columns\":[{\"name\":\"地块编码\",\"isnull\":\"false\"},{\"name\":\"作物名称\"},{\"name\":\"作物代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"肥料名称\"},{\"name\":\"肥料代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"施用量\",\"type\":\"DOUBLE\"},{\"name\":\"N\",\"type\":\"DOUBLE\"},{\"name\":\"P2O5\",\"type\":\"DOUBLE\"},{\"name\":\"K2O\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"作物代码\",\"optListMode\":\"NAMED\",\"optListName\":\"作物代码\"},{\"key\":\"肥料代码\",\"optListMode\":\"NAMED\",\"optListName\":\"肥料代码\"}]}','{}','{\"headerMap\":{\"P2O5\":\"P<sub>2</sub>O<sub>5</sub>\",\"K2O\":\"K<sub>2</sub>O\"}}'),(17,'viewdb1_p13_entry',4,13,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(18,'viewdb1_p13_diagram',4,13,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(19,'viewdb1_p13_普查',4,13,'普查','行政区划代码','{\"columns\":[{\"name\":\"年度\",\"type\":\"INT\"},{\"name\":\"区县名\"},{\"name\":\"行政区划代码\",\"isnull\":\"false\"},{\"name\":\"耕地面积\",\"type\":\"DOUBLE\"},{\"name\":\"旱地面积\",\"type\":\"DOUBLE\"},{\"name\":\"水田面积\",\"type\":\"DOUBLE\"},{\"name\":\"露地菜园面积\",\"type\":\"DOUBLE\"},{\"name\":\"保护地菜园面积\",\"type\":\"DOUBLE\"},{\"name\":\"园地面积\",\"type\":\"DOUBLE\"},{\"name\":\"平地面积1\",\"type\":\"DOUBLE\"},{\"name\":\"平地面积2\",\"type\":\"DOUBLE\"},{\"name\":\"平地面积3\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地梯田面积\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地非梯田面积\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地非梯田顺坡面积\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地非梯田横坡面积\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地梯田面积\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地非梯田面积\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地非梯田顺坡面积\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地非梯田横坡面积\",\"type\":\"DOUBLE\"},{\"name\":\"地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"厚地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜覆盖面积\",\"type\":\"DOUBLE\"},{\"name\":\"本县地膜企业回收量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜利用量\",\"type\":\"DOUBLE\"},{\"name\":\"填报人\"},{\"name\":\"联系电话\",\"type\":\"VARCHAR(16)\"},{\"name\":\"录入单位\"},{\"name\":\"状态\",\"type\":\"VARCHAR(10)\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"行政区划代码\",\"optListMode\":\"COLLECT\"}]}','{}','{\"headerMap\":{\"厚地膜用量\":\"厚度大于0.008mm地膜用量\"}}'),(20,'viewdb1_p13_模式面积',4,13,'模式面积','区划代码','{\"columns\":[{\"name\":\"年度\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"区县\",\"isnull\":\"false\"},{\"name\":\"区划代码\",\"isnull\":\"false\"},{\"name\":\"模式名称\"},{\"name\":\"模式代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"模式面积\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"年度\",\"optListMode\":\"COLLECT\"},{\"key\":\"区县\",\"optListMode\":\"COLLECT\"},{\"key\":\"区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}]}','{}','{\"headerMap\":{\"模式面积\":\"模式面积(亩)\"}}'),(21,'viewdb1_p13_抽样',4,13,'抽样','地块编码','{\"columns\":[{\"name\":\"年度\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"户主姓名\"},{\"name\":\"地址\"},{\"name\":\"乡（镇）\"},{\"name\":\"村\"},{\"name\":\"组\"},{\"name\":\"联系电话\"},{\"name\":\"经度\",\"isnull\":\"false\"},{\"name\":\"纬度\",\"isnull\":\"false\"},{\"name\":\"地块面积\",\"type\":\"DOUBLE\"},{\"name\":\"区划代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"地块种植模式代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"是否覆盖地膜\",\"type\":\"VARCHAR(5)\"},{\"name\":\"地膜厚度\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜回收量\",\"type\":\"DOUBLE\"},{\"name\":\"填报人\"},{\"name\":\"填报人联系电话\"},{\"name\":\"填报单位\"},{\"name\":\"状态\",\"type\":\"VARCHAR(10)\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"年度\",\"optListMode\":\"COLLECT\"},{\"key\":\"区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"地块种植模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"},{\"key\":\"是否覆盖地膜\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}]}','{}','{}'),(22,'viewdb1_p13_抽样施肥',4,13,'抽样施肥','区划代码','{\"columns\":[{\"name\":\"年度\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"区划代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"地块\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"区县\"},{\"name\":\"作物名称\"},{\"name\":\"作物代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"肥料名称\"},{\"name\":\"肥料代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"肥料类型\"},{\"name\":\"施用量\",\"type\":\"DOUBLE\"},{\"name\":\"N\",\"type\":\"DOUBLE\"},{\"name\":\"P2O5\",\"type\":\"DOUBLE\"},{\"name\":\"K2O\",\"type\":\"DOUBLE\"},{\"name\":\"状态\",\"type\":\"VARCHAR(10)\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"年度\",\"optListMode\":\"COLLECT\"},{\"key\":\"区县\",\"optListMode\":\"COLLECT\"},{\"key\":\"区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"作物代码\",\"optListMode\":\"NAMED\",\"optListName\":\"作物代码\"},{\"key\":\"肥料代码\",\"optListMode\":\"NAMED\",\"optListName\":\"肥料代码\"},{\"key\":\"肥料类型\",\"optListMode\":\"NAMED\",\"optListName\":\"肥料类型\"}]}','{}','{\"headerMap\":{\"P2O5\":\"P<sub>2</sub>O<sub>5</sub>\",\"K2O\":\"K<sub>2</sub>O\"}}'),(23,'viewdb1_p14_entry',4,14,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(24,'viewdb1_p14_diagram',4,14,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(25,'viewdb1_p14_模式面积',4,14,'模式面积','区划代码','{\"columns\":[{\"name\":\"年度\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"区县\",\"isnull\":\"false\"},{\"name\":\"区划代码\",\"isnull\":\"false\"},{\"name\":\"模式名称\"},{\"name\":\"模式代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"模式面积\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"年度\",\"optListMode\":\"COLLECT\"},{\"key\":\"区县\",\"optListMode\":\"COLLECT\"},{\"key\":\"区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}]}','{}','{}'),(26,'viewdb1_p14_地块施肥',4,14,'地块施肥','地块编码','{\"columns\":[{\"name\":\"年度\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"区划代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"地块\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"},{\"name\":\"地块编码\",\"type\":\"VARCHAR(15)\",\"isnull\":\"false\"},{\"name\":\"区县\"},{\"name\":\"作物名称\"},{\"name\":\"作物代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"肥料名称\"},{\"name\":\"肥料代码\",\"type\":\"VARCHAR(10)\"},{\"name\":\"肥料类型\"},{\"name\":\"施用量\",\"type\":\"DOUBLE\"},{\"name\":\"N\",\"type\":\"DOUBLE\"},{\"name\":\"P2O5\",\"type\":\"DOUBLE\"},{\"name\":\"K2O\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[{\"key\":\"年度\",\"optListMode\":\"COLLECT\"},{\"key\":\"区县\",\"optListMode\":\"COLLECT\"},{\"key\":\"区划代码\",\"optListMode\":\"COLLECT\"},{\"key\":\"作物代码\",\"optListMode\":\"NAMED\",\"optListName\":\"作物代码\"},{\"key\":\"肥料代码\",\"optListMode\":\"NAMED\",\"optListName\":\"肥料代码\"},{\"key\":\"肥料类型\",\"optListMode\":\"NAMED\",\"optListName\":\"肥料类型\"}]}','{}','{\"headerMap\":{\"P2O5\":\"P<sub>2</sub>O<sub>5</sub>\",\"K2O\":\"K<sub>2</sub>O\"}}'),(27,'viewdb1_p15_地块信息',4,15,'地块信息','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"承担单位\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"地块地址\"}, {\"name\":\"农户姓名\"}, {\"name\":\"农户电话\"}, {\"name\":\"负责人姓名\"}, {\"name\":\"负责人电话\"}, {\"name\":\"负责人Email\"}, {\"name\":\"联系人姓名\"}, {\"name\":\"联系人电话\"}, {\"name\":\"联系人Email\"}, {\"name\":\"经度\"}, {\"name\":\"纬度\"}, {\"name\":\"海拔\"}, {\"name\":\"种植模式分区\"}, {\"name\":\"地貌类型\"}, {\"name\":\"地形\"}, {\"name\":\"是否梯田\"}, {\"name\":\"最高地下水位\",\"type\":\"DOUBLE\"}, {\"name\":\"种植模式\"}, {\"name\":\"种植方式\"}, {\"name\":\"坡向\"}, {\"name\":\"坡度\"}, {\"name\":\"土壤质地\"}, {\"name\":\"土壤类型\"}, {\"name\":\"地方土名\"}, {\"name\":\"肥力水平\"}, {\"name\":\"有无障碍层\"}, {\"name\":\"障碍层类型\"}, {\"name\":\"障碍层深度\",\"type\":\"DOUBLE\"}, {\"name\":\"障碍层厚度\",\"type\":\"DOUBLE\"}, {\"name\":\"监测小区面积\",\"type\":\"DOUBLE\"}, {\"name\":\"监测小区长\",\"type\":\"DOUBLE\"}, {\"name\":\"监测小区宽\",\"type\":\"DOUBLE\"}, {\"name\":\"田间径流池内侧长\",\"type\":\"DOUBLE\"}, {\"name\":\"田间径流池内侧宽\",\"type\":\"DOUBLE\"}, {\"name\":\"田间径流池内侧深\",\"type\":\"DOUBLE\"}, {\"name\":\"田间渗滤池监测面积\",\"type\":\"DOUBLE\"}, {\"name\":\"淋溶液收集桶埋深\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"种植模式分区\",\"optListMode\":\"COLLECT\"}, {\"key\":\"地貌类型\",\"optListMode\":\"COLLECT\"}, {\"key\":\"地形\",\"optListMode\":\"COLLECT\"}, {\"key\":\"是否梯田\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}, {\"key\":\"种植模式\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植方式\",\"optListMode\":\"COLLECT\"}, {\"key\":\"坡向\",\"optListMode\":\"COLLECT\"}, {\"key\":\"坡度\",\"optListMode\":\"COLLECT\"}, {\"key\":\"土壤质地\",\"optListMode\":\"COLLECT\"}, {\"key\":\"土壤类型\",\"optListMode\":\"COLLECT\"}, {\"key\":\"地方土名\"}, {\"key\":\"肥力水平\"}, {\"key\":\"有无障碍层\",\"optListMode\":\"NAMED\", \"optListName\":\"有无列表\"}, {\"key\":\"障碍层类型\",\"optListMode\":\"COLLECT\"} ]}','{}','{}'),(28,'viewdb1_p15_entry',4,15,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(29,'viewdb1_p15_diagram',4,15,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(30,'viewdb1_p15_土壤剖面信息',4,15,'土壤剖面信息','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"发生层次\"}, {\"name\":\"土层厚度\",\"type\":\"DOUBLE\"}, {\"name\":\"土壤颜色\"}, {\"name\":\"土壤结构\"}, {\"name\":\"新生体类别\"}, {\"name\":\"新生体形态\"}, {\"name\":\"新生体数量\"}, {\"name\":\"坚实度\"}, {\"name\":\"根系类型\"}, {\"name\":\"动物穴\"}, {\"name\":\"石灰反应\"}],\"pk\":[]}','{}','{}','{}','{}'),(31,'viewdb1_p15_处理描述耕作',4,15,'处理描述耕作','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"是否翻耕\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"翻耕深度\",\"type\":\"DOUBLE\"}, {\"name\":\"有无排水沟\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"排水沟深\",\"type\":\"DOUBLE\"}, {\"name\":\"排水沟宽\",\"type\":\"DOUBLE\"}, {\"name\":\"排水沟间距\",\"type\":\"DOUBLE\"}, {\"name\":\"垄高1\",\"type\":\"DOUBLE\"}, {\"name\":\"垄宽1\",\"type\":\"DOUBLE\"}, {\"name\":\"垄间距1\",\"type\":\"DOUBLE\"}, {\"name\":\"种植方向1\"}, {\"name\":\"种植方向2\"}, {\"name\":\"垄高2\",\"type\":\"DOUBLE\"}, {\"name\":\"垄宽2\",\"type\":\"DOUBLE\"}, {\"name\":\"垄间距2\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"是否翻耕\",\"optListMode\":\"NAMED\", \"optListName\":\"是否列表\"}, {\"key\":\"有无排水沟\",\"optListMode\":\"NAMED\",\"optListName\":\"有无列表\"}]}','{}','{\"headerMap\":{\"是否翻耕\":\"平地或梯田平作-是否翻耕\", \"翻耕深度\":\"平地或梯田平作-翻耕深度(cm)\", \"有无排水沟\":\"平地或梯田平作-有无排水沟\", \"排水沟深\":\"平地或梯田平作-排水沟深(cm)\", \"排水沟宽\":\"平地或梯田平作-排水沟宽(cm)\", \"排水沟间距\":\"平地或梯田平作-排水沟间距(m)\", \"垄高1\":\"平地或梯田垄作-垄高(cm)\", \"垄宽1\":\"平地或梯田垄作-垄宽(cm)\", \"垄间距1\":\"平地或梯田垄作-垄间距(cm)\", \"种植方向1\":\"坡地非梯田平作-种植方向\", \"种植方向2\":\"坡地非梯田垄作-种植方向\", \"垄高2\":\"坡地非梯田垄作-垄高(cm)\", \"垄宽2\":\"坡地非梯田垄作-垄宽(cm)\", \"垄间距2\":\"坡地非梯田垄作-垄间距(cm)\"}}'),(32,'viewdb1_p15_处理描述施肥',4,15,'处理描述施肥','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"化肥N\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥K2O\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥种类\"}, {\"name\":\"有机肥含水率\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥投入量\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥N\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥K2O\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"有机肥种类\",\"optListMode\":\"COLLECT\"}]}','{}','{\"headerMap\":{ \"化肥N\":\"化肥 N (kg/667m<sup>2</sup>)\", \"化肥P2O5\":\"化肥 P<sub>2</sub>O<sub>5</sub> (kg/667m<sup>2</sup>)\", \"化肥K2O\":\"化肥 K<sub>2</sub>O (kg/667m<sup>2</sup>)\", \"有机肥含水率\":\"有机肥含水率(%)\", \"有机肥投入量\":\"有机肥-投入量(kg/667m<sup>2</sup>)\", \"有机肥N\":\"有机肥 N (kg/667m<sup>2</sup>)\", \"有机肥P2O5\":\"有机肥 P<sub>2</sub>O<sub>5</sub> (kg/667m<sup>2</sup>)\", \"有机肥K2O\":\"有机肥 K<sub>2</sub>O (kg/667m<sup>2</sup>)\" }}'),(33,'viewdb1_p15_处理描述灌溉秸秆还田',4,15,'处理描述灌溉秸秆还田','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"是否灌溉\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"灌溉方式\"}, {\"name\":\"灌水量\",\"type\":\"DOUBLE\"}, {\"name\":\"是否秸秆还田\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"秸秆名称\"}, {\"name\":\"还田方式\"}, {\"name\":\"还田量\",\"type\":\"DOUBLE\"}, {\"name\":\"还田比例\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"是否灌溉\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}, {\"key\":\"灌溉方式\",\"optListMode\":\"COLLECT\"}, {\"key\":\"是否秸秆还田\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}]}','{}','{\"headerMap\":{ \"灌水量\":\"灌水量(mm)\", \"秸秆名称\":\"还田秸秆-名称\", \"还田方式\":\"秸秆还田-方式\", \"还田量\":\"秸秆-还田量(kg/667m<sup>2</sup>)\", \"还田比例\":\"秸秆-还田比例(%)\" }}'),(34,'viewdb1_p15_处理描述地膜植物篱',4,15,'处理描述地膜植物篱','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"是否覆膜\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"地膜厚度\",\"type\":\"DOUBLE\"}, {\"name\":\"覆膜日期\",\"type\":\"DATE\"}, {\"name\":\"覆膜量\",\"type\":\"DOUBLE\"}, {\"name\":\"覆膜比例\",\"type\":\"DOUBLE\"}, {\"name\":\"是否揭膜\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"揭膜日期\",\"type\":\"DATE\"}, {\"name\":\"植物篱是否种植\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"植物篱种类\"}, {\"name\":\"栽种日期\",\"type\":\"DATE\"}, {\"name\":\"植物篱带宽\",\"type\":\"DOUBLE\"}, {\"name\":\"植物篱间距\",\"type\":\"DOUBLE\"}, {\"name\":\"植物篱条带数量\",\"type\":\"INT\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"是否覆膜\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}, {\"key\":\"是否揭膜\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}, {\"key\":\"植物篱是否种植\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"}]}','{}','{\"headerMap\":{ \"是否覆膜\":\"地膜-是否覆膜\", \"地膜厚度\":\"地膜-厚度(mm)\", \"覆膜日期\":\"覆膜日期(年/月/日)\", \"覆膜量\":\"覆膜量(公斤/667m<sup>2</sup>)\", \"覆膜比例\":\"覆膜比例(%)\", \"揭膜日期\":\"揭膜日期(年/月/日)\", \"植物篱是否种植\":\"植物篱-是否种植\", \"植物篱种类\":\"植物篱-种类\", \"栽种日期\":\"栽种日期（年/月/日）\", \"植物篱带宽\":\"植物篱-带宽(cm)\", \"植物篱间距\":\"植物篱-间距(cm)\", \"植物篱条带数量\":\"植物篱条带数量(条)\" }}'),(35,'viewdb1_p15_种植季与作物对应',4,15,'种植季与作物对应','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"作物类别及代码\"}, {\"name\":\"作物名称\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"作物类别及代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"作物名称\",\"optListMode\":\"COLLECT\"} ]}','{}','{}'),(36,'viewdb1_p15_小区编码与处理对应',4,15,'小区编码与处理对应','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"小区编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"小区编码\",\"optListMode\":\"NAMED\",\"optListName\":\"小区编码\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"} ]}','{}','{}'),(37,'viewdb1_p15_种植记录',4,15,'种植记录','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"作物名称\"}, {\"name\":\"作物品种\"}, {\"name\":\"种植方式\"}, {\"name\":\"种植日期\",\"type\":\"DATE\"}, {\"name\":\"收获日期\",\"type\":\"DATE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}]}','{}','{}'),(38,'viewdb1_p15_植株产量记载及植株样品记录',4,15,'植株产量记载及植株样品记录','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"植株样品编码\",\"type\":\"VARCHAR(15)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"作物名称\"}, {\"name\":\"产量\",\"type\":\"DOUBLE\"}, {\"name\":\"植株样品鲜重\",\"type\":\"DOUBLE\"}, {\"name\":\"植株样品烘干重\",\"type\":\"DOUBLE\"}, {\"name\":\"取样日期\",\"type\":\"DATE\"}, {\"name\":\"含水率\",\"type\":\"DOUBLE\"}, {\"name\":\"全氮\",\"type\":\"DOUBLE\"}, {\"name\":\"全磷\",\"type\":\"DOUBLE\"}, {\"name\":\"全钾\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"作物名称\",\"optListMode\":\"COLLECT\"}]}','{}','{\"headerMap\":{ \"产量\":\"产量(公斤/667m<sup>2</sup>)\", \"植株样品鲜重\":\"植株样品鲜重(g)\", \"植株样品烘干重\":\"植株样品烘干重(g)\", \"含水率\":\"含水率(%)(烘干基)\", \"全氮\":\"全氮(N, %)(烘干基)\", \"全磷\":\"全磷(P, %)(烘干基)\", \"全钾\":\"全钾(K, %)(烘干基)\" }}'),(39,'viewdb1_p15_施肥记录',4,15,'施肥记录','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"处理代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"作物名称\"}, {\"name\":\"肥料名称\"}, {\"name\":\"肥料类别及编码\"}, {\"name\":\"肥料含水率\",\"type\":\"DOUBLE\"}, {\"name\":\"N\",\"type\":\"DOUBLE\"}, {\"name\":\"P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"K2O\",\"type\":\"DOUBLE\"}, {\"name\":\"施肥日期\",\"type\":\"DATE\"}, {\"name\":\"施肥方式\"}, {\"name\":\"施肥量\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"处理代码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"}, {\"key\":\"作物名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"肥料名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"肥料类别及编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"施肥方式\",\"optListMode\":\"COLLECT\"}]}','{}','{\"headerMap\":{ \"肥料含水率\":\"肥料含水率(以烘干基计, %)\", \"施肥量\":\"施肥量(公斤/667m<sup>2</sup>)\", \"P2O5\":\"P<sub>2</sub>O<sub>5</sub>\", \"K2O\":\"K<sub>2</sub>O\" }}'),(40,'viewdb1_p15_降水灌溉水样品',4,15,'降水灌溉水样品','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"水样编码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"日期\",\"type\":\"DATE\"}, {\"name\":\"水量\",\"type\":\"DOUBLE\"}, {\"name\":\"生育时期\"}, {\"name\":\"是否产流\",\"type\":\"VARCHAR(5)\"}, {\"name\":\"取样日期\",\"type\":\"DATE\"}, {\"name\":\"总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"可溶性总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"硝态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"铵态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"总磷\",\"type\":\"DOUBLE\"}, {\"name\":\"可溶性总磷\",\"type\":\"DOUBLE\"}, {\"name\":\"ph\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"生育时期\",\"optListMode\":\"COLLECT\"}, {\"key\":\"是否产流\",\"optListMode\":\"NAMED\",\"optListName\":\"是否列表\"} ]}','{}','{\"headerMap\":{ \"水样编码\":\"灌溉/降水水样编码\", \"日期\":\"灌溉/降水日期\", \"水量\":\"水量(mm)\", \"总氮\":\"总氮(N, mg/L)\", \"可溶性总氮\":\"可溶性总氮(N, mg/L)\", \"硝态氮\":\"硝态氮(N, mg/L)\", \"铵态氮\":\"铵态氮(N, mg/L)\", \"总磷\":\"总磷(P, mg/L)\", \"可溶性总磷\":\"可溶性总磷(P, mg/L)\", \"ph\":\"pH\" }}'),(41,'viewdb1_p15_小区产流记载及水样品记录',4,15,'小区产流记载及水样品记录','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"产流样品编码\",\"type\":\"VARCHAR(15)\"}, {\"name\":\"种植季\",\"type\":\"INT\"}, {\"name\":\"产流量\",\"type\":\"DOUBLE\"}, {\"name\":\"产流日期\",\"type\":\"DATE\"}, {\"name\":\"总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"可溶性总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"硝态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"铵态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"总磷\",\"type\":\"DOUBLE\"}, {\"name\":\"可溶性总磷\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}, {\"key\":\"种植季\",\"optListMode\":\"NAMED\",\"optListName\":\"种植季\"} ]}','{}','{\"headerMap\":{ \"产流量\":\"产流量(L/监测单元)\", \"总氮\":\"总氮(N, mg/L)\", \"可溶性总氮\":\"可溶性总氮(N, mg/L)\", \"硝态氮\":\"硝态氮(N, mg/L)\", \"铵态氮\":\"铵态氮(N, mg/L)\", \"总磷\":\"总磷(P, mg/L)\", \"可溶性总磷\":\"可溶性总磷(P, mg/L)\" }}'),(42,'viewdb1_p15_基础土壤样品',4,15,'基础土壤样品','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"基础土壤样品编码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"样品鲜重\",\"type\":\"DOUBLE\"}, {\"name\":\"样品风干重\",\"type\":\"DOUBLE\"}, {\"name\":\"采样日期\",\"type\":\"DATE\"}, {\"name\":\"含水率\",\"type\":\"DOUBLE\"}, {\"name\":\"土壤容重20\",\"type\":\"DOUBLE\"}, {\"name\":\"土壤容重40\",\"type\":\"DOUBLE\"}, {\"name\":\"土壤容重60\",\"type\":\"DOUBLE\"}, {\"name\":\"土壤容重80\",\"type\":\"DOUBLE\"}, {\"name\":\"土壤容重100\",\"type\":\"DOUBLE\"}, {\"name\":\"硝态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"铵态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"可溶性总氮\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"} ]}','{}','{\"headerMap\":{ \"样品鲜重\":\"样品鲜重(g)\", \"样品风干重\":\"样品风干重(g)\", \"含水率\":\"含水率(风干基)(%)\", \"土壤容重20\":\"0-20cm土壤容重(g/cm<sup>3</sup>)\", \"土壤容重40\":\"20-40cm土壤容重(g/cm<sup>3</sup>)\", \"土壤容重60\":\"40-60cm土壤容重(g/cm<sup>3</sup>)\", \"土壤容重80\":\"60-80cm土壤容重(g/cm<sup>3</sup>)\", \"土壤容重100\":\"80-100cm土壤容重(g/cm<sup>3</sup>)\", \"可溶性总氮\":\"可溶性总氮(N, mg/kg)\", \"硝态氮\":\"硝态氮(N, mg/kg)\", \"铵态氮\":\"铵态氮(N, mg/kg)\" }}'),(43,'viewdb1_p15_监测期土壤样品',4,15,'监测期土壤样品','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"监测期土壤样品编码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"样品鲜重\",\"type\":\"DOUBLE\"}, {\"name\":\"样品风干重\",\"type\":\"DOUBLE\"}, {\"name\":\"采样日期\",\"type\":\"DATE\"}, {\"name\":\"含水率\",\"type\":\"DOUBLE\"}, {\"name\":\"硝态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"铵态氮\",\"type\":\"DOUBLE\"}, {\"name\":\"有机质\",\"type\":\"DOUBLE\"}, {\"name\":\"全氮\",\"type\":\"DOUBLE\"}, {\"name\":\"全磷\",\"type\":\"DOUBLE\"}, {\"name\":\"全钾\",\"type\":\"DOUBLE\"}, {\"name\":\"OlsenP\",\"type\":\"DOUBLE\"}, {\"name\":\"CaCl2P\",\"type\":\"DOUBLE\"}, {\"name\":\"有效钾\",\"type\":\"DOUBLE\"}, {\"name\":\"ph\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"} ]}','{}','{\"headerMap\":{ \"样品鲜重\":\"样品鲜重(g)\", \"样品风干重\":\"样品风干重(g)\", \"含水率\":\"含水率(风干基)(%)\", \"硝态氮\":\"硝态氮(N, mg/kg)\", \"铵态氮\":\"铵态氮(N, mg/kg)\", \"有机质\":\"有机质(风干基)(g/kg)\", \"全氮\":\"全氮(风干基)(N, g/kg)\", \"全磷\":\"全磷(风干基)(P, g/kg)\", \"全钾\":\"全钾(风干基)(K, g/kg)\", \"OlsenP\":\"Olsen-P(风干基)(mg/kg)\", \"CaCl2P\":\"CaCl<sub>2</sub>-P(风干基)(mg/kg)\", \"有效钾\":\"有效钾(风干基)(K, mg/kg)\", \"ph\":\"pH(风干基)\" }}'),(44,'viewdb1_p15_试验进程及操作记录',4,15,'试验进程及操作记录','地块编码','{\"columns\":[ {\"name\":\"监测年度\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"地块编码\",\"type\":\"VARCHAR(10)\",\"isnull\":\"false\"}, {\"name\":\"日期\",\"type\":\"DATE\"}, {\"name\":\"各项田间工作简述\",\"type\":\"VARCHAR(1024)\"}, {\"name\":\"备注\",\"type\":\"VARCHAR(4096)\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"地块编码\",\"optListMode\":\"COLLECT\"}]}','{}','{}'),(45,'viewdb1_p16_分年度农产品产量',4,16,'分年度农产品产量','','{\"columns\":[ {\"name\":\"指标\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}, {\"name\":\"2016年\",\"type\":\"DOUBLE\"}, {\"name\":\"2015年\",\"type\":\"DOUBLE\"}, {\"name\":\"2014年\",\"type\":\"DOUBLE\"}, {\"name\":\"2013年\",\"type\":\"DOUBLE\"}, {\"name\":\"2012年\",\"type\":\"DOUBLE\"}, {\"name\":\"2011年\",\"type\":\"DOUBLE\"}, {\"name\":\"2010年\",\"type\":\"DOUBLE\"}, {\"name\":\"2009年\",\"type\":\"DOUBLE\"}, {\"name\":\"2008年\",\"type\":\"DOUBLE\"}, {\"name\":\"2007年\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(46,'viewdb1_p16_entry',4,16,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(47,'viewdb1_p16_diagram',4,16,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(48,'viewdb1_p16_分年度农产品产量2',4,16,'分年度农产品产量2','','{\"columns\":[ {\"name\":\"年份\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"稻谷\",\"type\":\"DOUBLE\"}, {\"name\":\"小麦\",\"type\":\"DOUBLE\"}, {\"name\":\"玉米\",\"type\":\"DOUBLE\"}, {\"name\":\"谷子\",\"type\":\"DOUBLE\"}, {\"name\":\"高粱\",\"type\":\"DOUBLE\"}, {\"name\":\"其他谷物\",\"type\":\"DOUBLE\"}, {\"name\":\"大麦\",\"type\":\"DOUBLE\"}, {\"name\":\"豆类\",\"type\":\"DOUBLE\"}, {\"name\":\"大豆\",\"type\":\"DOUBLE\"}, {\"name\":\"绿豆\",\"type\":\"DOUBLE\"}, {\"name\":\"红小豆\",\"type\":\"DOUBLE\"}, {\"name\":\"薯类\",\"type\":\"DOUBLE\"}, {\"name\":\"马铃薯\",\"type\":\"DOUBLE\"}, {\"name\":\"棉花\",\"type\":\"DOUBLE\"}, {\"name\":\"油料\",\"type\":\"DOUBLE\"}, {\"name\":\"花生\",\"type\":\"DOUBLE\"}, {\"name\":\"油菜籽\",\"type\":\"DOUBLE\"}, {\"name\":\"芝麻\",\"type\":\"DOUBLE\"}, {\"name\":\"向日葵\",\"type\":\"DOUBLE\"}, {\"name\":\"胡麻籽\",\"type\":\"DOUBLE\"}, {\"name\":\"糖料\",\"type\":\"DOUBLE\"}, {\"name\":\"麻类\",\"type\":\"DOUBLE\"}, {\"name\":\"黄红麻\",\"type\":\"DOUBLE\"}, {\"name\":\"亚麻\",\"type\":\"DOUBLE\"}, {\"name\":\"大麻\",\"type\":\"DOUBLE\"}, {\"name\":\"苎麻\",\"type\":\"DOUBLE\"}, {\"name\":\"甘蔗\",\"type\":\"DOUBLE\"}, {\"name\":\"甜菜\",\"type\":\"DOUBLE\"}, {\"name\":\"烟叶\",\"type\":\"DOUBLE\"}, {\"name\":\"烤烟\",\"type\":\"DOUBLE\"}, {\"name\":\"蔬菜类\",\"type\":\"DOUBLE\"}, {\"name\":\"瓜果类\",\"type\":\"DOUBLE\"}, {\"name\":\"西瓜\",\"type\":\"DOUBLE\"}, {\"name\":\"甜瓜\",\"type\":\"DOUBLE\"}, {\"name\":\"草莓\",\"type\":\"DOUBLE\"}, {\"name\":\"蔬菜\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(49,'viewdb1_p16_分年度农产品播种面积',4,16,'分年度农产品播种面积','','{\"columns\":[ {\"name\":\"指标\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}, {\"name\":\"2016年\",\"type\":\"DOUBLE\"}, {\"name\":\"2015年\",\"type\":\"DOUBLE\"}, {\"name\":\"2014年\",\"type\":\"DOUBLE\"}, {\"name\":\"2013年\",\"type\":\"DOUBLE\"}, {\"name\":\"2012年\",\"type\":\"DOUBLE\"}, {\"name\":\"2011年\",\"type\":\"DOUBLE\"}, {\"name\":\"2010年\",\"type\":\"DOUBLE\"}, {\"name\":\"2009年\",\"type\":\"DOUBLE\"}, {\"name\":\"2008年\",\"type\":\"DOUBLE\"}, {\"name\":\"2007年\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(50,'viewdb1_p16_分年度农产品播种面积2',4,16,'分年度农产品播种面积2','','{\"columns\":[ {\"name\":\"年份\",\"type\":\"INT\",\"isnull\":\"false\"}, {\"name\":\"稻谷\",\"type\":\"DOUBLE\"}, {\"name\":\"小麦\",\"type\":\"DOUBLE\"}, {\"name\":\"玉米\",\"type\":\"DOUBLE\"}, {\"name\":\"谷子\",\"type\":\"DOUBLE\"}, {\"name\":\"高粱\",\"type\":\"DOUBLE\"}, {\"name\":\"其他谷物\",\"type\":\"DOUBLE\"}, {\"name\":\"大麦\",\"type\":\"DOUBLE\"}, {\"name\":\"豆类\",\"type\":\"DOUBLE\"}, {\"name\":\"大豆\",\"type\":\"DOUBLE\"}, {\"name\":\"绿豆\",\"type\":\"DOUBLE\"}, {\"name\":\"红小豆\",\"type\":\"DOUBLE\"}, {\"name\":\"薯类\",\"type\":\"DOUBLE\"}, {\"name\":\"马铃薯\",\"type\":\"DOUBLE\"}, {\"name\":\"油料\",\"type\":\"DOUBLE\"}, {\"name\":\"花生\",\"type\":\"DOUBLE\"}, {\"name\":\"油菜籽\",\"type\":\"DOUBLE\"}, {\"name\":\"芝麻\",\"type\":\"DOUBLE\"}, {\"name\":\"向日葵\",\"type\":\"DOUBLE\"}, {\"name\":\"胡麻籽\",\"type\":\"DOUBLE\"}, {\"name\":\"棉花\",\"type\":\"DOUBLE\"}, {\"name\":\"麻类\",\"type\":\"DOUBLE\"}, {\"name\":\"黄红麻\",\"type\":\"DOUBLE\"}, {\"name\":\"亚麻\",\"type\":\"DOUBLE\"}, {\"name\":\"大麻\",\"type\":\"DOUBLE\"}, {\"name\":\"苎麻\",\"type\":\"DOUBLE\"}, {\"name\":\"糖料\",\"type\":\"DOUBLE\"}, {\"name\":\"甘蔗\",\"type\":\"DOUBLE\"}, {\"name\":\"甜菜\",\"type\":\"DOUBLE\"}, {\"name\":\"烟叶\",\"type\":\"DOUBLE\"}, {\"name\":\"烤烟\",\"type\":\"DOUBLE\"}, {\"name\":\"蔬菜类\",\"type\":\"DOUBLE\"}, {\"name\":\"瓜果类\",\"type\":\"DOUBLE\"}, {\"name\":\"西瓜\",\"type\":\"DOUBLE\"}, {\"name\":\"甜瓜\",\"type\":\"DOUBLE\"}, {\"name\":\"草莓\",\"type\":\"DOUBLE\"}, {\"name\":\"蔬菜\",\"type\":\"DOUBLE\"}, {\"name\":\"药材\",\"type\":\"DOUBLE\"}, {\"name\":\"其他农作物\",\"type\":\"DOUBLE\"}, {\"name\":\"青饲料\",\"type\":\"DOUBLE\"} ],\"pk\":[]}','{}','{}','{}','{}'),(51,'viewdb1_p17_entry',4,17,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(52,'viewdb1_p17_diagram',4,17,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(53,'viewdb1_p17_作物养分含量',4,17,'作物养分含量','','{\"columns\":[ {\"name\":\"作物种类\"}, {\"name\":\"播种量\",\"type\":\"DOUBLE\",\"isnull\":\"false\"}, {\"name\":\"N含量\",\"type\":\"DOUBLE\"}, {\"name\":\"P含量\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(54,'viewdb1_p17_农田固氮',4,17,'农田固氮','','{\"columns\":[ {\"name\":\"固氮途径\"}, {\"name\":\"固氮量\",\"type\":\"DOUBLE\",\"isnull\":\"false\"}],\"pk\":[]}','{}','{}','{}','{}'),(55,'viewdb1_p17_大气降水',4,17,'大气降水','','{\"columns\":[ {\"name\":\"降水分区\"}, {\"name\":\"N\",\"type\":\"DOUBLE\"}, {\"name\":\"P\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(56,'viewdb1_p17_农田灌溉',4,17,'农田灌溉','','{\"columns\":[ {\"name\":\"灌溉分区\"}, {\"name\":\"年份\",\"type\":\"INT\"}, {\"name\":\"N\",\"type\":\"DOUBLE\"}, {\"name\":\"P\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(57,'viewdb1_p17_秸秆参数',4,17,'秸秆参数','','{\"columns\":[ {\"name\":\"作物秸秆种类\"}, {\"name\":\"草谷比\",\"type\":\"DOUBLE\"}, {\"name\":\"N\",\"type\":\"DOUBLE\"}, {\"name\":\"P\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(58,'viewdb1_p17_氨挥发参数',4,17,'氨挥发参数','','{\"columns\":[ {\"name\":\"肥料种类\"}, {\"name\":\"氨挥发系数\",\"type\":\"DOUBLE\"}],\"pk\":[]}','{}','{}','{}','{}'),(59,'viewdb1_p18_entry',4,18,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(60,'viewdb1_p18_diagram',4,18,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(61,'viewdb1_p18_区县',4,18,'区县','行标签','{\"columns\":[ {\"name\":\"行标签\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"区县名称\"}, {\"name\":\"年份\",\"type\":\"INT\"}, {\"name\":\"模式面积\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥N\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥N\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷\",\"type\":\"DOUBLE\"}, {\"name\":\"总氮排放强度\",\"type\":\"DOUBLE\"}, {\"name\":\"总磷排放强度\",\"type\":\"DOUBLE\"}, {\"name\":\"总氮排放强度评价\"}, {\"name\":\"总磷排放强度评价\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"行标签\",\"optListMode\":\"COLLECT\"}, {\"key\":\"区县名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"年份\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"2008\":\"2008\",\"2010\":\"2010\",\"2012\":\"2012\",\"2014\":\"2014\",\"2016\":\"2016\"}},  {\"key\":\"总氮排放强度评价\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"排放1级\":\"排放1级\",\"排放2级\":\"排放2级\",\"排放3级\":\"排放3级\",\"排放4级\":\"排放4级\",\"排放5级\":\"排放5级\"}}, {\"key\":\"总磷排放强度评价\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"排放1级\":\"排放1级\",\"排放2级\":\"排放2级\",\"排放3级\":\"排放3级\",\"排放4级\":\"排放4级\",\"排放5级\":\"排放5级\"}} ]}','{}','{\"headerMap\":{ \"模式面积\":\"模式面积(亩)\", \"化肥N\":\"化肥-N(公斤)\", \"化肥P2O5\":\"化肥-P<sub>2</sub>O<sub>5</sub>(公斤)\", \"有机肥N\":\"有机肥-N(公斤)\", \"有机肥P2O5\":\"有机肥-P<sub>2</sub>O<sub>5</sub>(公斤)\", \"地表径流总氮\":\"地表径流-总氮(公斤)\", \"地下淋溶总氮\":\"地下淋溶-总氮(公斤)\", \"地表径流总磷\":\"地表径流-总磷(公斤)\", \"总氮排放强度\":\"总氮排放强度(公斤/亩)\", \"总磷排放强度\":\"总磷排放强度(公斤/亩)\" }}'),(62,'viewdb1_p18_模式',4,18,'模式','县','{\"columns\":[ {\"name\":\"县\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"县名称\"}, {\"name\":\"年份\",\"type\":\"INT\"}, {\"name\":\"模式代码\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"模式名称\"}, {\"name\":\"面源污染分区\"}, {\"name\":\"模式面积\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥N强度\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥P2O5强度\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥N强度\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥P2O5强度\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥N\",\"type\":\"DOUBLE\"}, {\"name\":\"化肥P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥N\",\"type\":\"DOUBLE\"}, {\"name\":\"有机肥P2O5\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总氮当年流失量\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总氮基础流失量\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮当年流失量\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮基础流失量\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷当年流失量\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷基础流失量\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总氮减排\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮减排\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷减排\",\"type\":\"DOUBLE\"} ],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"县\",\"optListMode\":\"COLLECT\"}, {\"key\":\"县名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"年份\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"2008\":\"2008\",\"2010\":\"2010\",\"2012\":\"2012\",\"2014\":\"2014\",\"2016\":\"2016\"}}, {\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}, {\"key\":\"模式名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"面源污染分区\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式分区\"} ]}','{}','{\"headerMap\":{ \"模式面积\":\"模式面积(亩)\", \"化肥N强度\":\"化肥-N(公斤/亩)\", \"化肥P2O5强度\":\"化肥-P<sub>2</sub>O<sub>5</sub>(公斤/亩)\", \"有机肥N强度\":\"有机肥-N(公斤/亩)\", \"有机肥P2O5强度\":\"有机肥-P<sub>2</sub>O<sub>5</sub>(公斤/亩)\", \"化肥N\":\"化肥-N(公斤)\", \"化肥P2O5\":\"化肥-P<sub>2</sub>O<sub>5</sub>(公斤)\", \"有机肥N\":\"有机肥-N(公斤)\", \"有机肥P2O5\":\"有机肥-P<sub>2</sub>O<sub>5</sub>(公斤)\",  \"地表径流总氮当年流失量\":\"地表径流-总氮-当年流失量(公斤)\", \"地下淋溶总氮当年流失量\":\"地下淋溶-总氮-当年流失量(公斤)\", \"地表径流总磷当年流失量\":\"地表径流-总磷-当年流失量(公斤)\",  \"地表径流总氮基础流失量\":\"地表径流-总氮-基础流失量(公斤)\", \"地下淋溶总氮基础流失量\":\"地下淋溶-总氮-基础流失量(公斤)\", \"地表径流总磷基础流失量\":\"地表径流-总磷-基础流失量(公斤)\",  \"地表径流总氮\":\"地表径流-总氮(公斤)\", \"地下淋溶总氮\":\"地下淋溶-总氮(公斤)\", \"地表径流总磷\":\"地表径流-总磷(公斤)\",  \"地表径流总氮减排\":\"地表径流-总氮减排(公斤)\", \"地下淋溶总氮减排\":\"地下淋溶-总氮减排(公斤)\", \"地表径流总磷减排\":\"地表径流-总磷减排(公斤)\" }}'),(63,'viewdb1_p19_entry',4,19,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(64,'viewdb1_p19_diagram',4,19,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(65,'viewdb1_p19_评估',4,19,'评估','区县','{\"columns\":[ {\"name\":\"区县\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"年份\",\"type\":\"INT\"}, {\"name\":\"分区\"}, {\"name\":\"模式面积\",\"type\":\"DOUBLE\"},  {\"name\":\"N-氨挥发\",\"type\":\"DOUBLE\"}, {\"name\":\"N-灌溉携入\",\"type\":\"DOUBLE\"}, {\"name\":\"N-化肥投入\",\"type\":\"DOUBLE\"}, {\"name\":\"N-降水携入\",\"type\":\"DOUBLE\"},  {\"name\":\"N-秸秆还田\",\"type\":\"DOUBLE\"}, {\"name\":\"N-秸秆移除\",\"type\":\"DOUBLE\"}, {\"name\":\"N-生物固氮\",\"type\":\"DOUBLE\"}, {\"name\":\"N-氧化亚氮排放\",\"type\":\"DOUBLE\"}, {\"name\":\"N-有机肥投入\",\"type\":\"DOUBLE\"}, {\"name\":\"N-种子投入\",\"type\":\"DOUBLE\"}, {\"name\":\"N-作物收获\",\"type\":\"DOUBLE\"},  {\"name\":\"P-灌溉携入\",\"type\":\"DOUBLE\"}, {\"name\":\"P-化肥投入\",\"type\":\"DOUBLE\"}, {\"name\":\"P-降水携入\",\"type\":\"DOUBLE\"}, {\"name\":\"P-秸秆还田\",\"type\":\"DOUBLE\"}, {\"name\":\"P-秸秆移除\",\"type\":\"DOUBLE\"}, {\"name\":\"P-有机肥投入\",\"type\":\"DOUBLE\"}, {\"name\":\"P-种子投入\",\"type\":\"DOUBLE\"}, {\"name\":\"P-作物收获\",\"type\":\"DOUBLE\"} ],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"区县\",\"optListMode\":\"COLLECT\"}, {\"key\":\"分区\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式分区\"}, {\"key\":\"年份\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"2008\":\"2008\",\"2010\":\"2010\",\"2012\":\"2012\",\"2014\":\"2014\",\"2016\":\"2016\"}} ]}','{}','{}'),(66,'viewdb1_p20_entry',4,20,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(67,'viewdb1_p20_diagram',4,20,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(401,'viewdb1_p20_预警数据',4,20,'预警数据','行标签','{\"columns\":[ {\"name\":\"行标签\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"区县名称\"}, {\"name\":\"年份\",\"type\":\"INT\"}, {\"name\":\"模式面积\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷\",\"type\":\"DOUBLE\"}, {\"name\":\"总氮排放强度\",\"type\":\"DOUBLE\"}, {\"name\":\"总磷排放强度\",\"type\":\"DOUBLE\"}, {\"name\":\"总氮排放强度评价\"}, {\"name\":\"总磷排放强度评价\"}],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"行标签\",\"optListMode\":\"COLLECT\"}, {\"key\":\"区县名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"年份\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"2018\":\"2018\"}}, {\"key\":\"总氮排放强度评价\",\"optList\":{\"排放1级\":\"排放1级\",\"排放2级\":\"排放2级\",\"排放3级\":\"排放3级\",\"排放4级\":\"排放4级\",\"排放5级\":\"排放5级\"}}, {\"key\":\"总磷排放强度评价\",\"optList\":{\"排放1级\":\"排放1级\",\"排放2级\":\"排放2级\",\"排放3级\":\"排放3级\",\"排放4级\":\"排放4级\",\"排放5级\":\"排放5级\"}} ]}','{}','{\"headerMap\":{ \"模式面积\":\"模式面积(亩)\", \"地表径流总氮\":\"地表径流-总氮(公斤)\", \"地下淋溶总氮\":\"地下淋溶-总氮(公斤)\", \"地表径流总磷\":\"地表径流-总磷(公斤)\", \"总氮排放强度\":\"总氮排放强度(公斤/亩)\", \"总磷排放强度\":\"总磷排放强度(公斤/亩)\" }}'),(402,'viewdb1_p21_entry',4,21,'entry','','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"key\",\"isnull\":\"false\"},{\"name\":\"title\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(403,'viewdb1_p21_diagram',4,21,'diagram','divCode','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"type\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"divCode\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"name\",\"type\":\"VARCHAR(128)\",\"isnull\":\"false\"},{\"name\":\"filename\",\"type\":\"VARCHAR(512)\",\"isnull\":\"false\"},{\"name\":\"group\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(404,'viewdb1_p21_减排数据',4,21,'减排数据','行标签','{\"columns\":[ {\"name\":\"行标签\",\"type\":\"VARCHAR(10)\"}, {\"name\":\"区县名称\"}, {\"name\":\"年份\",\"type\":\"INT\"}, {\"name\":\"地表径流总氮减排\",\"type\":\"DOUBLE\"}, {\"name\":\"地下淋溶总氮减排\",\"type\":\"DOUBLE\"}, {\"name\":\"地表径流总磷减排\",\"type\":\"DOUBLE\"} ],\"pk\":[]}','{}','{\"items\":[ {\"key\":\"行标签\",\"optListMode\":\"COLLECT\"}, {\"key\":\"区县名称\",\"optListMode\":\"COLLECT\"}, {\"key\":\"年份\",\"optListMode\":\"SPECIFIED\",\"optList\":{\"2008\":\"2008\",\"2010\":\"2010\",\"2012\":\"2012\",\"2014\":\"2014\",\"2016\":\"2016\",\"2018\":\"2018\"}}]}','{}','{\"headerMap\":{ \"模式面积\":\"模式面积(亩)\", \"地表径流总氮减排\":\"地表径流-总氮减排(公斤)\", \"地下淋溶总氮减排\":\"地下淋溶-总氮减排(公斤)\", \"地表径流总磷减排\":\"地表径流-总磷减排(公斤)\" }}'),(405,'planting1_t5_清查',5,-1,'清查','行政区划代码','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"耕地\",\"type\":\"DOUBLE\",\"as\":\"(`旱地`+`水田`)\",},{\"name\":\"旱地\",\"type\":\"DOUBLE\"},{\"name\":\"水田\",\"type\":\"DOUBLE\"},{\"name\":\"露地菜园\",\"type\":\"DOUBLE\"},{\"name\":\"保护地菜园\",\"type\":\"DOUBLE\"},{\"name\":\"园地\",\"type\":\"DOUBLE\"},{\"name\":\"平地\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地梯田\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地非梯田\",\"type\":\"DOUBLE\",\"as\":\"(`缓坡地顺坡`+`缓坡地横坡`)\",},{\"name\":\"缓坡地顺坡\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地横坡\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地\",\"type\":\"DOUBLE\",\"as\":\"(`缓坡地梯田`+`缓坡地非梯田`)\",},{\"name\":\"陡坡地梯田\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地非梯田\",\"type\":\"DOUBLE\",\"as\":\"(`陡坡地顺坡`+`陡坡地横坡`)\",},{\"name\":\"陡坡地顺坡\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地横坡\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地\",\"type\":\"DOUBLE\",\"as\":\"(`陡坡地梯田`+`陡坡地非梯田`)\",},{\"name\":\"地膜覆盖\",\"type\":\"DOUBLE\"},{\"name\":\"地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"厚地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜回收总量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜利用总量\",\"type\":\"DOUBLE\"}],\"pk\":[\"行政区划代码\"]}','{}','{\"items\":[{\"key\":\"行政区划代码\",\"optListMode\":\"COLLECT\"}]}','{}','{}'),(406,'planting1_t5_作物覆膜情况',5,-1,'作物覆膜情况','','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"作物代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"覆膜面积\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例\",\"type\":\"DOUBLE\"}],\"pk\":[\"行政区划代码\",\"作物代码\"]}','{}','{\"items\":[ {\"key\":\"作物代码\",\"optListMode\":\"NAMED\",\"optListName\":\"作物代码\"}]}','{}','{}'),(407,'planting1_t5_模式面积',5,-1,'模式面积','','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"模式代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"覆膜面积\",\"type\":\"DOUBLE\"}],\"pk\":[\"行政区划代码\",\"模式代码\"]}','{}','{\"items\":[ {\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}]}','{}','{}'),(408,'planting1_t5_status',5,-1,'status','datakey','{\"columns\":[{\"name\":\"datakey\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"stateId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"modifyUserId\",\"type\":\"INT\"},{\"name\":\"modifyTime\",\"type\":\"DATETIME\"},{\"name\":\"createUserId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"createTime\",\"type\":\"DATETIME\",\"isnull\":\"false\"},{\"name\":\"remark\",\"type\":\"VARCHAR(4096)\",\"isnull\":\"false\"},{\"name\":\"tags\",\"type\":\"VARCHAR(256)\",\"isnull\":\"false\"}],\"pk\":[\"datakey\"]}','{}','{}','{}','{}'),(409,'planting1_t5_log',5,-1,'log','datakey','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"datakey\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"action\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"affected\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"userId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"time\",\"type\":\"DATETIME\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(410,'planting1_t5_task',5,-1,'task','datakey','{\"columns\":[{\"name\":\"datakey\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"taskId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"userId\",\"type\":\"INT\"},{\"name\":\"time\",\"type\":\"DATETIME\"},{\"name\":\"status\",\"type\":\"INT\",\"isnull\":\"false\"}],\"pk\":[\"datakey\",\"taskId\"]}','{}','{}','{}','{}'),(411,'planting1_p1_status',5,1,'status','datakey','{\"columns\":[{\"name\":\"datakey\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"stateId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"modifyUserId\",\"type\":\"INT\"},{\"name\":\"modifyTime\",\"type\":\"DATETIME\"},{\"name\":\"createUserId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"createTime\",\"type\":\"DATETIME\",\"isnull\":\"false\"},{\"name\":\"remark\",\"type\":\"VARCHAR(4096)\",\"isnull\":\"false\"},{\"name\":\"tags\",\"type\":\"VARCHAR(256)\",\"isnull\":\"false\"}],\"pk\":[\"datakey\"]}','{}','{}','{}','{}'),(412,'planting1_p1_task',5,1,'task','datakey','{\"columns\":[{\"name\":\"datakey\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"taskId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"userId\",\"type\":\"INT\"},{\"name\":\"time\",\"type\":\"DATETIME\"},{\"name\":\"status\",\"type\":\"INT\",\"isnull\":\"false\"}],\"pk\":[\"datakey\",\"taskId\"]}','{}','{}','{}','{}'),(413,'planting1_p1_log',5,1,'log','datakey','{\"columns\":[{\"name\":\"id\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"datakey\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"action\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"affected\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"userId\",\"type\":\"INT\",\"isnull\":\"false\"},{\"name\":\"time\",\"type\":\"DATETIME\",\"isnull\":\"false\"}],\"pk\":[\"id\"]}','{}','{}','{}','{}'),(414,'planting1_p1_清查',5,1,'清查','行政区划代码','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"耕地\",\"type\":\"DOUBLE\",\"as\":\"(`旱地`+`水田`)\",},{\"name\":\"旱地\",\"type\":\"DOUBLE\"},{\"name\":\"水田\",\"type\":\"DOUBLE\"},{\"name\":\"露地菜园\",\"type\":\"DOUBLE\"},{\"name\":\"保护地菜园\",\"type\":\"DOUBLE\"},{\"name\":\"园地\",\"type\":\"DOUBLE\"},{\"name\":\"平地\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地梯田\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地非梯田\",\"type\":\"DOUBLE\",\"as\":\"(`缓坡地顺坡`+`缓坡地横坡`)\",},{\"name\":\"缓坡地顺坡\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地横坡\",\"type\":\"DOUBLE\"},{\"name\":\"缓坡地\",\"type\":\"DOUBLE\",\"as\":\"(`缓坡地梯田`+`缓坡地非梯田`)\",},{\"name\":\"陡坡地梯田\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地非梯田\",\"type\":\"DOUBLE\",\"as\":\"(`陡坡地顺坡`+`陡坡地横坡`)\",},{\"name\":\"陡坡地顺坡\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地横坡\",\"type\":\"DOUBLE\"},{\"name\":\"陡坡地\",\"type\":\"DOUBLE\",\"as\":\"(`陡坡地梯田`+`陡坡地非梯田`)\",},{\"name\":\"地膜覆盖\",\"type\":\"DOUBLE\"},{\"name\":\"地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"厚地膜用量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜回收总量\",\"type\":\"DOUBLE\"},{\"name\":\"地膜利用总量\",\"type\":\"DOUBLE\"}],\"pk\":[\"行政区划代码\"]}','{}','{\"items\":[{\"key\":\"行政区划代码\",\"optListMode\":\"COLLECT\"}]}','{}','{}'),(415,'planting1_p1_作物覆膜情况',5,1,'作物覆膜情况','','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"作物代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"覆膜面积\",\"type\":\"DOUBLE\"},{\"name\":\"覆膜比例\",\"type\":\"DOUBLE\"}],\"pk\":[\"行政区划代码\",\"作物代码\"]}','{}','{\"items\":[ {\"key\":\"作物代码\",\"optListMode\":\"NAMED\",\"optListName\":\"作物代码\"}]}','{}','{}'),(416,'planting1_p1_模式面积',5,1,'模式面积','','{\"columns\":[{\"name\":\"行政区划代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"模式代码\",\"type\":\"VARCHAR(45)\",\"isnull\":\"false\"},{\"name\":\"覆膜面积\",\"type\":\"DOUBLE\"}],\"pk\":[\"行政区划代码\",\"模式代码\"]}','{}','{\"items\":[ {\"key\":\"模式代码\",\"optListMode\":\"NAMED\",\"optListName\":\"种植模式代码\"}]}','{}','{}');
 /*!40000 ALTER TABLE `meta` ENABLE KEYS */;
 -- UN-- LOCK TABLES;
 
@@ -264,7 +264,7 @@ CREATE TABLE `new_table` (
   `田间渗滤池监测面积` varchar(45) DEFAULT NULL,
   `淋溶液收集桶埋深` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ CREATE TABLE `organ` (
   `remarks` varchar(1024) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,12 +315,14 @@ DROP TABLE IF EXISTS `planting1_p1_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 -- SET character_set_client = utf8mb4 ;
 CREATE TABLE `planting1_p1_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `datakey` varchar(45) NOT NULL,
   `action` varchar(45) NOT NULL,
   `affected` varchar(45) NOT NULL,
   `userId` int(11) NOT NULL,
-  PRIMARY KEY (`datakey`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -341,14 +343,15 @@ DROP TABLE IF EXISTS `planting1_p1_status`;
 -- SET character_set_client = utf8mb4 ;
 CREATE TABLE `planting1_p1_status` (
   `datakey` varchar(45) NOT NULL,
-  `state` int(11) NOT NULL,
-  `commitUserId` int(11) NOT NULL,
-  `commitTime` datetime NOT NULL,
+  `stateId` int(11) NOT NULL,
+  `modifyUserId` int(11) DEFAULT NULL,
+  `modifyTime` datetime DEFAULT NULL,
   `createUserId` int(11) NOT NULL,
   `createTime` datetime NOT NULL,
   `remarks` varchar(4096) NOT NULL,
+  `tags` varchar(256) NOT NULL,
   PRIMARY KEY (`datakey`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,6 +361,32 @@ CREATE TABLE `planting1_p1_status` (
 -- LOCK TABLES `planting1_p1_status` WRITE;
 /*!40000 ALTER TABLE `planting1_p1_status` DISABLE KEYS */;
 /*!40000 ALTER TABLE `planting1_p1_status` ENABLE KEYS */;
+-- UN-- LOCK TABLES;
+
+--
+-- Table structure for table `planting1_p1_task`
+--
+
+DROP TABLE IF EXISTS `planting1_p1_task`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+-- SET character_set_client = utf8mb4 ;
+CREATE TABLE `planting1_p1_task` (
+  `datakey` varchar(45) NOT NULL,
+  `taskId` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`datakey`,`taskId`)
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `planting1_p1_task`
+--
+
+-- LOCK TABLES `planting1_p1_task` WRITE;
+/*!40000 ALTER TABLE `planting1_p1_task` DISABLE KEYS */;
+/*!40000 ALTER TABLE `planting1_p1_task` ENABLE KEYS */;
 -- UN-- LOCK TABLES;
 
 --
@@ -373,7 +402,7 @@ CREATE TABLE `planting1_p1_作物覆膜情况` (
   `覆膜面积` double DEFAULT NULL,
   `覆膜比例` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`作物代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -397,7 +426,7 @@ CREATE TABLE `planting1_p1_模式面积` (
   `模式代码` varchar(45) NOT NULL,
   `模式面积` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`模式代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +470,7 @@ CREATE TABLE `planting1_p1_清查` (
   `地膜回收总量` double DEFAULT NULL,
   `地膜利用总量` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -468,7 +497,7 @@ CREATE TABLE `planting1_t5_log` (
   `userId` int(11) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -489,14 +518,15 @@ DROP TABLE IF EXISTS `planting1_t5_status`;
 -- SET character_set_client = utf8mb4 ;
 CREATE TABLE `planting1_t5_status` (
   `datakey` varchar(45) NOT NULL,
-  `state` int(11) NOT NULL,
-  `commitUserId` int(11) NOT NULL,
-  `commitTime` datetime NOT NULL,
+  `stateId` int(11) NOT NULL,
+  `modifyUserId` int(11) DEFAULT NULL,
+  `modifyTime` datetime DEFAULT NULL,
   `createUserId` int(11) NOT NULL,
   `createTime` datetime NOT NULL,
   `remarks` varchar(4096) NOT NULL,
+  `tags` varchar(256) NOT NULL,
   PRIMARY KEY (`datakey`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -506,6 +536,32 @@ CREATE TABLE `planting1_t5_status` (
 -- LOCK TABLES `planting1_t5_status` WRITE;
 /*!40000 ALTER TABLE `planting1_t5_status` DISABLE KEYS */;
 /*!40000 ALTER TABLE `planting1_t5_status` ENABLE KEYS */;
+-- UN-- LOCK TABLES;
+
+--
+-- Table structure for table `planting1_t5_task`
+--
+
+DROP TABLE IF EXISTS `planting1_t5_task`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+-- SET character_set_client = utf8mb4 ;
+CREATE TABLE `planting1_t5_task` (
+  `datakey` varchar(45) NOT NULL,
+  `taskId` int(11) NOT NULL,
+  `userId` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`datakey`,`taskId`)
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `planting1_t5_task`
+--
+
+-- LOCK TABLES `planting1_t5_task` WRITE;
+/*!40000 ALTER TABLE `planting1_t5_task` DISABLE KEYS */;
+/*!40000 ALTER TABLE `planting1_t5_task` ENABLE KEYS */;
 -- UN-- LOCK TABLES;
 
 --
@@ -521,7 +577,7 @@ CREATE TABLE `planting1_t5_作物覆膜情况` (
   `覆膜面积` double DEFAULT NULL,
   `覆膜比例` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`作物代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -545,7 +601,7 @@ CREATE TABLE `planting1_t5_模式面积` (
   `模式代码` varchar(45) NOT NULL,
   `模式面积` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`模式代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -589,7 +645,7 @@ CREATE TABLE `planting1_t5_清查` (
   `地膜回收总量` double DEFAULT NULL,
   `地膜利用总量` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -616,7 +672,7 @@ CREATE TABLE `proj` (
   `tempId` int(11) NOT NULL,
   `deprecated` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -645,7 +701,7 @@ CREATE TABLE `proj_temp` (
   `createDate` datetime NOT NULL,
   `mapRoot` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -654,7 +710,7 @@ CREATE TABLE `proj_temp` (
 
 -- LOCK TABLES `proj_temp` WRITE;
 /*!40000 ALTER TABLE `proj_temp` DISABLE KEYS */;
-INSERT INTO `proj_temp` VALUES (1,'农业面源污染调查','survey-1.0.0','{"states":[{"id":1,"name":"草稿"},{"id":2,"name":"待审核"},{"id":3,"name":"已审核"}],"actions":[{"id":1,"name":"数据填报"},{"id":2,"name":"数据审核"},{"id":3,"name":"数据汇总"}],"workflow":[{"srcState":1,"action":1,"dstState":2},{"srcState":2,"action":2,"dstState":3},{"srcState":3,"action":3,"dstState":3}]}',NULL,'2017-03-23 00:00:00','/survey-v1'),(2,'农业面源污染典型地块监测','monitor-1.0.0','{"states":[{"id":1,"name":"草稿"},{"id":2,"name":"待审核"},{"id":3,"name":"已审核"}],"actions":[{"id":1,"name":"数据填报"},{"id":2,"name":"数据审核"},{"id":3,"name":"数据汇总"}],"workflow":[{"srcState":1,"action":1,"dstState":2},{"srcState":2,"action":2,"dstState":3},{"srcState":3,"action":3,"dstState":3}]}',NULL,'2017-03-23 00:00:00','/monitor-v1'),(3,'典型畜禽养殖单元清粪方式与粪污处理利用调查','feces-1.0.0','{"states":[{"id":1,"name":"草稿"},{"id":2,"name":"待审核"},{"id":3,"name":"已审核"}],"actions":[{"id":1,"name":"数据填报"},{"id":2,"name":"数据审核"},{"id":3,"name":"数据汇总"}],"workflow":[{"srcState":1,"action":1,"dstState":2},{"srcState":2,"action":2,"dstState":3},{"srcState":3,"action":3,"dstState":3}]}',NULL,'2017-03-23 00:00:00','/feces-v1'),(4,'面源污染数据库','viewdb-1.0.0','{"states":[{"id":1,"name":"就绪"}],"actions":[{"id":1,"name":"查看数据"}],"workflow":[{"srcState":1,"action":1,"dstState":1}]}',NULL,'2017-03-23 00:00:00','/viewdb-v1'),(5,'种植业基本情况清查','planting-1.0.0','{"states":[{"id":1,"name":"草稿"},{"id":2,"name":"待审核"},{"id":3,"name":"已审核"}],"actions":[{"id":1,"name":"数据填报"},{"id":2,"name":"数据审核"},{"id":3,"name":"数据汇总"}],"workflow":[{"srcState":1,"action":1,"dstState":2},{"srcState":2,"action":2,"dstState":3},{"srcState":3,"action":3,"dstState":3}]}',NULL,'2017-03-23 00:00:00','/planting-v1');
+INSERT INTO `proj_temp` VALUES (1,'农业面源污染调查','survey-1.0.0','{\"states\":[{\"id\":1,\"name\":\"草稿\"},{\"id\":2,\"name\":\"待审核\"},{\"id\":3,\"name\":\"已审核\"}],\"tasks\":[{\"id\":1,\"name\":\"数据填报\"},{\"id\":2,\"name\":\"数据审核\"},{\"id\":3,\"name\":\"数据汇总\"}],\"workflow\":[{\"srcState\":1,\"action\":1,\"dstState\":2},{\"srcState\":2,\"action\":2,\"dstState\":3},{\"srcState\":3,\"action\":3,\"dstState\":3}]}',NULL,'2017-03-23 00:00:00','/survey-v1'),(2,'农业面源污染典型地块监测','monitor-1.0.0','{\"states\":[{\"id\":1,\"name\":\"草稿\"},{\"id\":2,\"name\":\"待审核\"},{\"id\":3,\"name\":\"已审核\"}],\"tasks\":[{\"id\":1,\"name\":\"数据填报\"},{\"id\":2,\"name\":\"数据审核\"},{\"id\":3,\"name\":\"数据汇总\"}],\"workflow\":[{\"srcState\":1,\"action\":1,\"dstState\":2},{\"srcState\":2,\"action\":2,\"dstState\":3},{\"srcState\":3,\"action\":3,\"dstState\":3}]}',NULL,'2017-03-23 00:00:00','/monitor-v1'),(3,'典型畜禽养殖单元清粪方式与粪污处理利用调查','feces-1.0.0','{\"states\":[{\"id\":1,\"name\":\"草稿\"},{\"id\":2,\"name\":\"待审核\"},{\"id\":3,\"name\":\"已审核\"}],\"tasks\":[{\"id\":1,\"name\":\"数据填报\"},{\"id\":2,\"name\":\"数据审核\"},{\"id\":3,\"name\":\"数据汇总\"}],\"workflow\":[{\"srcState\":1,\"action\":1,\"dstState\":2},{\"srcState\":2,\"action\":2,\"dstState\":3},{\"srcState\":3,\"action\":3,\"dstState\":3}]}',NULL,'2017-03-23 00:00:00','/feces-v1'),(4,'面源污染数据库','viewdb-1.0.0','{\"states\":[{\"id\":1,\"name\":\"就绪\"}],\"tasks\":[{\"id\":1,\"name\":\"查看数据\"}],\"workflow\":[{\"srcState\":1,\"action\":1,\"dstState\":1}]}',NULL,'2017-03-23 00:00:00','/viewdb-v1'),(5,'种植业基本情况清查','planting-1.0.0','{\"states\":[{\"id\":1,\"name\":\"草稿\"},{\"id\":2,\"name\":\"待审核\"},{\"id\":3,\"name\":\"已审核\"}],\"tasks\":[{\"id\":1,\"name\":\"数据填报\"},{\"id\":2,\"name\":\"数据审核\"},{\"id\":3,\"name\":\"数据汇总\"}],\"workflow\":[{\"srcState\":1,\"action\":1,\"dstState\":2},{\"srcState\":2,\"action\":2,\"dstState\":3},{\"srcState\":3,\"action\":3,\"dstState\":3}]}',NULL,'2017-03-23 00:00:00','/planting-v1');
 /*!40000 ALTER TABLE `proj_temp` ENABLE KEYS */;
 -- UN-- LOCK TABLES;
 
@@ -671,7 +727,7 @@ CREATE TABLE `setting` (
   `value` varchar(2048) DEFAULT NULL,
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -680,7 +736,7 @@ CREATE TABLE `setting` (
 
 -- LOCK TABLES `setting` WRITE;
 /*!40000 ALTER TABLE `setting` DISABLE KEYS */;
-INSERT INTO `setting` VALUES (1,'数据存储目录','C:\\AgriData','一般设置'),(2,'数据导出目录','C:\\AgriExport','导入导出设置'),(3,'数据导入暂存目录','C:\\AgriImport','导入导出设置'),(4,'导出文件名格式','${项目名称}-${.now?datetime("yyyyMMdd-HHmmss")}','导入导出设置');
+INSERT INTO `setting` VALUES (1,'数据存储目录','C:\\AgriData','一般设置'),(2,'数据导出目录','C:\\AgriExport','导入导出设置'),(3,'数据导入暂存目录','C:\\AgriImport','导入导出设置'),(4,'导出文件名格式','${项目名称}-${.now?datetime(\"yyyyMMdd-HHmmss\")}','导入导出设置');
 /*!40000 ALTER TABLE `setting` ENABLE KEYS */;
 -- UN-- LOCK TABLES;
 
@@ -699,7 +755,7 @@ CREATE TABLE `viewdb1_p10_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -724,7 +780,7 @@ CREATE TABLE `viewdb1_p10_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -751,7 +807,7 @@ CREATE TABLE `viewdb1_p10_地块模式` (
   `地块种植模式②代码3` varchar(10) DEFAULT NULL,
   `地块种植模式a` varchar(45) DEFAULT NULL,
   `地块种植模式b` varchar(45) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -782,7 +838,7 @@ CREATE TABLE `viewdb1_p10_地块肥料` (
   `养分含量P2O5` double DEFAULT NULL,
   `养分含量K2O` double DEFAULT NULL,
   `施肥方式` int(11) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -813,7 +869,7 @@ CREATE TABLE `viewdb1_p10_模式面积` (
   `种植方式` varchar(45) DEFAULT NULL,
   `面积` double DEFAULT NULL,
   `模式代码最终` varchar(45) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -841,7 +897,7 @@ CREATE TABLE `viewdb1_p11_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -866,7 +922,7 @@ CREATE TABLE `viewdb1_p11_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -903,7 +959,7 @@ CREATE TABLE `viewdb1_p11_面积肥料` (
   `有机肥总施用量1` double DEFAULT NULL,
   `有机肥总施用量2` double DEFAULT NULL,
   `有机肥总施用量3` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -931,7 +987,7 @@ CREATE TABLE `viewdb1_p12_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -957,7 +1013,7 @@ CREATE TABLE `viewdb1_p12_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1000,7 +1056,7 @@ CREATE TABLE `viewdb1_p12_抽样` (
   `填报年份` varchar(10) DEFAULT NULL,
   `状态` int(11) DEFAULT NULL,
   `isok` int(11) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1030,7 +1086,7 @@ CREATE TABLE `viewdb1_p12_抽样施肥` (
   `N` double DEFAULT NULL,
   `P2O2` double DEFAULT NULL,
   `K2O` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1098,7 +1154,7 @@ CREATE TABLE `viewdb1_p12_普查` (
   `isok` int(11) DEFAULT NULL,
   `状态` int(11) DEFAULT NULL,
   UNIQUE KEY `县名与行政区域代码_UNIQUE` (`县名与行政区域代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1123,7 +1179,7 @@ CREATE TABLE `viewdb1_p12_模式面积` (
   `模式代码` varchar(10) DEFAULT NULL,
   `模式名称` varchar(45) DEFAULT NULL,
   `面积` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1151,7 +1207,7 @@ CREATE TABLE `viewdb1_p13_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1177,7 +1233,7 @@ CREATE TABLE `viewdb1_p13_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1221,7 +1277,7 @@ CREATE TABLE `viewdb1_p13_抽样` (
   `填报人联系电话` varchar(45) DEFAULT NULL,
   `填报单位` varchar(45) DEFAULT NULL,
   `状态` varchar(10) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1256,7 +1312,7 @@ CREATE TABLE `viewdb1_p13_抽样施肥` (
   `P2O2` double DEFAULT NULL,
   `K2O` double DEFAULT NULL,
   `状态` varchar(10) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1307,7 +1363,7 @@ CREATE TABLE `viewdb1_p13_普查` (
   `录入单位` varchar(45) DEFAULT NULL,
   `状态` varchar(10) DEFAULT NULL,
   UNIQUE KEY `行政区划代码_UNIQUE` (`行政区划代码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1334,7 +1390,7 @@ CREATE TABLE `viewdb1_p13_模式面积` (
   `模式名称` varchar(45) DEFAULT NULL,
   `模式代码` varchar(10) DEFAULT NULL,
   `模式面积` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1362,7 +1418,7 @@ CREATE TABLE `viewdb1_p14_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1388,7 +1444,7 @@ CREATE TABLE `viewdb1_p14_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1423,7 +1479,7 @@ CREATE TABLE `viewdb1_p14_地块施肥` (
   `N` double unsigned DEFAULT NULL,
   `P2O2` double DEFAULT NULL,
   `K2O` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1450,7 +1506,7 @@ CREATE TABLE `viewdb1_p14_模式面积` (
   `模式名称` varchar(45) DEFAULT NULL,
   `模式代码` varchar(10) DEFAULT NULL,
   `模式面积` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1478,7 +1534,7 @@ CREATE TABLE `viewdb1_p15_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1504,7 +1560,7 @@ CREATE TABLE `viewdb1_p15_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1539,7 +1595,7 @@ CREATE TABLE `viewdb1_p15_土壤剖面信息` (
   `动物穴` varchar(45) DEFAULT NULL,
   `石灰反应` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`地块编码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1601,7 +1657,7 @@ CREATE TABLE `viewdb1_p15_地块信息` (
   `田间渗滤池监测面积` double DEFAULT NULL,
   `淋溶液收集桶埋深` double DEFAULT NULL,
   PRIMARY KEY (`地块编码`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1637,7 +1693,7 @@ CREATE TABLE `viewdb1_p15_基础土壤样品` (
   `硝态氮` double DEFAULT NULL,
   `铵态氮` double DEFAULT NULL,
   `可溶性总氮` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1675,7 +1731,7 @@ CREATE TABLE `viewdb1_p15_处理描述地膜植物篱` (
   `植物篱带宽` double DEFAULT NULL,
   `植物篱间距` double DEFAULT NULL,
   `植物篱条带数量` int(11) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1709,7 +1765,7 @@ CREATE TABLE `viewdb1_p15_处理描述施肥` (
   `有机肥N` double DEFAULT NULL,
   `有机肥P2O5` double DEFAULT NULL,
   `有机肥K2O` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1742,7 +1798,7 @@ CREATE TABLE `viewdb1_p15_处理描述灌溉秸秆还田` (
   `还田方式` varchar(45) DEFAULT NULL,
   `还田量` double DEFAULT NULL,
   `还田比例` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1781,7 +1837,7 @@ CREATE TABLE `viewdb1_p15_处理描述耕作` (
   `垄高2` double DEFAULT NULL,
   `垄宽2` double DEFAULT NULL,
   `垄间距2` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1814,7 +1870,7 @@ CREATE TABLE `viewdb1_p15_小区产流记载及水样品记录` (
   `铵态氮` double DEFAULT NULL,
   `总磷` double DEFAULT NULL,
   `可溶性总磷` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1839,7 +1895,7 @@ CREATE TABLE `viewdb1_p15_小区编码与处理对应` (
   `地块编码` varchar(10) NOT NULL,
   `小区编码` varchar(10) NOT NULL,
   `处理代码` varchar(10) NOT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1874,7 +1930,7 @@ CREATE TABLE `viewdb1_p15_施肥记录` (
   `施肥日期` date DEFAULT NULL,
   `施肥方式` varchar(45) DEFAULT NULL,
   `施肥量` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1908,7 +1964,7 @@ CREATE TABLE `viewdb1_p15_植株产量记载及植株样品记录` (
   `全氮` double DEFAULT NULL,
   `全磷` double DEFAULT NULL,
   `全钾` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1946,7 +2002,7 @@ CREATE TABLE `viewdb1_p15_监测期土壤样品` (
   `cacl2P` double DEFAULT NULL,
   `有效钾` double DEFAULT NULL,
   `ph` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1972,7 +2028,7 @@ CREATE TABLE `viewdb1_p15_种植季与作物对应` (
   `种植季` int(11) NOT NULL,
   `作物类别及代码` varchar(45) DEFAULT NULL,
   `作物名称` varchar(45) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2002,7 +2058,7 @@ CREATE TABLE `viewdb1_p15_种植记录` (
   `种植方式` varchar(45) DEFAULT NULL,
   `种植日期` date DEFAULT NULL,
   `收获日期` date DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2028,7 +2084,7 @@ CREATE TABLE `viewdb1_p15_试验进程及操作记录` (
   `日期` date DEFAULT NULL,
   `各项田间工作简述` varchar(1024) DEFAULT NULL,
   `备注` varchar(4096) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2064,7 +2120,7 @@ CREATE TABLE `viewdb1_p15_降水灌溉水样品` (
   `总磷` double DEFAULT NULL,
   `可溶性总磷` double DEFAULT NULL,
   `ph` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2092,7 +2148,7 @@ CREATE TABLE `viewdb1_p16_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2117,7 +2173,7 @@ CREATE TABLE `viewdb1_p16_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2150,7 +2206,7 @@ CREATE TABLE `viewdb1_p16_分年度农产品产量` (
   `2008年` double DEFAULT NULL,
   `2007年` double DEFAULT NULL,
   PRIMARY KEY (`指标`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2209,7 +2265,7 @@ CREATE TABLE `viewdb1_p16_分年度农产品产量2` (
   `草莓` double DEFAULT NULL,
   `蔬菜` double DEFAULT NULL,
   PRIMARY KEY (`年份`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2241,7 +2297,7 @@ CREATE TABLE `viewdb1_p16_分年度农产品播种面积` (
   `2009年` double DEFAULT NULL,
   `2008年` double DEFAULT NULL,
   `2007年` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2303,7 +2359,7 @@ CREATE TABLE `viewdb1_p16_分年度农产品播种面积2` (
   `其他农作物` double DEFAULT NULL,
   `青饲料` double DEFAULT NULL,
   PRIMARY KEY (`年份`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2331,7 +2387,7 @@ CREATE TABLE `viewdb1_p17_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2356,7 +2412,7 @@ CREATE TABLE `viewdb1_p17_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2382,7 +2438,7 @@ CREATE TABLE `viewdb1_p17_作物养分含量` (
   `N含量` double DEFAULT NULL,
   `P含量` double DEFAULT NULL,
   PRIMARY KEY (`作物种类`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2406,7 +2462,7 @@ CREATE TABLE `viewdb1_p17_农田固氮` (
   `固氮途径` varchar(45) NOT NULL,
   `固氮量` double DEFAULT NULL,
   PRIMARY KEY (`固氮途径`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2431,7 +2487,7 @@ CREATE TABLE `viewdb1_p17_农田灌溉` (
   `年份` int(11) NOT NULL,
   `N` double DEFAULT NULL,
   `P` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2456,7 +2512,7 @@ CREATE TABLE `viewdb1_p17_大气降水` (
   `N` double DEFAULT NULL,
   `P` double DEFAULT NULL,
   PRIMARY KEY (`降水分区`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2480,7 +2536,7 @@ CREATE TABLE `viewdb1_p17_氨挥发参数` (
   `肥料种类` varchar(45) NOT NULL,
   `氨挥发系数` double DEFAULT NULL,
   PRIMARY KEY (`肥料种类`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2506,7 +2562,7 @@ CREATE TABLE `viewdb1_p17_秸秆参数` (
   `N` double DEFAULT NULL,
   `P` double DEFAULT NULL,
   PRIMARY KEY (`作物秸秆种类`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2534,7 +2590,7 @@ CREATE TABLE `viewdb1_p18_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2560,7 +2616,7 @@ CREATE TABLE `viewdb1_p18_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2596,7 +2652,7 @@ CREATE TABLE `viewdb1_p18_区县` (
   `总磷排放强度` double DEFAULT NULL,
   `总氮排放强度评价` varchar(45) DEFAULT NULL,
   `总磷排放强度评价` varchar(45) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2644,7 +2700,7 @@ CREATE TABLE `viewdb1_p18_模式` (
   `地表径流总氮减排` double DEFAULT NULL,
   `地下淋溶总氮减排` double DEFAULT NULL,
   `地表径流总磷减排` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2672,7 +2728,7 @@ CREATE TABLE `viewdb1_p19_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2698,7 +2754,7 @@ CREATE TABLE `viewdb1_p19_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2742,7 +2798,7 @@ CREATE TABLE `viewdb1_p19_评估` (
   `P-有机肥投入` double DEFAULT NULL,
   `P-种子投入` double DEFAULT NULL,
   `P-作物收获` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2770,7 +2826,7 @@ CREATE TABLE `viewdb1_p20_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2796,7 +2852,7 @@ CREATE TABLE `viewdb1_p20_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2828,7 +2884,7 @@ CREATE TABLE `viewdb1_p20_预警数据` (
   `总磷排放强度` double DEFAULT NULL,
   `总氮排放强度评价` varchar(45) DEFAULT NULL,
   `总磷排放强度评价` varchar(45) DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2856,7 +2912,7 @@ CREATE TABLE `viewdb1_p21_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2882,7 +2938,7 @@ CREATE TABLE `viewdb1_p21_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2909,7 +2965,7 @@ CREATE TABLE `viewdb1_p21_减排数据` (
   `地表径流总氮减排` double DEFAULT NULL,
   `地下淋溶总氮减排` double DEFAULT NULL,
   `地表径流总磷减排` double DEFAULT NULL
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2937,7 +2993,7 @@ CREATE TABLE `viewdb1_t4_proto_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2962,7 +3018,7 @@ CREATE TABLE `viewdb1_t4_proto_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ; --ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2983,4 +3039,4 @@ CREATE TABLE `viewdb1_t4_proto_entry` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-13 13:18:45
+-- Dump completed on 2018-08-16  9:19:08
