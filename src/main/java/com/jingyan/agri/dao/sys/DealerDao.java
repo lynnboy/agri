@@ -39,7 +39,7 @@ public interface DealerDao {
 	void deleteGroup(@Param("id") int id); 
 	List<Group> getGroupsOfDealer(@Param("dealerId") int dealerId);
 	List<Group> getProjectGroupsOfDealer(@Param("dealerId") int dealerId,
-			@Param("projId") int projId);
+			@Param("projId") int projId, @Param("taskId") int taskId);
 	
 	List<Dealer> getGroupMembers(@Param("id") int id);
 	boolean isMemberInGroup(@Param("id") int id, @Param("dealerId") int dealerId);

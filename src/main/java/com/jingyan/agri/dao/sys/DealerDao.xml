@@ -286,7 +286,7 @@
 		FROM `group` AS g
 		JOIN groupmember AS mem ON g.id = mem.groupId
 		JOIN proj AS p ON g.projId = p.id
-		WHERE mem.dealerId = #{dealerId} AND g.projId = #{projId}
+		WHERE mem.dealerId = #{dealerId} AND g.projId = #{projId} AND g.action = #{taskId}
 	</select>
 	
 	<select id="getGroup" resultType="Group">

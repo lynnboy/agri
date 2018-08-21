@@ -22,6 +22,7 @@ public class ProjectTemplate extends BaseEntity<ProjectTemplate> {
 	}
 	public static class Task {
 		public static enum Type { DEFAULT, 填报, 审核, 汇总, 查看 }
+		public static enum Status { 正常, 申请中, 申请撤回, 通过, 拒绝 }
 		@Getter @Setter
 		private Integer id;
 		@Getter @Setter

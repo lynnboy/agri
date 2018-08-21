@@ -97,6 +97,86 @@
 		</if>
 	</select>
 
+	<select id="queryWithStatusCount" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT
+				<foreach item="i" collection="taskIds">
+					`task_${i}`.`status` as `status_${i}`,
+					`task_${i}`.`time` as `time_${i}`,
+					`user_${i}`.`name` as `userName_${i}`,
+					`organ_${i}`.`name` as `organName_${i}`,
+				</foreach>
+				`status`.`datakey`,
+				`status`.`stateId`,
+				`modifyUser`.`name` as `modifyUserName`,
+				`status`.`modifyTime`,
+				`createUser`.`name` as `createUserName`,
+				`status`.`createTime`,
+				`status`.`remarks`,
+				`status`.`tags`,
+				`data`.*
+			FROM `${dataTable}` as `data`
+			JOIN `${statusTable}` as `status`
+			LEFT JOIN `dealer` as `modifyUser` on `status`.`modifyUserId` = `modifyUser`.id
+			LEFT JOIN `dealer` as `createUser` on `status`.`modifyUserId` = `createUser`.id
+			<foreach item="i" collection="taskIds">
+				LEFT JOIN `${taskTable}` as `task_${i}` on `status`.`datakey` = `task_${i}`.`datakey` and `task_${i}`.`taskId` = ${i}
+				LEFT JOIN `dealer` as `user_${i}` on `task_${i}`.`userId` = `user_${i}`.id
+				LEFT JOIN `organ` as `organ_${i}` on `user_${i}`.`organId` = `organ_${i}`.id
+			</foreach>
+		) as `sub`
+		<if test="search != null and search.conditions != null">
+		<where>
+		<foreach item="sub" collection="search.conditions">
+		AND (<foreach item="cond" collection="sub" separator=" OR "> ${cond} </foreach>)
+		</foreach>
+		</where>
+		</if>
+	</select>
+
+	<select id="queryWithStatus" resultType="map">
+		SELECT * FROM (
+			SELECT
+				<foreach item="i" collection="taskIds">
+					`task_${i}`.`status` as `status_${i}`,
+					`task_${i}`.`time` as `time_${i}`,
+					`user_${i}`.`name` as `userName_${i}`,
+					`organ_${i}`.`name` as `organName_${i}`,
+				</foreach>
+				`status`.`datakey`,
+				`status`.`stateId`,
+				`modifyUser`.`name` as `modifyUserName`,
+				`status`.`modifyTime`,
+				`createUser`.`name` as `createUserName`,
+				`status`.`createTime`,
+				`status`.`remarks`,
+				`status`.`tags`,
+				`data`.*
+			FROM `${dataTable}` as `data`
+			JOIN `${statusTable}` as `status`
+			LEFT JOIN `dealer` as `modifyUser` on `status`.`modifyUserId` = `modifyUser`.id
+			LEFT JOIN `dealer` as `createUser` on `status`.`modifyUserId` = `createUser`.id
+			<foreach item="i" collection="taskIds">
+				LEFT JOIN `${taskTable}` as `task_${i}` on `status`.`datakey` = `task_${i}`.`datakey` and `task_${i}`.`taskId` = ${i}
+				LEFT JOIN `dealer` as `user_${i}` on `task_${i}`.`userId` = `user_${i}`.id
+				LEFT JOIN `organ` as `organ_${i}` on `user_${i}`.`organId` = `organ_${i}`.id
+			</foreach>
+		) as `sub`
+		<if test="search != null and search.conditions != null">
+		<where>
+		<foreach item="sub" collection="search.conditions" separator=" AND ">
+			(<foreach item="cond" collection="sub" separator=" OR "> ${cond} </foreach>)
+		</foreach>
+		</where>
+		</if>
+		<if test="view != null and view.sqlOrderBy != null and view.sqlOrderBy != ''">
+		ORDER BY ${view.sqlOrderBy}
+		</if>
+		<if test="view != null">
+		LIMIT #{view.offset}, #{view.pageSize}
+		</if>
+	</select>
+
 	<select id="collectOptList" resultType="java.lang.String">
 		SELECT DISTINCT `${colName}` FROM `${tableName}` ORDER BY `${colName}`
 	</select>

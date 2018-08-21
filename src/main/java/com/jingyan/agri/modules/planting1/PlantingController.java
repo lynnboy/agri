@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import com.jingyan.agri.common.persistence.ResultView;
 import com.jingyan.agri.common.persistence.Search;
 import com.jingyan.agri.common.security.Token;
 import com.jingyan.agri.common.utils.JsonUtils;
+import com.jingyan.agri.common.web.ActionUrl;
 import com.jingyan.agri.common.web.BaseController;
 import com.jingyan.agri.common.web.ProjectTemplateController;
 import com.jingyan.agri.dao.sys.DealerDao;
@@ -40,6 +42,7 @@ import com.jingyan.agri.entity.sys.Group;
 import com.jingyan.agri.entity.sys.Meta;
 import com.jingyan.agri.entity.sys.Project;
 import com.jingyan.agri.entity.sys.ProjectTemplate;
+import com.jingyan.agri.entity.sys.ProjectTemplate.Task;
 import com.jingyan.agri.entity.sys.SettingValue;
 import com.jingyan.agri.entity.viewdb1.Diagram;
 import com.jingyan.agri.entity.viewdb1.Entry;
@@ -59,7 +62,10 @@ public class PlantingController extends BaseController implements ProjectTemplat
 	static final String META_KEY_SUB1 = "作物覆膜情况";
 	static final String META_KEY_SUB2 = "模式面积";
 	static final String META_KEY_STATUS = "status";
+	static final String META_KEY_TASK = "task";
 	static final String META_KEY_LOG = "log";
+
+	static final String TITLE_LIST = "数据列表";
 
 	@Autowired
 	ManagerDao sysDao;
@@ -78,89 +84,60 @@ public class PlantingController extends BaseController implements ProjectTemplat
 			@PathVariable("actionId") int actionId,
 			ModelMap model) throws Exception
 	{
-		Pair<Project, ProjectTemplate> projPair =
-				metaService.checkProject(projId, actionId,
-						VERSION_NAME, ACTION_ID_VIEW);
-		Project proj = projPair.getLeft();
+		metaService.checkProject(projId, actionId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
 
 		return "forward:" + PATH_ROOT + "/" + projId + "/" + actionId + "/list";
 	}
 
-	@RequestMapping(value = "/{projId}/{actionId}/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/{projId}/{taskId}/list", method = RequestMethod.GET)
 	@Token(init = true)
 	public String entry(@PathVariable("projId") int projId,
-			@PathVariable("actionId") int actionId,
-			@PathVariable("key") String keyOrId,
+			@PathVariable("taskId") int taskId,
 			Search search, ResultView view,
 			ModelMap model, HttpSession session) throws Exception
 	{
 		Pair<Project, ProjectTemplate> projPair =
-				metaService.checkProject(projId, actionId,
-						VERSION_NAME, ACTION_ID_VIEW);
+				metaService.checkProject(projId, taskId, VERSION_NAME,
+						Task.Type.填报, Task.Type.审核, Task.Type.汇总);
 		Project proj = projPair.getLeft();
+		ProjectTemplate temp = projPair.getRight();
+		Task task = temp.getProjectInfo().getTaskMap().get(taskId);
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		
+		var handler = metaService.prepareSearch(proj, temp, groups,
+				META_KEY_DATA, META_KEY_STATUS, META_KEY_TASK);
+		List<Map<String, Object>> list = handler.search(search, view);
 
 		model.addAttribute("proj", proj);
-
-		Meta entrytbl = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
-//		Entry entry = viewDBDao.getEntry(keyOrId, entrytbl.getTableName());
-//		if (entry == null)
-//			throw new Exception("No such entry.");
-//		String key = entry.getKey();
-//		model.addAttribute("key", key);
-		model.addAttribute("entryBase", PATH_ROOT + "/" + projId + "/" + actionId);
-		model.addAttribute("diagramBase", PATH_ROOT + "/diagram/" + projId);
-//		model.addAttribute("entry", entry);
-//		List<Entry> entries = viewDBDao.getAllEntries(entrytbl.getTableName());
-//		model.addAttribute("entries", entries);
-
-//		switch (entry.getTypeE()) {
-//		case DIAGRAM:
-//			return showDiagram(proj, entry, user, model);
-//		case TABLE:
-//			return showTable(proj, entry, user, search, view, model);
-//		default:
-//			throw new Exception("");
-//		}
-		return "";
-	}
-
-	private String showTable(Project proj, Entry entry, Dealer user,
-			Search search, ResultView view,
-			ModelMap model) throws Exception
-	{
-		List<Group> groups = userDao.getProjectGroupsOfDealer(user.getId(), proj.getId());
-		Meta table = metaService.getProjectTableMetaByKey(proj, entry.getKey());
-		table = metaService.normalize(table);
-
-		Meta.Schema schema = table.getSchema();
-		Meta.ViewConfig viewConfig = table.getViewConfig();
-		Meta.SearchConfig searchConfig = table.getSearchConfig();
-		Meta.SortConfig sortConfig = table.getSortConfig();
-		
-		search.normalize(table, groups, metaService.isEscapeInSQLLiteral());
-		final int totalCount = metaDao.queryCount(null, table.getTableName());
-		final int queryCount = metaDao.queryCount(search, table.getTableName());
-		view.setTotalCount(totalCount);
-		view.setQueryCount(queryCount);
-		view.normalize(sortConfig.getSortableColumnsFor(schema));
-		
-		List<Map<String, Object>> list = metaDao.query(search, view, table.getTableName());
+		model.addAttribute("temp", temp);
 
 		model.addAttribute("list", list);
-		model.addAttribute("entry", entry);
-		model.addAttribute("schema", schema);
-		model.addAttribute("schemaJson", schema.toJson());
-		model.addAttribute("viewConfig", viewConfig);
-		model.addAttribute("viewConfigJson", viewConfig.toJson());
-		model.addAttribute("searchConfig", searchConfig);
-		model.addAttribute("searchConfigJson", searchConfig.toJson());
-		model.addAttribute("sortConfig", sortConfig);
-		model.addAttribute("sortConfigJson", sortConfig.toJson());
+		model.addAttribute("schema", handler.getSchema());
+		model.addAttribute("schemaJson", handler.getSchema().toJson());
+		model.addAttribute("viewConfig", handler.getViewConfig());
+		model.addAttribute("viewConfigJson", handler.getViewConfig().toJson());
+		model.addAttribute("searchConfig", handler.getSearchConfig());
+		model.addAttribute("searchConfigJson", handler.getSearchConfig().toJson());
+		model.addAttribute("sortConfig", handler.getSortConfig());
+		model.addAttribute("sortConfigJson", handler.getSortConfig().toJson());
 		model.addAttribute("pager", view);
 		model.addAttribute("query", JsonUtils.serialize(search.getQuery()));
 
-		return VIEW_ROOT + "/table";
+		List<ActionUrl> actions = new ArrayList<>();
+		ActionUrl listAction = new ActionUrl();
+		listAction.setActive(true);
+		listAction.setTitle(TITLE_LIST);
+		listAction.setUrl(VIEW_ROOT + "/" + projId + "/" + taskId + "/list");
+		actions.add(listAction);
+		if (task.getType() == Task.Type.DEFAULT ||
+			task.getType() == Task.Type.填报) {
+			
+		}
+		model.addAttribute("actions", actions);
+
+		return VIEW_ROOT + "/list";
 	}
 
 	@Override

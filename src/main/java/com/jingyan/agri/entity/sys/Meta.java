@@ -4,7 +4,10 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -82,6 +85,15 @@ public class Meta extends BaseEntity<Meta> {
 			}
 		}
 		public Ext ext() { return new Ext(); }
+		
+		public Column clone() {
+			Column col = new Column();
+			col.name = name;
+			col.type = type;
+			col.isnull = isnull;
+			col.as = as;
+			return col;
+		}
 
 		public static void main(String args[]) {
 			Date d = new Date();
@@ -102,12 +114,18 @@ public class Meta extends BaseEntity<Meta> {
 		private List<Column> columns = Lists.newArrayList();
 		@Getter @Setter
 		private List<String> pk = Lists.newArrayList();
+		@JsonIgnore
+		private Map<String, Column> map;
+		public Map<String, Column> map() {
+			if (map == null) {
+				map = columns.stream().collect(
+						Collectors.toMap(e -> e.getName(), e -> e));
+			}
+			return map;
+		}
 
 		public Column columnOf(String key) {
-			for (Column column : getColumns()) {
-				if (column.getName().equals(key)) return column;
-			}
-			return null;
+			return map().getOrDefault(key, null);
 		}
 	}
 
@@ -130,7 +148,7 @@ public class Meta extends BaseEntity<Meta> {
 					!list.contains(key) : list.contains(key);
 		}
 		public List<String> getSortableColumnsFor(Schema schema) {
-			if (mode == Mode.EXCLUSIVE)
+			if (mode == Mode.EXCLUSIVE && !list.isEmpty())
 				return schema.columns.stream().map(c -> c.getName())
 						.filter(key -> !list.contains(key))
 						.collect(Collectors.toList());
@@ -143,7 +161,7 @@ public class Meta extends BaseEntity<Meta> {
 		private static final long serialVersionUID = 1L;
 
 		public static enum Mode { DEFAULT, INCLUSIVE }
-		public static enum OptListMode { NONE, NAMED, SPECIFIED, COLLECT }
+		public static enum OptListMode { NONE, NAMED, SPECIFIED, COLLECT, TAGS }
 		
 		public static class Item {
 			@Getter @Setter
@@ -154,15 +172,32 @@ public class Meta extends BaseEntity<Meta> {
 			private String optListName = "";
 			@Getter @Setter
 			private OptionList optList = new OptionList();
+			public Item clone() {
+				Item item = new Item();
+				item.key = key;
+				item.optListMode = optListMode;
+				item.optListName = optListName;
+				item.optList = optList;
+				return item;
+			}
 		}
 		
 		@Getter @Setter
 		private Mode mode = Mode.DEFAULT;
 		@Getter @Setter
 		private List<Item> items = Lists.newArrayList();
+		@JsonIgnore
+		private Map<String, Item> map;
+		public Map<String, Item> map() {
+			if (map == null) {
+				map = items.stream().collect(
+						Collectors.toMap(e -> e.getKey(), e -> e));
+			}
+			return map;
+		}
 		
 		public boolean isSearchable(String key) {
-			return items.stream().anyMatch(i -> i.getKey().equals(key));
+			return map().containsKey(key);
 		}
 	}
 	
@@ -172,11 +207,58 @@ public class Meta extends BaseEntity<Meta> {
 
 	public static class ViewConfig extends BaseEntity<ViewConfig> {
 		private static final long serialVersionUID = 1L;
-		@Getter @Setter
-		private Map<String, String> headerMap = Maps.newHashMap();
+		public static enum Mode { DEFAULT }
+		public static enum OptListMode { NONE, NAMED, SPECIFIED }
 		
+		public static class Item {
+			@Getter @Setter
+			private String key;
+			@Getter @Setter
+			private String header = "";
+			@Getter @Setter
+			private OptListMode optListMode = OptListMode.NONE;
+			@Getter @Setter
+			private String optListName = "";
+			@Getter @Setter
+			private OptionList optList = new OptionList();
+			public Item clone() {
+				Item item = new Item();
+				item.key = key;
+				item.header = header;
+				item.optListMode = optListMode;
+				item.optListName = optListName;
+				item.optList = optList;
+				return item;
+			}
+		}
+		@Getter @Setter
+		private Mode mode = Mode.DEFAULT;
+		@Getter @Setter
+		private List<Item> items = Lists.newArrayList();
+		@JsonIgnore
+		private Map<String, Item> map;
+		public Map<String, Item> map() {
+			if (map == null) {
+				map = items.stream().collect(Collectors.toMap(e -> e.getKey(), e -> e));
+			}
+			return map;
+		}
+
 		public String headerOf(String key) {
-			return headerMap.getOrDefault(key, key);
+			if (map().containsKey(key)) {
+				String header = map().get(key).getHeader();
+				if (StringUtils.isNotEmpty(header))
+					return header;
+			}
+			return key;
+		}
+		public String textOf(String key, Object value) {
+			String valueStr = value.toString();
+			if (map().containsKey(key) && map().get(key).getOptListMode() != OptListMode.NONE) {
+				OptionList optList = map().get(key).getOptList();
+				return optList.getOrDefault(valueStr, valueStr);
+			}
+			return valueStr;
 		}
 	}
 	

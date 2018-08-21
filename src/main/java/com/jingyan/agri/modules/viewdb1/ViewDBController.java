@@ -55,7 +55,7 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 	static final String PATH_ROOT = "/viewdb-v1";
 	static final String VERSION_NAME = "viewdb-1.0.0";
 	static final String PREFIX = "viewdb1";
-	static final int ACTION_ID_VIEW = 1;
+	static final int TASK_ID_VIEW = 1;
 	
 	static final String META_KEY_ENTRY = "entry";
 	static final String META_KEY_DIAGRAM = "diagram";
@@ -74,15 +74,15 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 	@Autowired
 	SettingsDao settingsDao;
 
-	@RequestMapping(value = "/{projId}/{actionId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{projId}/{taskId}", method = RequestMethod.GET)
 	@Token(init = true)
 	public String dispatch(@PathVariable("projId") int projId,
-			@PathVariable("actionId") int actionId,
+			@PathVariable("taskId") int taskId,
 			ModelMap model) throws Exception
 	{
 		Pair<Project, ProjectTemplate> projPair =
-				metaService.checkProject(projId, actionId,
-						VERSION_NAME, ACTION_ID_VIEW);
+				metaService.checkProject(projId, taskId,
+						VERSION_NAME, ProjectTemplate.Task.Type.查看);
 		Project proj = projPair.getLeft();
 
 		model.addAttribute("proj", proj);
@@ -93,22 +93,23 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 			return VIEW_ROOT + "/empty";
 		String key = entries.get(0).getKey();
 
-		return "forward:" + PATH_ROOT + "/" + projId + "/" + actionId + "/" + key;
+		return "forward:" + PATH_ROOT + "/" + projId + "/" + taskId + "/" + key;
 	}
 
-	@RequestMapping(value = "/{projId}/{actionId}/{key}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{projId}/{taskId}/{key}", method = RequestMethod.GET)
 	@Token(init = true)
 	public String entry(@PathVariable("projId") int projId,
-			@PathVariable("actionId") int actionId,
+			@PathVariable("taskId") int taskId,
 			@PathVariable("key") String keyOrId,
 			Search search, ResultView view,
 			ModelMap model, HttpSession session) throws Exception
 	{
 		Pair<Project, ProjectTemplate> projPair =
-				metaService.checkProject(projId, actionId,
-						VERSION_NAME, ACTION_ID_VIEW);
+				metaService.checkProject(projId, taskId,
+						VERSION_NAME, ProjectTemplate.Task.Type.查看);
 		Project proj = projPair.getLeft();
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
 
 		model.addAttribute("proj", proj);
 
@@ -118,7 +119,7 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 			throw new Exception("No such entry.");
 		String key = entry.getKey();
 		model.addAttribute("key", key);
-		model.addAttribute("entryBase", PATH_ROOT + "/" + projId + "/" + actionId);
+		model.addAttribute("entryBase", PATH_ROOT + "/" + projId + "/" + taskId);
 		model.addAttribute("diagramBase", PATH_ROOT + "/diagram/" + projId);
 		model.addAttribute("entry", entry);
 		List<Entry> entries = viewDBDao.getAllEntries(entrytbl.getTableName());
@@ -126,19 +127,18 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 
 		switch (entry.getTypeE()) {
 		case DIAGRAM:
-			return showDiagram(proj, entry, user, model);
+			return showDiagram(proj, entry, groups, model);
 		case TABLE:
-			return showTable(proj, entry, user, search, view, model);
+			return showTable(proj, entry, groups, search, view, model);
 		default:
 			throw new Exception("");
 		}
 	}
 
-	private String showTable(Project proj, Entry entry, Dealer user,
+	private String showTable(Project proj, Entry entry, List<Group> groups,
 			Search search, ResultView view,
 			ModelMap model) throws Exception
 	{
-		List<Group> groups = userDao.getProjectGroupsOfDealer(user.getId(), proj.getId());
 		Meta table = metaService.getProjectTableMetaByKey(proj, entry.getKey());
 		table = metaService.normalize(table);
 
@@ -172,10 +172,9 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 		return VIEW_ROOT + "/table";
 	}
 
-	private String showDiagram(Project proj, Entry entry, Dealer user,
+	private String showDiagram(Project proj, Entry entry, List<Group> groups,
 			ModelMap model) throws Exception
 	{
-		List<Group> groups = userDao.getProjectGroupsOfDealer(user.getId(), proj.getId());
 		Meta table = metaService.getProjectTableMetaByKey(proj, META_KEY_DIAGRAM);
 
 		Search search = new Search();
@@ -196,10 +195,10 @@ public class ViewDBController extends BaseController implements ProjectTemplateC
 	{
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
 		Pair<Project, ProjectTemplate> projPair =
-				metaService.checkProject(projId, ACTION_ID_VIEW,
-						VERSION_NAME, ACTION_ID_VIEW);
+				metaService.checkProject(projId, TASK_ID_VIEW,
+						VERSION_NAME, ProjectTemplate.Task.Type.查看);
 		Project proj = projPair.getLeft();
-		List<Group> groups = userDao.getProjectGroupsOfDealer(user.getId(), proj.getId());
+		List<Group> groups = metaService.checkUser(user, proj, TASK_ID_VIEW);
 		Meta table = metaService.getProjectTableMetaByKey(proj, META_KEY_DIAGRAM);
 
 		Search search = new Search();

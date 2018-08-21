@@ -401,10 +401,25 @@ SearchConfig.prototype.isTags = function(key) {
 }
 SearchConfig.prototype.optListOf = function(key) {
 	return this._map[key].optList;
+	$.each(this.items, function(i,c) {
+		map[c.key] = c;
+	})
+	this._map = map;
 }
-var ViewConfig = function(obj) { $.extend(this, {headerMap:{}}, obj); }
+var ViewConfig = function(obj) {
+	$.extend(this, {items:[]}, obj);
+	var map = {};
+}
 ViewConfig.prototype.headerOf = function(key) {
-	return (key in this.headerMap) ? this.headerMap[key] : key;
+	return (key in this._map && this._map[key].header) ?
+			this._map[key].header : key;
+}
+ViewConfig.prototype.textOf = function(key, value) {
+	if (key in this._map && this._map[key].optList) {
+		var list = this._map[key].optList;
+		if (value in list) return list[value];
+	}
+	return value;
 }
 
 var Searcher = function(div, schema, searchConfig, viewConfig, queryList) {

@@ -35,5 +35,18 @@ public interface MetaDao {
 				@Param("view") ResultView view,
 				@Param("tableName") String tableName);
 
+	int queryWithStatusCount(@Param("search") Search search,
+			@Param("taskIds") List<Integer> taskIds,
+			@Param("dataTable") String dataTable,
+			@Param("statusTable") String statusTable,
+			@Param("taskTable") String taskTable);
+	List<Map<String, Object>>
+		queryWithStatus(@Param("search") Search search,
+				@Param("taskIds") List<Integer> taskIds,
+				@Param("view") ResultView view,
+				@Param("dataTable") String dataTable,
+				@Param("statusTable") String statusTable,
+				@Param("taskTable") String taskTable);
+
 	List<String> collectOptList(@Param("tableName") String tableName, @Param("colName") String colName);
 }
