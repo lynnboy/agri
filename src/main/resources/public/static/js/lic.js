@@ -401,14 +401,14 @@ SearchConfig.prototype.isTags = function(key) {
 }
 SearchConfig.prototype.optListOf = function(key) {
 	return this._map[key].optList;
-	$.each(this.items, function(i,c) {
-		map[c.key] = c;
-	})
-	this._map = map;
 }
 var ViewConfig = function(obj) {
 	$.extend(this, {items:[]}, obj);
 	var map = {};
+	$.each(this.items, function(i,c) {
+		map[c.key] = c;
+	})
+	this._map = map;
 }
 ViewConfig.prototype.headerOf = function(key) {
 	return (key in this._map && this._map[key].header) ?

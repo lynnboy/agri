@@ -30,7 +30,11 @@ CREATE TABLE `customer` (
   `contact_info` varchar(1000) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +69,11 @@ CREATE TABLE `dealer` (
   `organId` int(11) NOT NULL DEFAULT '0',
   `delflag` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +102,11 @@ CREATE TABLE `group` (
   `remarks` varchar(2048) DEFAULT NULL,
   `createDate` datetime NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +131,11 @@ CREATE TABLE `groupmember` (
   `groupId` int(11) NOT NULL,
   `dealerId` int(11) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +163,11 @@ CREATE TABLE `license` (
   `issue_date` datetime DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +193,11 @@ CREATE TABLE `manager` (
   `hashed_pwd` varchar(45) DEFAULT NULL,
   `create_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +230,11 @@ CREATE TABLE `meta` (
   `editConfigText` varchar(4096) NOT NULL DEFAULT '{}',
   `viewConfigText` varchar(4096) NOT NULL DEFAULT '{}',
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +292,11 @@ CREATE TABLE `new_table` (
   `田间渗滤池监测面积` varchar(45) DEFAULT NULL,
   `淋溶液收集桶埋深` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +326,11 @@ CREATE TABLE `organ` (
   `remarks` varchar(1024) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,7 +358,11 @@ CREATE TABLE `planting1_p1_log` (
   `userId` int(11) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,7 +391,11 @@ CREATE TABLE `planting1_p1_status` (
   `remarks` varchar(4096) NOT NULL,
   `tags` varchar(256) NOT NULL,
   PRIMARY KEY (`datakey`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,7 +421,11 @@ CREATE TABLE `planting1_p1_task` (
   `time` datetime DEFAULT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`datakey`,`taskId`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -402,7 +450,11 @@ CREATE TABLE `planting1_p1_作物覆膜情况` (
   `覆膜面积` double DEFAULT NULL,
   `覆膜比例` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`作物代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -426,7 +478,11 @@ CREATE TABLE `planting1_p1_模式面积` (
   `模式代码` varchar(45) NOT NULL,
   `模式面积` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`模式代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -470,7 +526,11 @@ CREATE TABLE `planting1_p1_清查` (
   `地膜回收总量` double DEFAULT NULL,
   `地膜利用总量` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -497,7 +557,11 @@ CREATE TABLE `planting1_t5_log` (
   `userId` int(11) NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -526,7 +590,11 @@ CREATE TABLE `planting1_t5_status` (
   `remarks` varchar(4096) NOT NULL,
   `tags` varchar(256) NOT NULL,
   PRIMARY KEY (`datakey`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -552,7 +620,11 @@ CREATE TABLE `planting1_t5_task` (
   `time` datetime DEFAULT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`datakey`,`taskId`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -577,7 +649,11 @@ CREATE TABLE `planting1_t5_作物覆膜情况` (
   `覆膜面积` double DEFAULT NULL,
   `覆膜比例` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`作物代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -601,7 +677,11 @@ CREATE TABLE `planting1_t5_模式面积` (
   `模式代码` varchar(45) NOT NULL,
   `模式面积` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`,`模式代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -645,7 +725,11 @@ CREATE TABLE `planting1_t5_清查` (
   `地膜回收总量` double DEFAULT NULL,
   `地膜利用总量` double DEFAULT NULL,
   PRIMARY KEY (`行政区划代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -672,7 +756,11 @@ CREATE TABLE `proj` (
   `tempId` int(11) NOT NULL,
   `deprecated` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -701,7 +789,11 @@ CREATE TABLE `proj_temp` (
   `createDate` datetime NOT NULL,
   `mapRoot` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -727,7 +819,11 @@ CREATE TABLE `setting` (
   `value` varchar(2048) DEFAULT NULL,
   `category` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -755,7 +851,11 @@ CREATE TABLE `viewdb1_p10_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -780,7 +880,11 @@ CREATE TABLE `viewdb1_p10_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -807,7 +911,11 @@ CREATE TABLE `viewdb1_p10_地块模式` (
   `地块种植模式②代码3` varchar(10) DEFAULT NULL,
   `地块种植模式a` varchar(45) DEFAULT NULL,
   `地块种植模式b` varchar(45) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -838,7 +946,11 @@ CREATE TABLE `viewdb1_p10_地块肥料` (
   `养分含量P2O5` double DEFAULT NULL,
   `养分含量K2O` double DEFAULT NULL,
   `施肥方式` int(11) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -869,7 +981,11 @@ CREATE TABLE `viewdb1_p10_模式面积` (
   `种植方式` varchar(45) DEFAULT NULL,
   `面积` double DEFAULT NULL,
   `模式代码最终` varchar(45) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -897,7 +1013,11 @@ CREATE TABLE `viewdb1_p11_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -922,7 +1042,11 @@ CREATE TABLE `viewdb1_p11_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -959,7 +1083,11 @@ CREATE TABLE `viewdb1_p11_面积肥料` (
   `有机肥总施用量1` double DEFAULT NULL,
   `有机肥总施用量2` double DEFAULT NULL,
   `有机肥总施用量3` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -987,7 +1115,11 @@ CREATE TABLE `viewdb1_p12_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1013,7 +1145,11 @@ CREATE TABLE `viewdb1_p12_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1056,7 +1192,11 @@ CREATE TABLE `viewdb1_p12_抽样` (
   `填报年份` varchar(10) DEFAULT NULL,
   `状态` int(11) DEFAULT NULL,
   `isok` int(11) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1086,7 +1226,11 @@ CREATE TABLE `viewdb1_p12_抽样施肥` (
   `N` double DEFAULT NULL,
   `P2O2` double DEFAULT NULL,
   `K2O` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1154,7 +1298,11 @@ CREATE TABLE `viewdb1_p12_普查` (
   `isok` int(11) DEFAULT NULL,
   `状态` int(11) DEFAULT NULL,
   UNIQUE KEY `县名与行政区域代码_UNIQUE` (`县名与行政区域代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1179,7 +1327,11 @@ CREATE TABLE `viewdb1_p12_模式面积` (
   `模式代码` varchar(10) DEFAULT NULL,
   `模式名称` varchar(45) DEFAULT NULL,
   `面积` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1207,7 +1359,11 @@ CREATE TABLE `viewdb1_p13_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1233,7 +1389,11 @@ CREATE TABLE `viewdb1_p13_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1277,7 +1437,11 @@ CREATE TABLE `viewdb1_p13_抽样` (
   `填报人联系电话` varchar(45) DEFAULT NULL,
   `填报单位` varchar(45) DEFAULT NULL,
   `状态` varchar(10) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1312,7 +1476,11 @@ CREATE TABLE `viewdb1_p13_抽样施肥` (
   `P2O2` double DEFAULT NULL,
   `K2O` double DEFAULT NULL,
   `状态` varchar(10) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1363,7 +1531,11 @@ CREATE TABLE `viewdb1_p13_普查` (
   `录入单位` varchar(45) DEFAULT NULL,
   `状态` varchar(10) DEFAULT NULL,
   UNIQUE KEY `行政区划代码_UNIQUE` (`行政区划代码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1390,7 +1562,11 @@ CREATE TABLE `viewdb1_p13_模式面积` (
   `模式名称` varchar(45) DEFAULT NULL,
   `模式代码` varchar(10) DEFAULT NULL,
   `模式面积` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1418,7 +1594,11 @@ CREATE TABLE `viewdb1_p14_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1444,7 +1624,11 @@ CREATE TABLE `viewdb1_p14_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1479,7 +1663,11 @@ CREATE TABLE `viewdb1_p14_地块施肥` (
   `N` double unsigned DEFAULT NULL,
   `P2O2` double DEFAULT NULL,
   `K2O` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1506,7 +1694,11 @@ CREATE TABLE `viewdb1_p14_模式面积` (
   `模式名称` varchar(45) DEFAULT NULL,
   `模式代码` varchar(10) DEFAULT NULL,
   `模式面积` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1534,7 +1726,11 @@ CREATE TABLE `viewdb1_p15_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1560,7 +1756,11 @@ CREATE TABLE `viewdb1_p15_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1595,7 +1795,11 @@ CREATE TABLE `viewdb1_p15_土壤剖面信息` (
   `动物穴` varchar(45) DEFAULT NULL,
   `石灰反应` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`地块编码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1657,7 +1861,11 @@ CREATE TABLE `viewdb1_p15_地块信息` (
   `田间渗滤池监测面积` double DEFAULT NULL,
   `淋溶液收集桶埋深` double DEFAULT NULL,
   PRIMARY KEY (`地块编码`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1693,7 +1901,11 @@ CREATE TABLE `viewdb1_p15_基础土壤样品` (
   `硝态氮` double DEFAULT NULL,
   `铵态氮` double DEFAULT NULL,
   `可溶性总氮` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1731,7 +1943,11 @@ CREATE TABLE `viewdb1_p15_处理描述地膜植物篱` (
   `植物篱带宽` double DEFAULT NULL,
   `植物篱间距` double DEFAULT NULL,
   `植物篱条带数量` int(11) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1765,7 +1981,11 @@ CREATE TABLE `viewdb1_p15_处理描述施肥` (
   `有机肥N` double DEFAULT NULL,
   `有机肥P2O5` double DEFAULT NULL,
   `有机肥K2O` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1798,7 +2018,11 @@ CREATE TABLE `viewdb1_p15_处理描述灌溉秸秆还田` (
   `还田方式` varchar(45) DEFAULT NULL,
   `还田量` double DEFAULT NULL,
   `还田比例` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1837,7 +2061,11 @@ CREATE TABLE `viewdb1_p15_处理描述耕作` (
   `垄高2` double DEFAULT NULL,
   `垄宽2` double DEFAULT NULL,
   `垄间距2` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1870,7 +2098,11 @@ CREATE TABLE `viewdb1_p15_小区产流记载及水样品记录` (
   `铵态氮` double DEFAULT NULL,
   `总磷` double DEFAULT NULL,
   `可溶性总磷` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1895,7 +2127,11 @@ CREATE TABLE `viewdb1_p15_小区编码与处理对应` (
   `地块编码` varchar(10) NOT NULL,
   `小区编码` varchar(10) NOT NULL,
   `处理代码` varchar(10) NOT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1930,7 +2166,11 @@ CREATE TABLE `viewdb1_p15_施肥记录` (
   `施肥日期` date DEFAULT NULL,
   `施肥方式` varchar(45) DEFAULT NULL,
   `施肥量` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1964,7 +2204,11 @@ CREATE TABLE `viewdb1_p15_植株产量记载及植株样品记录` (
   `全氮` double DEFAULT NULL,
   `全磷` double DEFAULT NULL,
   `全钾` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2002,7 +2246,11 @@ CREATE TABLE `viewdb1_p15_监测期土壤样品` (
   `cacl2P` double DEFAULT NULL,
   `有效钾` double DEFAULT NULL,
   `ph` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2028,7 +2276,11 @@ CREATE TABLE `viewdb1_p15_种植季与作物对应` (
   `种植季` int(11) NOT NULL,
   `作物类别及代码` varchar(45) DEFAULT NULL,
   `作物名称` varchar(45) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2058,7 +2310,11 @@ CREATE TABLE `viewdb1_p15_种植记录` (
   `种植方式` varchar(45) DEFAULT NULL,
   `种植日期` date DEFAULT NULL,
   `收获日期` date DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2084,7 +2340,11 @@ CREATE TABLE `viewdb1_p15_试验进程及操作记录` (
   `日期` date DEFAULT NULL,
   `各项田间工作简述` varchar(1024) DEFAULT NULL,
   `备注` varchar(4096) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2120,7 +2380,11 @@ CREATE TABLE `viewdb1_p15_降水灌溉水样品` (
   `总磷` double DEFAULT NULL,
   `可溶性总磷` double DEFAULT NULL,
   `ph` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2148,7 +2412,11 @@ CREATE TABLE `viewdb1_p16_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2173,7 +2441,11 @@ CREATE TABLE `viewdb1_p16_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2206,7 +2478,11 @@ CREATE TABLE `viewdb1_p16_分年度农产品产量` (
   `2008年` double DEFAULT NULL,
   `2007年` double DEFAULT NULL,
   PRIMARY KEY (`指标`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2265,7 +2541,11 @@ CREATE TABLE `viewdb1_p16_分年度农产品产量2` (
   `草莓` double DEFAULT NULL,
   `蔬菜` double DEFAULT NULL,
   PRIMARY KEY (`年份`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2297,7 +2577,11 @@ CREATE TABLE `viewdb1_p16_分年度农产品播种面积` (
   `2009年` double DEFAULT NULL,
   `2008年` double DEFAULT NULL,
   `2007年` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2359,7 +2643,11 @@ CREATE TABLE `viewdb1_p16_分年度农产品播种面积2` (
   `其他农作物` double DEFAULT NULL,
   `青饲料` double DEFAULT NULL,
   PRIMARY KEY (`年份`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2387,7 +2675,11 @@ CREATE TABLE `viewdb1_p17_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2412,7 +2704,11 @@ CREATE TABLE `viewdb1_p17_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2438,7 +2734,11 @@ CREATE TABLE `viewdb1_p17_作物养分含量` (
   `N含量` double DEFAULT NULL,
   `P含量` double DEFAULT NULL,
   PRIMARY KEY (`作物种类`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2462,7 +2762,11 @@ CREATE TABLE `viewdb1_p17_农田固氮` (
   `固氮途径` varchar(45) NOT NULL,
   `固氮量` double DEFAULT NULL,
   PRIMARY KEY (`固氮途径`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2487,7 +2791,11 @@ CREATE TABLE `viewdb1_p17_农田灌溉` (
   `年份` int(11) NOT NULL,
   `N` double DEFAULT NULL,
   `P` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2512,7 +2820,11 @@ CREATE TABLE `viewdb1_p17_大气降水` (
   `N` double DEFAULT NULL,
   `P` double DEFAULT NULL,
   PRIMARY KEY (`降水分区`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2536,7 +2848,11 @@ CREATE TABLE `viewdb1_p17_氨挥发参数` (
   `肥料种类` varchar(45) NOT NULL,
   `氨挥发系数` double DEFAULT NULL,
   PRIMARY KEY (`肥料种类`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2562,7 +2878,11 @@ CREATE TABLE `viewdb1_p17_秸秆参数` (
   `N` double DEFAULT NULL,
   `P` double DEFAULT NULL,
   PRIMARY KEY (`作物秸秆种类`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2590,7 +2910,11 @@ CREATE TABLE `viewdb1_p18_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2616,7 +2940,11 @@ CREATE TABLE `viewdb1_p18_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2652,7 +2980,11 @@ CREATE TABLE `viewdb1_p18_区县` (
   `总磷排放强度` double DEFAULT NULL,
   `总氮排放强度评价` varchar(45) DEFAULT NULL,
   `总磷排放强度评价` varchar(45) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2700,7 +3032,11 @@ CREATE TABLE `viewdb1_p18_模式` (
   `地表径流总氮减排` double DEFAULT NULL,
   `地下淋溶总氮减排` double DEFAULT NULL,
   `地表径流总磷减排` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2728,7 +3064,11 @@ CREATE TABLE `viewdb1_p19_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2754,7 +3094,11 @@ CREATE TABLE `viewdb1_p19_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2798,7 +3142,11 @@ CREATE TABLE `viewdb1_p19_评估` (
   `P-有机肥投入` double DEFAULT NULL,
   `P-种子投入` double DEFAULT NULL,
   `P-作物收获` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2826,7 +3174,11 @@ CREATE TABLE `viewdb1_p20_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2852,7 +3204,11 @@ CREATE TABLE `viewdb1_p20_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2884,7 +3240,11 @@ CREATE TABLE `viewdb1_p20_预警数据` (
   `总磷排放强度` double DEFAULT NULL,
   `总氮排放强度评价` varchar(45) DEFAULT NULL,
   `总磷排放强度评价` varchar(45) DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2912,7 +3272,11 @@ CREATE TABLE `viewdb1_p21_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2938,7 +3302,11 @@ CREATE TABLE `viewdb1_p21_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2965,7 +3333,11 @@ CREATE TABLE `viewdb1_p21_减排数据` (
   `地表径流总氮减排` double DEFAULT NULL,
   `地下淋溶总氮减排` double DEFAULT NULL,
   `地表径流总磷减排` double DEFAULT NULL
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2993,7 +3365,11 @@ CREATE TABLE `viewdb1_t4_proto_diagram` (
   `filename` varchar(512) NOT NULL,
   `group` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3018,7 +3394,11 @@ CREATE TABLE `viewdb1_t4_proto_entry` (
   `key` varchar(45) NOT NULL,
   `title` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
+<<<<<<< HEAD
 ) ; -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+); -- ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 3f479461b2869bc50540a66ad32e172d5436e510
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
