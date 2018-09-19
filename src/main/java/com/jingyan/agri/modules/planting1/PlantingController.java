@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jingyan.agri.common.manager.Constant;
+import com.jingyan.agri.common.persistence.PageEntry;
 import com.jingyan.agri.common.persistence.ResultView;
 import com.jingyan.agri.common.persistence.Search;
 import com.jingyan.agri.common.security.Token;
@@ -66,6 +67,11 @@ public class PlantingController extends BaseController implements ProjectTemplat
 	static final String META_KEY_LOG = "log";
 
 	static final String TITLE_LIST = "数据列表";
+	static final String TITLE_ADD = "添加新数据";
+	
+	static final String[] DefaultVisibleColumns = {
+			"行政区划代码", "状态", "修改时间", ""
+	};
 
 	@Autowired
 	ManagerDao sysDao;
@@ -110,6 +116,11 @@ public class PlantingController extends BaseController implements ProjectTemplat
 				META_KEY_DATA, META_KEY_STATUS, META_KEY_TASK);
 		List<Map<String, Object>> list = handler.search(search, view);
 
+		List<PageEntry> entries = List.of(
+				new PageEntry(true, "/" + projId + "/" + taskId + "/list", "数据列表"),
+				new PageEntry(false, "/" + projId + "/" + taskId + "/add", "填报新数据")
+				);
+		
 		model.addAttribute("proj", proj);
 		model.addAttribute("temp", temp);
 
@@ -131,10 +142,17 @@ public class PlantingController extends BaseController implements ProjectTemplat
 		listAction.setTitle(TITLE_LIST);
 		listAction.setUrl(VIEW_ROOT + "/" + projId + "/" + taskId + "/list");
 		actions.add(listAction);
+
 		if (task.getType() == Task.Type.DEFAULT ||
 			task.getType() == Task.Type.填报) {
-			
+			ActionUrl addAction = new ActionUrl();
+			addAction.setActive(false);
+			addAction.setTitle(TITLE_ADD);
+			addAction.setIcon("icon-plus");
+			addAction.setUrl(VIEW_ROOT + "/" + projId + "/" + taskId + "/add");
+			actions.add(addAction);
 		}
+		model.addAttribute("entries", entries);
 		model.addAttribute("actions", actions);
 
 		return VIEW_ROOT + "/list";

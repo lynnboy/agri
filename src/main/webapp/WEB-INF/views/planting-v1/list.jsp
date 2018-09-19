@@ -38,11 +38,11 @@ function refresh() { return pageTo($("#pageNo").val()); }
 <body>
 	<ul class="nav nav-tabs">
 
-<c:forEach var="entry" items="${entries}">
-		<li class='<c:if test="${entry.key == key}">active</c:if>'>
-			<a href="${base}${entryBase}/${entry.id}">
-				<i class='${entry.type == 0 ? "icon-th" : "icon-picture"}'>&nbsp;</i>
-				${entry.title}</a>
+<c:forEach var="act" items="${actions}">
+		<li class='<c:if test="${act.active}">active</c:if>'>
+			<a href="${base}${act.url}">
+			<c:if test="${empty act.icon}"><i class='${act.icon}'>&nbsp;</i></c:if>
+				${act.title}</a>
 		</li>
 </c:forEach>
 	</ul>
