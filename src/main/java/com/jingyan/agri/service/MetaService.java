@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -40,6 +42,7 @@ import com.jingyan.agri.entity.sys.ProjectTemplate;
 import com.jingyan.agri.entity.sys.ProjectTemplate.Info;
 import com.jingyan.agri.entity.sys.ProjectTemplate.State;
 import com.jingyan.agri.entity.sys.ProjectTemplate.Task;
+import com.jingyan.agri.entity.sys.ProjectTemplate.WorkflowItem;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -55,15 +58,19 @@ import com.jingyan.agri.entity.sys.Meta.ViewConfig;
 public class MetaService extends BaseService {
 
 	static final String COL_STATUS_STATE = "stateId";
+	static final String COL_STATUS_TAGS = "tags";
 	static final String COL_STATUS_MUID = "modifyUserId";
 	static final String COL_STATUS_CUID = "createUserId";
 	static final String COL_STATUS_MUNAME = "modifyUserName";
 	static final String COL_STATUS_CUNAME = "createUserName";
+	static final String COL_STATUS_MTIME = "modifyTime";
+	static final String COL_STATUS_CTIME = "createTime";
 	static final String COL_TASK_DATAKEY = "datakey";
 	static final String COL_TASK_USERID = "userId";
 	static final String COL_TASK_USERNAME = "userName";
 	static final String COL_TASK_ORGNAME = "organName";
 	static final String COL_TASK_TASK = "taskId";
+	static final String COL_TASK_TIME = "time";
 	static final String COL_TASK_STATUS = "status";
 
 	@Autowired
@@ -85,6 +92,7 @@ public class MetaService extends BaseService {
 	Map<String, String> divcode2 = Maps.newLinkedHashMap();
 	Map<String, String> divcode3 = Maps.newLinkedHashMap();
 	Map<String, String> divcodeNames = Maps.newLinkedHashMap();
+	OptionList divcodeList = new OptionList();
 
 	@PostConstruct
 	@SneakyThrows
@@ -122,10 +130,13 @@ public class MetaService extends BaseService {
 			String name3 = divcode3.get(code);
 			String name = name1 + name2 + name3;
 			divcodeNames.put(code, name);
+			divcodeList.put(code, "[" + code + "] " + name);
 		}
 	}
 	
 	public OptionList getOptList(String name) {
+		if (name.equals("divcode"))
+			return divcodeList;
 		if (optlistMap.containsKey(name))
 			return optlistMap.get(name);
 		InputStream stream = getClass().getResourceAsStream("/optionLists/" + name + ".json");
@@ -429,7 +440,14 @@ public class MetaService extends BaseService {
 			for (Task task : info.getTasks()) {
 				int id = task.getId();
 				String name = task.getName();
-				for (Meta.Column col : taskSchema.getColumns()) {
+				List<Meta.Column> columns = new ArrayList<>(taskSchema.getColumns());
+				Meta.Column userCol = new Meta.Column();
+				userCol.setName(COL_TASK_USERNAME);
+				columns.add(userCol);
+				Meta.Column orgCol = new Meta.Column();
+				orgCol.setName(COL_TASK_ORGNAME);
+				columns.add(orgCol);
+				for (Meta.Column col : columns) {
 					if (col.getName().equals(COL_TASK_DATAKEY) ||
 						col.getName().equals(COL_TASK_USERID))
 						continue;
@@ -447,7 +465,12 @@ public class MetaService extends BaseService {
 					viewConfig.getItems().add(vitem);
 					
 					SearchConfig.Item sitem = taskSearchConfig.map()
-							.get(col.getName()).clone();
+							.get(col.getName());
+					if (sitem == null) {
+						sitem = new SearchConfig.Item();
+					} else {
+						sitem = sitem.clone();
+					}
 					sitem.setKey(colName);
 					searchConfig.getItems().add(sitem);
 				}
@@ -461,6 +484,23 @@ public class MetaService extends BaseService {
 			searchView.setFilterColumn(dataTable.getFilterColumn());
 			searchView.setViewConfig(viewConfig);
 			searchView.setSortConfig(sortConfig);
+		}
+		
+		public List<String> getStatusColumns(int taskId) {
+			//Task task = temp.getProjectInfo().getTaskMap().get(taskId);
+			//Optional<WorkflowItem> item = temp.getProjectInfo()
+			//		.getWorkflow().stream()
+			//	.filter(i -> i.getAction() == taskId).findFirst();
+			
+			return List.of(
+					COL_STATUS_STATE,
+					COL_STATUS_TAGS,
+					COL_STATUS_MUNAME,
+					COL_STATUS_MTIME,
+					COL_TASK_USERNAME + "_" + taskId,
+					COL_TASK_ORGNAME + "_" + taskId,
+					COL_TASK_TIME + "_" + taskId
+					);
 		}
 
 		@SneakyThrows

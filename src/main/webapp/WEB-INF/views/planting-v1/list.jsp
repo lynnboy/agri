@@ -65,6 +65,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 		<thead>
 			<tr>
 <c:forEach items="${schema.columns}" var="column">
+<c:if test="${visibleColumns.contains(column.name)}">
+
 <c:set var="sortable" value="${sortConfig.isSortable(column.name)}"/>
 <c:set var="title" value="${viewConfig.headerOf(column.name)}"/>
 <c:if test="${sortable}">
@@ -77,6 +79,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 <c:if test="${!sortable}">
 				<th>${title}</th>
 </c:if>
+
+</c:if>
 </c:forEach>
 			</tr>
 		</thead>
@@ -85,6 +89,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 <c:forEach items='${list}' var='row'>
 			<tr>
 	<c:forEach items="${schema.columns}" var="column">
+	<c:if test="${visibleColumns.contains(column.name)}">
+
 		<c:choose>
 		<c:when test="${column.ext().isDate()}">
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value='${row[column.name]}'/></td>
@@ -96,6 +102,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 				<td>${row[column.name]}</td>
 		</c:otherwise>
 		</c:choose>
+
+	</c:if>
 	</c:forEach>
 			</tr>
 </c:forEach>

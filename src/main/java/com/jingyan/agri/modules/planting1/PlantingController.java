@@ -69,8 +69,8 @@ public class PlantingController extends BaseController implements ProjectTemplat
 	static final String TITLE_LIST = "数据列表";
 	static final String TITLE_ADD = "添加新数据";
 	
-	static final String[] DefaultVisibleColumns = {
-			"行政区划代码", "状态", "修改时间", ""
+	static final String[] defaultVisibleColumns = {
+			"行政区划代码", "耕地", "园地", "平地", "缓坡地", "陡坡地",
 	};
 
 	@Autowired
@@ -121,6 +121,10 @@ public class PlantingController extends BaseController implements ProjectTemplat
 				new PageEntry(false, "/" + projId + "/" + taskId + "/add", "填报新数据")
 				);
 		
+		List<String> visibleColumns = new ArrayList<>();
+		visibleColumns.addAll(List.of(defaultVisibleColumns));
+		visibleColumns.addAll(handler.getStatusColumns(taskId));
+		
 		model.addAttribute("proj", proj);
 		model.addAttribute("temp", temp);
 
@@ -135,6 +139,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 		model.addAttribute("sortConfigJson", handler.getSortConfig().toJson());
 		model.addAttribute("pager", view);
 		model.addAttribute("query", JsonUtils.serialize(search.getQuery()));
+		model.addAttribute("visibleColumns", visibleColumns);
 
 		List<ActionUrl> actions = new ArrayList<>();
 		ActionUrl listAction = new ActionUrl();
