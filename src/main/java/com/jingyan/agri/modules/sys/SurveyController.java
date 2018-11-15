@@ -78,6 +78,11 @@ public class SurveyController extends BaseController {
 		return "survey/add1";
 	}
 
+	@RequestMapping(value = "newstatus")
+	public String newstatus(Model model) {
+		return "survey/newstatus";
+	}
+
 	@RequestMapping(value = "add1and1")
 	public String add1and1(Model model) {
 		return "survey/add1and1";

@@ -181,4 +181,51 @@
 		SELECT DISTINCT `${colName}` FROM `${tableName}` ORDER BY `${colName}`
 	</select>
 
+	<select id="querySum" resultType="map">
+		SELECT `${keyName}`, SUM(`${colName}`) FROM `${tableName}`
+		WHERE `${keyName}` IN
+			(<foreach item="key" collection="keys" separator=",">#{key}</foreach>)
+		GROUP BY `${keyName}`
+	</select>
+	
+	<select id="get" resultType="map">
+		SELECT * FROM `${tableName}` WHERE `${key}` = #{id}
+	</select>
+
+	<select id="get2" resultType="map">
+		SELECT * FROM `${tableName}` WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} 
+	</select>
+
+	<insert id="add">
+		INSERT INTO `${tableName}`
+		<foreach index="field" item="value" collection="data" open="(" close=")" separator=",">
+			`${field}`
+		</foreach>
+		VALUES
+		<foreach index="field" item="value" collection="data" open="(" close=")" separator=",">
+			#{value}
+		</foreach>
+	</insert>
+
+	<update id="update">
+		UPDATE `${tableName}` SET
+		<foreach index="field" item="value" collection="data" separator=",">
+			`${field}` = #{value}
+		</foreach>
+		WHERE `${key}` = #{id}
+	</update>
+
+	<update id="update2">
+		UPDATE `${tableName}` SET
+		<foreach index="field" item="value" collection="data" separator=",">
+			`${field}` = #{value}
+		</foreach>
+		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2}
+	</update>
+
+	<delete id="remove">
+		DELETE FROM `${tableName}`
+		WHERE `${key}` = #{id}
+	</delete>
+
 </mapper>

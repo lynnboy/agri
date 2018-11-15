@@ -48,5 +48,41 @@ public interface MetaDao {
 				@Param("statusTable") String statusTable,
 				@Param("taskTable") String taskTable);
 
+	List<Map<String, Object>>
+		querySum(@Param("keys") List<String> keys,
+			@Param("tableName") String tableName,
+			@Param("keyName") String keyName,
+			@Param("colName") String colName);
+
 	List<String> collectOptList(@Param("tableName") String tableName, @Param("colName") String colName);
+
+	List<Map<String, Object>>
+		get(@Param("key") String key,
+			@Param("id") String id,
+			@Param("tableName") String tableName);
+
+	List<Map<String, Object>>
+		get2(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
+			@Param("tableName") String tableName);
+
+	void add(@Param("data") Map<String, Object> data,
+			@Param("tableName") String tableName);
+
+	void update(@Param("key") String key,
+			@Param("id") String id,
+			@Param("data") Map<String, Object> data,
+			@Param("tableName") String tableName);
+
+	void update2(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
+			@Param("data") Map<String, Object> data,
+			@Param("tableName") String tableName);
+	void remove(@Param("key") String key,
+			@Param("id") String id,
+			@Param("tableName") String tableName);
 }

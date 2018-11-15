@@ -6,7 +6,6 @@
 	<groupId>com.jingyan</groupId>
 	<artifactId>agri</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 
 	<name>agri</name>
 	<description>农业面源污染监控数据平台</description>
@@ -182,4 +181,5 @@
 	</build>
 
 
+	<packaging>war</packaging>
 </project>

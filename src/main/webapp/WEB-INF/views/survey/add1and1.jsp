@@ -5,6 +5,15 @@
 <title>${isAdd?"添加":"修改"}地块</title>
 
 <script type="text/javascript">
+function save() {
+	ok({})
+}
+function ok(data) {
+	
+}
+function cancel() {
+	
+}
 function fillSelect(sel, list, nestlist) {
 	$.each(list, function(i, text) {
 		$(sel).append($('<option value="' + i + '">'+ text + '</option>'));
@@ -256,7 +265,7 @@ $(document).ready(function() {
 		<input id="id" name="id" type="hidden" value="${data.id}" />
 		
 		<div class="control-group">
-			<label for="种植模式" class="control-label">种植模式:</label>
+			<label for="作物代码" class="control-label">种植模式:</label>
 			<div class="controls">
 				<select id="种植模式" name="种植模式" class="reqselect span5"></select>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -275,8 +284,9 @@ $(document).ready(function() {
 
 		<div class="form-actions">
 			<input id="btnSubmit" class="btn btn-primary" type="submit"
-				value="保 存" />&nbsp; <input id="btnCancel" class="btn" type="button"
-				value="关 闭" onclick="history.go(-1)" />
+				value="确 定" onclick="save(); return false;" />&nbsp; 
+			<input id="btnCancel" class="btn" type="button"
+				value="取 消" onclick="cancel(); return false;" />
 		</div>
 	</form>
 </body>

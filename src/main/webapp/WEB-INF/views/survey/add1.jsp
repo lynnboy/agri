@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <html>
 <head>
-<title>${isAdd?"添加":"修改"}地块</title>
+<title>${mode == "add" ?"添加":"修改"}数据</title>
 
 <script type="text/javascript">
 function fillSelect(sel, list, nestlist) {
@@ -26,13 +26,140 @@ function fillSelect(sel, list, nestlist) {
 	  });
 	}
 }
-function show() {
-	top.$.jBox.open("iframe:${base}/survey/add1and2", "添加作物覆膜情况",$(top.document).width()-220,$(top.document).height()-200,{
+
+
+
+function show1(data, func) {
+	top.$.jBox.open("iframe:${base}/survey/add1and2", "作物覆膜情况",
+			$(top.document).width()-320, 360,{
+		id: "作物覆膜dialog",
+		buttons:{},
+		loaded: function(h) {
+			var win = h.find("iframe")[0].contentWindow;
+			win.cancel = function() {
+				top.$.jBox.close("作物覆膜dialog");
+			};
+			win.save = function(data) {
+				func(data);
+				top.$.jBox.close("作物覆膜dialog");
+			};
+			win.load(data);
+		}
+	});
+}
+function show2(data, func) {
+	var txt = '';
+	if (data) txt = data.企业名称;
+	promptx("地膜回收企业名称", "企业名称", function(res) {
+		func({企业名称: res});
+	}, txt);
+	return;
+	top.$.jBox.open("iframe:${base}/survey/add1and2", "企业名称",
+			$(top.document).width()-220, 300,{
+		buttons:{},
+		loaded: function(h) {
+			
+		}
+	});
+}
+var mode = '${mode}';
+function addRow(data, table, fname) {
+	for (var firstkey in data) break;
+	var exist = null;
+	$(table).find("tbody tr").each(function() {
+		var d = $(this).data("data");
+		if (d[firstkey] == data[firstkey]) exist = d;
+	});
+	if (exist) {
+		alertx("已经存在" + firstkey + " [" + data[firstkey] + "]");
+		return false;
+	}
+
+	//console.log(data);
+	var $tr = $("<tr>").appendTo($(table).find("tbody"));
+	$tr.data('data', data);
+	for (var key in data)
+		$("<td>").attr("id", key).text(data[key]).appendTo($tr);
+	if (mode != "view") {
+		var $btns = $("<td>").appendTo($tr);
+		$('<a href="javascript:;" onclick="modifyRow(this,' + fname + ')">修改</a>')
+			.addClass("btn btn-primary btn-mini").appendTo($btns);
+		$btns.append(' ');
+		$('<a href="javascript:;" onclick="removeRow(this)">删除</a>')
+			.addClass("btn btn-primary btn-mini").appendTo($btns);
+	}
+	return true;
+}
+function updateSubtable1() {
+	var all = [];
+	$("#覆膜情况表 tbody tr").each(function() {
+		all.push($(this).data("data"));
+	});
+	var res = JSON.stringify(all);
+	$("#作物覆膜情况").val(b64encode(res));
+}
+function updateSubtable2() {
+	var all = [];
+	$("#企业名称表 tbody tr").each(function() {
+		all.push($(this).data("data"));
+	});
+	var res = JSON.stringify(all);
+	$("#企业名称").val(b64encode(res));
+}
+function addRow1(data) {
+	addRow(data, "#覆膜情况表", "show1") && updateSubtable1();
+}
+function addRow2(data) {
+	addRow(data, "#企业名称表", "show2") && updateSubtable2();
+}
+function modifyRow(btn, func) {
+	//console.log(btn);
+	var $tr = $(btn).parent().parent();
+	func($tr.data('data'), function(data) {
+		for (var firstkey in data) break;
+		var exist = null;
+		$tr.siblings().each(function() {
+			var d = $(this).data("data");
+			if (d[firstkey] == data[firstkey]) exist = d;
+		});
+		if (exist) {
+			alertx("已经存在" + firstkey + " [" + data[firstkey] + "]");
+			return;
+		}
+
+		$tr.data('data', data);
+		for (var key in data)
+			$tr.find("#" + key).text(data[key]);
+		updateSubtable1();
+		updateSubtable2();
+	});
+}
+function removeRow(btn) {
+	//console.log(btn);
+	$(btn).parent().parent().remove();
+}
+function updateTags() {
+	var value = $("#tags").val();
+	var values = value ? value.split(',') : [];
+	var tags = [];
+	$.each(values, function(idx,val) {
+		var v = val.trim();
+		if (v) tags.push(v);
+	});
+	$("#tags").val(tags.join(","));
+	var $taglist = $("#taglist");
+	$taglist.empty();
+	$.each(tags, function(idx, text) {
+		var $tag = $('<span class="label">').text(text).appendTo($taglist);
+		if (text.indexOf('?') != -1) $tag.addClass('label-warning');
+		if (text.indexOf('!') != -1) $tag.addClass('label-important');
+		$taglist.append(" ");
 	});
 }
 $(document).ready(function() {
 	$('#btnAddRowa').click(function(){
-		top.$.jBox.open("iframe:${base}/survey/add1and2", "添加作物覆膜情况",$(top.document).width()-220,$(top.document).height()-200,{
+		top.$.jBox.open("iframe:${base}/survey/add1and2",
+				"作物覆膜情况",$(top.document).width()-220,$(top.document).height()-200,{
 		});
 	});
 	var 种植模式分区list = {0:"== 请选择 ==", 1:"北方高原山地区", 2:"东北半湿润平原区", 3:"黄淮海半湿润平原区", 4:"南方山地丘陵区", 5:"南方湿润平原区", 6:"西北干旱半干旱平原区"};
@@ -220,23 +347,57 @@ $(document).ready(function() {
 	});
 	fillSelect("#障碍层类型", 障碍层类型list);
 
-	$("#种植模式分区").val('${data.种植模式分区}');
-	$("#地貌类型").val('${data.地貌类型}');
-	$("#地形").val('${data.地形}');
-	$("#是否梯田").val('${data.是否梯田}');
-	$("#种植模式").val('${data.种植模式}');
-	$("#种植方式").val('${data.种植方式}');
-	$("#坡向").val('${data.坡向}');
-	$("#土壤质地").val('${data.土壤质地}');
-	$("#土壤类型").val('${data.土壤类型}');
-	$("#肥力水平").val('${data.肥力水平}');
-	$("#有无障碍层").val('${data.有无障碍层}');
-	$("#障碍层类型").val('${data.障碍层类型}');
+	$("#种植模式分区").val('${data["种植模式分区"]}');
+	$("#地貌类型").val('${data["地貌类型"]}');
+	$("#地形").val('${data["地形"]}');
+	$("#是否梯田").val('${data["是否梯田"]}');
+	$("#种植模式").val('${data["种植模式"]}');
+	$("#种植方式").val('${data["种植方式"]}');
+	$("#坡向").val('${data["坡向"]}');
+	$("#土壤质地").val('${data["土壤质地"]}');
+	$("#土壤类型").val('${data["土壤类型"]}');
+	$("#肥力水平").val('${data["肥力水平"]}');
+	$("#有无障碍层").val('${data["有无障碍层"]}');
+	$("#障碍层类型").val('${data["障碍层类型"]}');
+	
+	var 覆膜json = '${作物覆膜情况JSON}';
+	var 覆膜list = [];
+	if (覆膜json) 覆膜list = JSON.parse(覆膜json);
+	$.each(覆膜list, function(ind, val) {
+		addRow1(val);
+	});
+	var 企业json = '${企业名称JSON}';
+	var 企业list = [];
+	if (企业json) 企业list = JSON.parse(企业json);
+	$.each(企业list, function(ind, val) {
+		addRow2(val);
+	});
 	
 	$("#监测小区长,#监测小区宽").change(function() {
 		$("#监测小区面积").val($('#监测小区长').val() * $('#监测小区宽').val());
 	});
 	
+	$("#旱地,#水田").change(function() {
+		$("#耕地").val(Number($('#旱地').val()) + Number($('#水田').val()));
+	});
+	$("#缓坡地梯田,#缓坡地非梯田,#缓坡地顺坡,#缓坡地横坡").change(function() {
+		$("#缓坡地非梯田").val(Number($('#缓坡地顺坡').val()) + Number($('#缓坡地横坡').val()));
+		$("#缓坡地").val(Number($('#缓坡地梯田').val()) + Number($('#缓坡地非梯田').val()));
+	});
+	$("#陡坡地梯田,#陡坡地非梯田,#陡坡地顺坡,#陡坡地横坡").change(function() {
+		$("#陡坡地非梯田").val(Number($('#陡坡地顺坡').val()) + Number($('#陡坡地横坡').val()));
+		$("#陡坡地").val(Number($('#陡坡地梯田').val()) + Number($('#陡坡地非梯田').val()));
+	});
+	
+	$("#tags").change(function() { updateTags(); });
+	updateTags();
+	
+	var mode = '${mode}';
+	if (mode == "view") {
+		$("input").attr('readonly', 'readonly');
+		$("span.help-inline").remove();
+	}
+
 	$("#inputForm").validate({
 		rules: {
 			地块编码: { required: true, pattern: /^\d{8}$/ },
@@ -261,32 +422,56 @@ $(document).ready(function() {
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${base}/agri/list">数据列表</a></li>
-		<li class="active"><a href="${base}/agri/${action}">${isAdd?"添加":"修改"}数据</a></li>
+<c:forEach var="act" items="${actions}">
+		<li class='<c:if test="${act.active}">active</c:if>'>
+			<a href="${base}${act.url}">
+			<c:if test="${empty act.icon}"><i class='${act.icon}'>&nbsp;</i></c:if>
+				${act.title}</a>
+		</li>
+</c:forEach>
 	</ul>
 	<br />
 <%@include file="/WEB-INF/views/common/message.jsp"%>
 	<form id="inputForm" class="form-horizontal"
-		action="${base}/agri/${action}" method="post">
+		method="post">
 
 		<input id="id" name="id" type="hidden" value="${data.id}" />
 		
 		<div class="control-group">
-			<label for="地貌类型" class="control-label">行政区划:</label>
+			<label for="行政区划代码" class="control-label">行政区划:</label>
 			<div class="controls">
-				<select id="行政区划" name="地貌类型" class="reqselect">
-				<option>110111 - 北京市房山区</option>
-				<option>110112 - 北京市通州区</option>
+<c:choose>
+	<c:when test="${mode == 'add'}">
+				<select id="行政区划代码" name="行政区划代码" class="reqselect">
+<c:forEach var="entry" items="${divcodes}">
+				<option value="${entry.key}">${entry.key} - ${entry.value}</option>
+</c:forEach>
 				</select>
 				<span class="help-inline"><font color="red">*</font> </span>
+	</c:when>
+	<c:otherwise>
+				<input id="行政区划代码" name="行政区划代码" class="input-small"
+					readonly type="text" value="${data['行政区划代码']}" maxlength="50" />
+	</c:otherwise>
+</c:choose>
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">耕地面积:</label>
+			<label for="耕地" class="control-label">耕地面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="耕地" name="耕地" class="input-small" readonly type="text" value="${data['耕地']}"/>
+				<span class="add-on">亩</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="旱地" class="control-label">旱地:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="旱地" name="旱地" class="required input-small" type="text" value="${data['旱地']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -294,10 +479,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">旱地:</label>
+			<label for="水田" class="control-label">水田:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="水田" name="水田" class="required input-small" type="text" value="${data['水田']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -305,10 +490,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">水田:</label>
+			<label for="露地菜田" class="control-label">露地菜田面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="露地菜田" name="露地菜田" class="required input-small" type="text" value="${data['露地菜田']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -316,10 +501,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">露地菜田面积:</label>
+			<label for="保护地菜田" class="control-label">保护地菜田面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="保护地菜田" name="保护地菜田" class="required input-small" type="text" value="${data['保护地菜田']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -327,21 +512,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">保护地菜田面积:</label>
+			<label for="园地" class="control-label">园地面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
-				<span class="add-on">亩</span>
-				</span>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label for="经度" class="control-label">园地面积:</label>
-			<div class="controls">
-				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="园地" name="园地" class="required input-small" type="text" value="${data['园地']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -352,10 +526,10 @@ $(document).ready(function() {
 <hr>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">平地面积（耕地、园地）:<br>坡度≤5°</label>
+			<label for="平地" class="control-label">平地面积（耕地、园地）:<br>坡度≤5°</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="平地" name="平地" class="required input-small" type="text" value="${data['平地']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -363,10 +537,30 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">缓坡地面积（耕地、园地）:<br>坡度5～15°</label>
+			<label for="缓坡地" class="control-label">缓坡地面积（耕地、园地）:<br>坡度5～15°</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="缓坡地" name="缓坡地" readonly class="input-small" type="text" value="${data['缓坡地']}"/>
+				<span class="add-on">亩</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="陡坡地" class="control-label">陡坡地面积（耕地、园地）:<br>坡度>5°</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="陡坡地" name="陡坡地" readonly class="input-small" type="text" value="${data['陡坡地']}"/>
+				<span class="add-on">亩</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="缓坡地梯田" class="control-label">缓坡地梯田面积:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="缓坡地梯田" name="缓坡地梯田" class="required input-small" type="text" value="${data['缓坡地梯田']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -374,10 +568,20 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">陡坡地面积（耕地、园地）:<br>坡度>5°</label>
+			<label for="缓坡地非梯田" class="control-label">缓坡地非梯田面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="缓坡地非梯田" name="缓坡地非梯田" readonly class="input-small" type="text" value="${data['缓坡地非梯田']}"/>
+				<span class="add-on">亩</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="缓坡地顺坡" class="control-label">缓坡地非梯田<br>顺坡种植面积:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="缓坡地顺坡" name="缓坡地顺坡" class="required input-small" type="text" value="${data['缓坡地顺坡']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -385,10 +589,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">缓坡地梯田面积:</label>
+			<label for="缓坡地横坡" class="control-label">缓坡地非梯田<br>横坡种植面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="缓坡地横坡" name="缓坡地横坡" class="required input-small" type="text" value="${data['缓坡地横坡']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -396,10 +600,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">缓坡地非梯田面积:</label>
+			<label for="陡坡地梯田" class="control-label">陡坡地梯田面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="陡坡地梯田" name="陡坡地梯田" class="required input-small" type="text" value="${data['陡坡地梯田']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -407,10 +611,20 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">缓坡地非梯田<br>顺坡种植面积:</label>
+			<label for="陡坡地非梯田" class="control-label">陡坡地非梯田面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="陡坡地非梯田" name="陡坡地非梯田" readonly class="input-small" type="text" value="${data['陡坡地非梯田']}" />
+				<span class="add-on">亩</span>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="陡坡地顺坡" class="control-label">陡坡地非梯田<br>顺坡种植面积:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="陡坡地顺坡" name="陡坡地顺坡" class="required input-small" type="text" value="${data['陡坡地顺坡']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -418,54 +632,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">缓坡地非梯田<br>横坡种植面积:</label>
+			<label for="陡坡地横坡" class="control-label">陡坡地非梯田<br>横坡种植面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
-				<span class="add-on">亩</span>
-				</span>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label for="经度" class="control-label">陡坡地梯田面积:</label>
-			<div class="controls">
-				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
-				<span class="add-on">亩</span>
-				</span>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label for="经度" class="control-label">陡坡地非梯田面积:</label>
-			<div class="controls">
-				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
-				<span class="add-on">亩</span>
-				</span>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label for="经度" class="control-label">陡坡地非梯田<br>顺坡种植面积:</label>
-			<div class="controls">
-				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
-				<span class="add-on">亩</span>
-				</span>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<label for="经度" class="control-label">陡坡地非梯田<br>横坡种植面积:</label>
-			<div class="controls">
-				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="0" max="1000000" />
+				<input id="陡坡地横坡" name="陡坡地横坡" class="required input-small" type="text" value="${data['陡坡地横坡']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -476,10 +646,10 @@ $(document).ready(function() {
 <hr>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">地膜覆盖面积:</label>
+			<label for="地膜覆盖" class="control-label">地膜覆盖面积:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="地膜覆盖" name="地膜覆盖" class="required input-small" type="text" value="${data['地膜覆盖']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">亩</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -487,10 +657,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">地膜用量:</label>
+			<label for="地膜用量" class="control-label">地膜用量:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="地膜用量" name="地膜用量" class="required input-small" type="text" value="${data['地膜用量']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">吨</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -498,10 +668,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">厚度≥0.008mm的地膜用量:</label>
+			<label for="厚地膜用量" class="control-label">厚度≥0.008mm的地膜用量:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="厚地膜用量" name="厚地膜用量" class="required input-small" type="text" value="${data['厚地膜用量']}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">吨</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -509,50 +679,37 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">主要作物覆膜情况:</label>
+			<label for="" class="control-label">主要作物覆膜情况:</label>
 			<div class="controls">
 
 	<table class="table table-striped table-condensed table-bordered"
-		id="contentTable">
+		id="覆膜情况表">
 		<thead>
 			<tr>
 				<th>作物</th>
 				<th>覆膜面积（亩）</th>
 				<th>覆膜比例</th>
+<c:if test="${mode != 'view'}">
 				<th>操作</th>
+</c:if>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>LC01 - 水稻</td>
-				<td>200</td>
-				<td>35%</td>
-				<td>
-					<button class="btn btn-primary btn-mini">修改</button>
-					<button class="btn btn-primary btn-mini">删除</button>
-				</td>
-			</tr>
-			<tr>
-				<td>LC02 - 小麦</td>
-				<td>0</td>
-				<td>0%</td>
-				<td>
-					<button class="btn btn-primary btn-mini">修改</button>
-					<button class="btn btn-primary btn-mini">删除</button>
-				</td>
-			</tr>
 		</tbody>
 	</table>
-					<button id="btnAddRow" onclick="show(); return false;" class="btn btn-primary btn-small">添加</button>
+<c:if test="${mode != 'view'}">
+	<button id="btnAddRow" onclick="show1(null, addRow1); return false;" class="btn btn-primary btn-small">添加</button>
+</c:if>
+	<input type="hidden" id="作物覆膜情况" name="作物覆膜情况" value=""/>
 
 			</div>
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">地膜企业回收总量:</label>
+			<label for="地膜回收总量" class="control-label">地膜企业回收总量:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="地膜回收总量" name="地膜回收总量" class="required input-small" type="text" value="${data.地膜回收总量}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">吨</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -560,10 +717,10 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">地膜利用总量:</label>
+			<label for="地膜利用总量" class="control-label">地膜利用总量:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="1000000" />
+				<input id="地膜利用总量" name="地膜利用总量" class="required input-small" type="text" value="${data.地膜利用总量}" maxlength="10" min="0" max="1000000" />
 				<span class="add-on">吨</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -571,36 +728,57 @@ $(document).ready(function() {
 		</div>
 
 		<div class="control-group">
-			<label for="经度" class="control-label">主要地膜回收企业名称:</label>
+			<label for="" class="control-label">主要地膜回收企业名称:</label>
 			<div class="controls">
 
 	<table class="table table-striped table-condensed table-bordered"
-		id="contentTable">
+		id="企业名称表">
 		<thead>
 			<tr>
 				<th>企业名称</th>
+<c:if test="${mode != 'view'}">
 				<th>操作</th>
+</c:if>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>某企业</td>
-				<td>
-					<button class="btn btn-primary btn-mini">修改</button>
-					<button class="btn btn-primary btn-mini">删除</button>
-				</td>
-			</tr>
 		</tbody>
 	</table>
-					<button class="btn btn-primary btn-mini">添加</button>
+<c:if test="${mode != 'view'}">
+	<button id="btnAddRow" onclick="show2(null, addRow2); return false;" class="btn btn-primary btn-small">添加</button>
+</c:if>
+	<input type="hidden" id="企业名称" name="企业名称" value=""/>
 
 			</div>
 		</div>
 
+<h4>杂项</h4>
+<hr>
+
+		<div class="control-group">
+			<label for="tags" class="control-label">标签:</label>
+			<div class="controls">
+				<input id="tags" name="tags" class="input-small" type="text" value="${status['tags']}" maxlength="256"/>
+			</div>
+			<br/>
+			<div id="taglist" class="controls">
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="remarks" class="control-label">备注:</label>
+			<div class="controls">
+				<textarea id="remarks" name="remarks" maxlength="200"
+					class="input-xlarge" rows="3">${status['remarks']}</textarea>
+			</div>
+		</div>
 
 		<div class="form-actions">
+<c:if test="${mode != 'view'}">
 			<input id="btnSubmit" class="btn btn-primary" type="submit"
-				value="保 存" />&nbsp; <input id="btnCancel" class="btn" type="button"
+				value="保 存" />&nbsp;
+</c:if>
+			<input id="btnCancel" class="btn" type="button"
 				value="返 回" onclick="history.go(-1)" />
 		</div>
 	</form>

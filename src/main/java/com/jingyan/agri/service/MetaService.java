@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -24,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -57,21 +59,24 @@ import com.jingyan.agri.entity.sys.Meta.ViewConfig;
 @Service
 public class MetaService extends BaseService {
 
-	static final String COL_STATUS_STATE = "stateId";
-	static final String COL_STATUS_TAGS = "tags";
-	static final String COL_STATUS_MUID = "modifyUserId";
-	static final String COL_STATUS_CUID = "createUserId";
-	static final String COL_STATUS_MUNAME = "modifyUserName";
-	static final String COL_STATUS_CUNAME = "createUserName";
-	static final String COL_STATUS_MTIME = "modifyTime";
-	static final String COL_STATUS_CTIME = "createTime";
-	static final String COL_TASK_DATAKEY = "datakey";
-	static final String COL_TASK_USERID = "userId";
-	static final String COL_TASK_USERNAME = "userName";
-	static final String COL_TASK_ORGNAME = "organName";
-	static final String COL_TASK_TASK = "taskId";
-	static final String COL_TASK_TIME = "time";
-	static final String COL_TASK_STATUS = "status";
+	public static final String COL_STATUS_DATAKEY = "datakey";
+	public static final String COL_STATUS_STATE = "stateId";
+	public static final String COL_STATUS_TAGS = "tags";
+	public static final String COL_STATUS_MUID = "modifyUserId";
+	public static final String COL_STATUS_CUID = "createUserId";
+	public static final String COL_STATUS_MUNAME = "modifyUserName";
+	public static final String COL_STATUS_CUNAME = "createUserName";
+	public static final String COL_STATUS_MTIME = "modifyTime";
+	public static final String COL_STATUS_CTIME = "createTime";
+	public static final String COL_STATUS_REMARKS = "remarks";
+
+	public static final String COL_TASK_DATAKEY = "datakey";
+	public static final String COL_TASK_USERID = "userId";
+	public static final String COL_TASK_USERNAME = "userName";
+	public static final String COL_TASK_ORGNAME = "organName";
+	public static final String COL_TASK_TASK = "taskId";
+	public static final String COL_TASK_TIME = "time";
+	public static final String COL_TASK_STATUS = "status";
 
 	@Autowired
 	ManagerDao sysDao;
@@ -107,7 +112,8 @@ public class MetaService extends BaseService {
 	}
 
 	private void loadDivCodeMap() throws IOException {
-		File file = new File(getClass().getResource("/divcode.csv").getFile());
+		File file = ResourceUtils.getFile("classpath:divcode.csv");
+		//File file = new File(getClass().getResource("/divcode.csv").getFile());
 		for (String line : FileUtils.readLines(file, "UTF-8")) {
 			line = line.trim();
 			if (StringUtils.isEmpty(line) || line.startsWith("#")) continue;
@@ -119,14 +125,14 @@ public class MetaService extends BaseService {
 				String code = parts[1].trim();
 				String name = parts[2].trim();
 				if (level == 1) divcode1.putIfAbsent(code.substring(0, 2), name);
-				if (level == 2) divcode1.putIfAbsent(code.substring(0, 4), name);
-				if (level == 3) divcode1.putIfAbsent(code.substring(0, 6), name);
+				if (level == 2) divcode2.putIfAbsent(code.substring(0, 4), name);
+				if (level == 3) divcode3.putIfAbsent(code.substring(0, 6), name);
 			} catch (Exception ex) { }
 		}
 
 		for (String code : divcode3.keySet()) {
-			String name1 = divcode1.getOrDefault(code.substring(0,2), "???");
-			String name2 = divcode2.getOrDefault(code.substring(0,4), "???");
+			String name1 = divcode1.getOrDefault(code.substring(0,2), "");
+			String name2 = divcode2.getOrDefault(code.substring(0,4), "");
 			String name3 = divcode3.get(code);
 			String name = name1 + name2 + name3;
 			divcodeNames.put(code, name);
@@ -229,10 +235,10 @@ public class MetaService extends BaseService {
 				break;
 			}
 		}
-		
+
 		return viewConfig;
 	}
-	
+
 	public Meta normalize(Meta table) {
 		table.setSearchConfig(this.completeSearchConfig(table));
 		return table;
@@ -325,6 +331,73 @@ public class MetaService extends BaseService {
 			metaDao.addMeta(table);
 			metaDao.createTable(table);
 		}
+	}
+	
+	public void addData(Map<String, ? extends Object> params, Meta table) {
+		Map<String, Object> data = Maps.newLinkedHashMap();
+		Schema schema = table.getSchema();
+		for (val col : schema.getColumns()) {
+			String key = col.getName();
+			if (StringUtils.isEmpty(col.getAs()) && params.containsKey(key))
+				data.put(key, params.get(key));
+		}
+		metaDao.add(data, table.getTableName());
+	}
+	
+	@SneakyThrows
+	public void updateData(Map<String, ? extends Object> params, Meta table) {
+		Map<String, Object> data = Maps.newLinkedHashMap();
+		Schema schema = table.getSchema();
+		String keycol = table.getFilterColumn();
+		String id = params.get(keycol).toString();
+		
+		val list = metaDao.get(keycol, id, table.getTableName());
+		if (list.isEmpty()) {
+			throw new Exception("不存在此数据");
+		}
+		
+		for (val col : schema.getColumns()) {
+			String key = col.getName();
+			if (key.equals(keycol)) continue;
+
+			if (StringUtils.isEmpty(col.getAs()) && params.containsKey(key))
+				data.put(key, params.get(key));
+		}
+		metaDao.update(keycol, id, data, table.getTableName());
+	}
+	
+	public void addStatus(String key, Map<String, ? extends Object> params, 
+			Project proj, ProjectTemplate temp, Task task, Dealer user,
+			Meta statusTable, Meta taskTable) {
+		val info = temp.getProjectInfo();
+		val wfitem = info.getWorkflowMap().get(task.getId());
+		val state = info.getStateMap().get(wfitem.getSrcState());
+		
+		val now = new Date();
+
+		Map<String, Object> status = Maps.newLinkedHashMap();
+		status.put(COL_STATUS_DATAKEY, key);
+		status.put(COL_STATUS_CUID, user.getId());
+		status.put(COL_STATUS_CTIME, now);
+		status.put(COL_STATUS_STATE, state.getId());
+
+		String tags = "";
+		if (params.containsKey(COL_STATUS_TAGS))
+			tags = params.get(COL_STATUS_TAGS).toString();
+		status.put(COL_STATUS_TAGS, tags);
+		String remarks = "";
+		if (params.containsKey(COL_STATUS_REMARKS))
+			remarks = params.get(COL_STATUS_REMARKS).toString();
+		status.put(COL_STATUS_REMARKS, remarks);
+		addData(status, statusTable);
+
+		Map<String, Object> taskdata = Maps.newLinkedHashMap();
+		taskdata.put(COL_TASK_DATAKEY, key);
+		taskdata.put(COL_TASK_TASK, task.getId());
+		taskdata.put(COL_TASK_USERID, user.getId());
+		taskdata.put(COL_TASK_TIME, now);
+		taskdata.put(COL_TASK_STATUS, Task.Status.正常.ordinal());
+		addData(taskdata, taskTable);
 	}
 	
 	@SneakyThrows
@@ -493,8 +566,8 @@ public class MetaService extends BaseService {
 			//	.filter(i -> i.getAction() == taskId).findFirst();
 			
 			return List.of(
-					COL_STATUS_STATE,
-					COL_STATUS_TAGS,
+					//COL_STATUS_STATE,
+					//COL_STATUS_TAGS,
 					COL_STATUS_MUNAME,
 					COL_STATUS_MTIME,
 					COL_TASK_USERNAME + "_" + taskId,

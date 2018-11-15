@@ -126,15 +126,15 @@ function confirmx(mess, href, closed){
 }
 
 // 提示输入对话框
-function promptx(title, lable, href, closed){
-	top.$.jBox("<div class='form-search' style='padding:20px;text-align:center;'>" + lable + "：<input type='text' id='txt' name='txt'/></div>", {
+function promptx(title, lable, href, init, closed){
+	top.$.jBox("<div class='form-search' style='padding:20px;text-align:center;'>" + lable + "：<input type='text' id='txt' name='txt' value='" + init + "'/></div>", {
 			title: title, submit: function (v, h, f){
 	    if (f.txt == '') {
 	        top.$.jBox.tip("请输入" + lable + "。", 'error');
 	        return false;
 	    }
 		if (typeof href == 'function') {
-			href();
+			href(f.txt);
 		}else{
 			resetTip(); //loading();
 			location = href + encodeURIComponent(f.txt);
@@ -143,6 +143,8 @@ function promptx(title, lable, href, closed){
 		if (typeof closed == 'function') {
 			closed();
 		}
+	},loaded: function(h) {
+		
 	}});
 	return false;
 }
