@@ -666,7 +666,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 		try {
 			doModify(params, proj, temp, task, user);
 		} catch (Exception ex) {
-			model.addAttribute("bubbleMessage", "添加数据失败: " + ex.getMessage());
+			model.addAttribute("bubbleMessage", "修改数据失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return modify(projId, taskId, id, model, session);
 		}
@@ -891,7 +891,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 		ActionUrl addAction = new ActionUrl();
 		addAction.setActive(true);
-		addAction.setTitle(TITLE_SUB2 + " - " + divcodes.get(id));
+		addAction.setTitle(TITLE_SUB2 + " - " + divcodes.get(id) + "(" + id + ")");
 		if (mode == "view")
 			addAction.setIcon("icon-eye");
 		else

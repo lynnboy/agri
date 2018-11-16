@@ -60,7 +60,8 @@
 	<insert id="createTable" parameterType="Meta">
 		CREATE TABLE `${tableName}` (
 		<foreach item="col" collection="schema.columns" separator=", ">
-		`${col.name}` ${col.type} <if test="col.isnull">NULL</if><if test="!col.isnull">NOT NULL</if>
+		`${col.name}` ${col.type} <if test="col.isnull">DEFAULT NULL</if><if test="!col.isnull">NOT NULL</if>
+		<if test="!col.isai">AUTO_INCREMENT</if>
 		<if test="col.as != null and col.as != ''">AS (${col.as})</if>
 		</foreach>
 		<if test="schema.pk != null and !schema.pk.isEmpty()">

@@ -29,6 +29,8 @@ public class Meta extends BaseEntity<Meta> {
 		@Getter @Setter
 		private boolean isnull = true;
 		@Getter @Setter
+		private boolean isai = false;
+		@Getter @Setter
 		private String as = "";
 
 		public class Ext {
@@ -92,6 +94,7 @@ public class Meta extends BaseEntity<Meta> {
 			col.type = type;
 			col.isnull = isnull;
 			col.as = as;
+			col.isai = isai;
 			return col;
 		}
 
