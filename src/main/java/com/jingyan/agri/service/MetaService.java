@@ -31,6 +31,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.jingyan.agri.common.persistence.ResultView;
 import com.jingyan.agri.common.persistence.Search;
+import com.jingyan.agri.common.persistence.Search.Op;
 import com.jingyan.agri.common.service.BaseService;
 import com.jingyan.agri.common.utils.JsonUtils;
 import com.jingyan.agri.dao.sys.DealerDao;
@@ -112,7 +113,9 @@ public class MetaService extends BaseService {
 	}
 
 	private void loadDivCodeMap() throws IOException {
-		File file = ResourceUtils.getFile("classpath:divcode.csv");
+		//File file = ResourceUtils.getFile("classpath:divcode.csv");
+		File file = new File("C:\\agridata\\divcode.csv");
+		//InputStream stream = getClass().getResourceAsStream("/divcode.csv");
 		//File file = new File(getClass().getResource("/divcode.csv").getFile());
 		for (String line : FileUtils.readLines(file, "UTF-8")) {
 			line = line.trim();
@@ -366,6 +369,26 @@ public class MetaService extends BaseService {
 		metaDao.update(keycol, id, data, table.getTableName());
 	}
 	
+	@SneakyThrows
+	public void updateData2(Map<String, ? extends Object> params, Meta table,
+			String key, String id, String subkey, String subid) {
+		Map<String, Object> data = Maps.newLinkedHashMap();
+
+		val list = metaDao.get2(key, id, subkey, subid, table.getTableName());
+		if (list.isEmpty()) {
+			throw new Exception("不存在此数据");
+		}
+		
+		for (val col : table.getSchema().getColumns()) {
+			String colname = col.getName();
+			if (colname.equals(key) || colname.equals(subkey)) continue;
+
+			if (StringUtils.isEmpty(col.getAs()) && params.containsKey(colname))
+				data.put(colname, params.get(colname));
+		}
+		metaDao.update2(key, id, subkey, subid, data, table.getTableName());
+	}
+	
 	public void addStatus(String key, Map<String, ? extends Object> params, 
 			Project proj, ProjectTemplate temp, Task task, Dealer user,
 			Meta statusTable, Meta taskTable) {
@@ -400,11 +423,25 @@ public class MetaService extends BaseService {
 		addData(taskdata, taskTable);
 	}
 	
+	public void updateStatus(String id, Meta statusTable, Dealer user) {
+		Map<String, Object> status = Maps.newLinkedHashMap();
+		status.put(MetaService.COL_STATUS_MUID, user.getId());
+		status.put(MetaService.COL_STATUS_MTIME, new Date());
+		metaDao.update(MetaService.COL_STATUS_DATAKEY, id, status, statusTable.getTableName());
+	}
+	
 	@SneakyThrows
 	public SearchHandler prepareSearch(
 			Project proj, ProjectTemplate temp, List<Group> groups,
 			String dataKey, String statusKey, String taskKey) {
 		return new SearchHandler(proj, temp, groups, dataKey, statusKey, taskKey);
+	}
+	@SneakyThrows
+	public SubSearchHandler prepareSubSearch(
+			Project proj, ProjectTemplate temp, List<Group> groups,
+			String dataKey, String subKey,
+			String key, String dataId) {
+		return new SubSearchHandler(proj, temp, groups, dataKey, subKey, key, dataId);
 	}
 
 	public class SearchHandler {
@@ -581,6 +618,7 @@ public class MetaService extends BaseService {
 			search.normalize(searchView, groups, isEscapeInSQLLiteral());
 			final int totalCount = metaDao.queryCount(null, dataTable.getTableName());
 			final int queryCount = metaDao.queryWithStatusCount(search, taskIds,
+					dataTable.getFilterColumn(),
 					dataTable.getTableName(), statusTable.getTableName(), taskTable.getTableName());
 			view.setTotalCount(totalCount);
 			view.setQueryCount(queryCount);
@@ -591,7 +629,89 @@ public class MetaService extends BaseService {
 		public List<Map<String, Object>> search(Search search, ResultView view) {
 			normalize(search, view);
 			return metaDao.queryWithStatus(search, taskIds, view,
+					dataTable.getFilterColumn(),
 					dataTable.getTableName(), statusTable.getTableName(), taskTable.getTableName());
+		}
+	}
+
+	public class SubSearchHandler {
+		@Getter
+		Project proj;
+		@Getter
+		ProjectTemplate temp;
+		@Getter
+		List<Group> groups;
+		@Getter
+		Meta dataTable;
+		@Getter
+		Meta subTable;
+		@Getter
+		String key;
+		@Getter
+		String dataId;
+
+		@Getter
+		Schema schema;
+		@Getter
+		ViewConfig viewConfig;
+		@Getter
+		SearchConfig searchConfig;
+		@Getter
+		SortConfig sortConfig;
+
+		@SneakyThrows
+		public SubSearchHandler(Project proj, ProjectTemplate temp,
+				List<Group> groups,
+				String dataKey, String subKey,
+				String key, String dataId) {
+			this.proj = proj;
+			this.temp = temp;
+			this.groups = groups;
+			dataTable = getProjectTableMetaByKey(proj, dataKey);
+			subTable = getProjectTableMetaByKey(proj, subKey);
+			this.key = key;
+			this.dataId = dataId;
+			
+			synthesisSearchView();
+		}
+
+		void synthesisSearchView() {
+			Schema subSchema = subTable.getSchema();
+			SearchConfig subSearchConfig = completeSearchConfig(subTable);
+			ViewConfig subViewConfig = completeViewConfig(subTable);
+
+			schema = new Schema();
+			schema.getColumns().addAll(subSchema.getColumns());
+
+			searchConfig = new SearchConfig();
+			searchConfig.getItems().addAll(subSearchConfig.getItems());
+
+			viewConfig = new ViewConfig();
+			viewConfig.getItems().addAll(subViewConfig.getItems());
+			
+			sortConfig = subTable.getSortConfig();
+		}
+		
+		@SneakyThrows
+		void normalize(Search search, ResultView view) {
+			boolean escapeInLiteral = isEscapeInSQLLiteral();
+			search.normalize(subTable, groups, isEscapeInSQLLiteral());
+
+			val column = schema.columnOf(key);
+			String sql = Op.EQ.sql(column, dataId, escapeInLiteral);
+			search.getConditions().add(sql);
+
+			final int totalCount = metaDao.queryCount(null, subTable.getTableName());
+			final int queryCount = metaDao.queryCount(search, subTable.getTableName());
+			view.setTotalCount(totalCount);
+			view.setQueryCount(queryCount);
+			view.normalize(sortConfig.getSortableColumnsFor(schema));
+		}
+
+		@SneakyThrows
+		public List<Map<String, Object>> search(Search search, ResultView view) {
+			normalize(search, view);
+			return metaDao.query(search, view, subTable.getTableName());
 		}
 	}
 }

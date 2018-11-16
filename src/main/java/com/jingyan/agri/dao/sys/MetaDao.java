@@ -37,6 +37,7 @@ public interface MetaDao {
 
 	int queryWithStatusCount(@Param("search") Search search,
 			@Param("taskIds") List<Integer> taskIds,
+			@Param("dataKey") String dataKey,
 			@Param("dataTable") String dataTable,
 			@Param("statusTable") String statusTable,
 			@Param("taskTable") String taskTable);
@@ -44,15 +45,17 @@ public interface MetaDao {
 		queryWithStatus(@Param("search") Search search,
 				@Param("taskIds") List<Integer> taskIds,
 				@Param("view") ResultView view,
+				@Param("dataKey") String dataKey,
 				@Param("dataTable") String dataTable,
 				@Param("statusTable") String statusTable,
 				@Param("taskTable") String taskTable);
 
 	List<Map<String, Object>>
 		querySum(@Param("keys") List<String> keys,
-			@Param("tableName") String tableName,
-			@Param("keyName") String keyName,
-			@Param("colName") String colName);
+				@Param("filterKey") String filterKey,
+				@Param("keyName") String keyName,
+				@Param("colName") String colName,
+			@Param("tableName") String tableName);
 
 	List<String> collectOptList(@Param("tableName") String tableName, @Param("colName") String colName);
 
@@ -60,6 +63,9 @@ public interface MetaDao {
 		get(@Param("key") String key,
 			@Param("id") String id,
 			@Param("tableName") String tableName);
+
+	List<Map<String, Object>>
+	getAll(@Param("tableName") String tableName);
 
 	List<Map<String, Object>>
 		get2(@Param("key1") String key1,
@@ -84,5 +90,10 @@ public interface MetaDao {
 			@Param("tableName") String tableName);
 	void remove(@Param("key") String key,
 			@Param("id") String id,
+			@Param("tableName") String tableName);
+	void remove2(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
 			@Param("tableName") String tableName);
 }

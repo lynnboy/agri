@@ -30,7 +30,7 @@ function fillSelect(sel, list, nestlist) {
 
 
 function show1(data, func) {
-	top.$.jBox.open("iframe:${base}/survey/add1and2", "作物覆膜情况",
+	top.$.jBox.open("iframe:${base}planting-v1/sub1add", "作物覆膜情况",
 			$(top.document).width()-320, 360,{
 		id: "作物覆膜dialog",
 		buttons:{},
@@ -54,13 +54,6 @@ function show2(data, func) {
 		func({企业名称: res});
 	}, txt);
 	return;
-	top.$.jBox.open("iframe:${base}/survey/add1and2", "企业名称",
-			$(top.document).width()-220, 300,{
-		buttons:{},
-		loaded: function(h) {
-			
-		}
-	});
 }
 var mode = '${mode}';
 function addRow(data, table, fname) {
@@ -157,11 +150,6 @@ function updateTags() {
 	});
 }
 $(document).ready(function() {
-	$('#btnAddRowa').click(function(){
-		top.$.jBox.open("iframe:${base}/survey/add1and2",
-				"作物覆膜情况",$(top.document).width()-220,$(top.document).height()-200,{
-		});
-	});
 	var 种植模式分区list = {0:"== 请选择 ==", 1:"北方高原山地区", 2:"东北半湿润平原区", 3:"黄淮海半湿润平原区", 4:"南方山地丘陵区", 5:"南方湿润平原区", 6:"西北干旱半干旱平原区"};
 	var 地貌类型list = {0:"== 请选择 ==", 1:"高原", 2:"山地", 3:"丘陵", 4:"平原", 5:"盆地"};
 	var 地貌类型map = {0:[0,1,2,3,4,5], 1:[0,1,2,3,4,5], 2:[4], 3:[4], 4:[0,1,2,3,4,5], 5:[4], 6:[4]};
@@ -394,7 +382,7 @@ $(document).ready(function() {
 	
 	var mode = '${mode}';
 	if (mode == "view") {
-		$("input").attr('readonly', 'readonly');
+		$("input,textarea").attr('readonly', 'readonly');
 		$("span.help-inline").remove();
 	}
 
@@ -450,8 +438,8 @@ $(document).ready(function() {
 				<span class="help-inline"><font color="red">*</font> </span>
 	</c:when>
 	<c:otherwise>
-				<input id="行政区划代码" name="行政区划代码" class="input-small"
-					readonly type="text" value="${data['行政区划代码']}" maxlength="50" />
+				<input id="行政区划代码" name="行政区划代码" class="input-large"
+					readonly type="text" value="${data['行政区划代码']} - ${divcodes[data['行政区划代码']]}" maxlength="50" />
 	</c:otherwise>
 </c:choose>
 			</div>
@@ -758,7 +746,7 @@ $(document).ready(function() {
 		<div class="control-group">
 			<label for="tags" class="control-label">标签:</label>
 			<div class="controls">
-				<input id="tags" name="tags" class="input-small" type="text" value="${status['tags']}" maxlength="256"/>
+				<input id="tags" name="tags" class="input-xlarge" type="text" value="${status['tags']}" maxlength="256"/>
 			</div>
 			<br/>
 			<div id="taglist" class="controls">

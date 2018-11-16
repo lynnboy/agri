@@ -307,7 +307,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="任主任电话" class="control-label">负责人电话:</label>
+			<label for="负责人电话" class="control-label">负责人电话:</label>
 			<div class="controls">
 				<input id="负责人电话" name="负责人电话" type="text" class="required phoneOrMobile" value="${data.负责人电话}" maxlength="15" />
 				<span class="help-inline"><font color="red">*</font> </span>
@@ -328,7 +328,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="任主任电话" class="control-label">联系人电话:</label>
+			<label for="联系人电话" class="control-label">联系人电话:</label>
 			<div class="controls">
 				<input id="联系人电话" name="联系人电话" type="text" class="required phoneOrMobile" value="${data.联系人电话}" maxlength="15" />
 				<span class="help-inline"><font color="red">*</font> </span>

@@ -326,7 +326,7 @@
 		JOIN organ ON organ.id = dealer.organId
 	    WHERE mem.groupId = #{id} and dealer.status=0
 	</select>
-
+	
 	<select id="isMemberInGroup">
 		SELECT EXISTS(
 			SELECT 1 FROM groupmember

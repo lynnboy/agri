@@ -116,7 +116,7 @@
 				`status`.`tags`,
 				`data`.*
 			FROM `${dataTable}` as `data`
-			JOIN `${statusTable}` as `status`
+			JOIN `${statusTable}` as `status` on `data`.`${dataKey}` = `status`.`datakey`
 			LEFT JOIN `dealer` as `modifyUser` on `status`.`modifyUserId` = `modifyUser`.id
 			LEFT JOIN `dealer` as `createUser` on `status`.`modifyUserId` = `createUser`.id
 			<foreach item="i" collection="taskIds">
@@ -153,7 +153,7 @@
 				`status`.`tags`,
 				`data`.*
 			FROM `${dataTable}` as `data`
-			JOIN `${statusTable}` as `status`
+			JOIN `${statusTable}` as `status` on `data`.`${dataKey}` = `status`.`datakey`
 			LEFT JOIN `dealer` as `modifyUser` on `status`.`modifyUserId` = `modifyUser`.id
 			LEFT JOIN `dealer` as `createUser` on `status`.`modifyUserId` = `createUser`.id
 			<foreach item="i" collection="taskIds">
@@ -182,10 +182,11 @@
 	</select>
 
 	<select id="querySum" resultType="map">
-		SELECT `${keyName}`, SUM(`${colName}`) FROM `${tableName}`
-		WHERE `${keyName}` IN
+		SELECT `${keyName}`, SUM(`${colName}`) AS `${colName}` FROM `${tableName}`
+		WHERE `${filterKey}` IN
 			(<foreach item="key" collection="keys" separator=",">#{key}</foreach>)
 		GROUP BY `${keyName}`
+		ORDER BY `${keyName}`
 	</select>
 	
 	<select id="get" resultType="map">
@@ -194,6 +195,10 @@
 
 	<select id="get2" resultType="map">
 		SELECT * FROM `${tableName}` WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} 
+	</select>
+
+	<select id="getAll" resultType="map">
+		SELECT * FROM `${tableName}`
 	</select>
 
 	<insert id="add">
@@ -226,6 +231,11 @@
 	<delete id="remove">
 		DELETE FROM `${tableName}`
 		WHERE `${key}` = #{id}
+	</delete>
+
+	<delete id="remove2">
+		DELETE FROM `${tableName}`
+		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2}
 	</delete>
 
 </mapper>

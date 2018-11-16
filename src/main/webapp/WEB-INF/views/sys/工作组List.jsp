@@ -86,7 +86,7 @@ function remove(id){
 			<tr>
 				<td>${item.name}</td>
 				<td><i class="icon-list-alt"></i> ${item.projName}</td>
-				<td><span class="label label-success">${projActionMap[item.projId][item.action]}</span></td>
+				<td><span class="label label-success">${projActionMap[item.projId][item.action].name}</span></td>
 				<td>
 					<c:if test="${item.condition.items.size() != 0}">
 					${item.condition.items[0].key} [${item.condition.items[0].pattern}]

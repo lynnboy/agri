@@ -60,6 +60,8 @@ import com.jingyan.agri.entity.sys.SettingValue;
 import com.jingyan.agri.modules.obsolete.CreateLicenseParams;
 import com.jingyan.agri.service.ManagerService;
 
+import lombok.val;
+
 
 @Controller
 //@Log4j2
@@ -592,15 +594,18 @@ public class SysController extends BaseController {
 		actionJsList.put("", "== 请选择 ==");
 		for (ProjectTemplate temp : tempList)
 			for (ProjectTemplate.Task action : temp.getProjectInfo().getTasks())
-				actionJsList.putIfAbsent(action.getId().toString(), action.getName());
+				actionJsList.putIfAbsent(
+						action.getId() + "|" + action.getName(),
+						action.getName());
 		
 		Map<Integer, List<String>> actionJsMap = Maps.newLinkedHashMap();
 		actionJsMap.put(0, Lists.newArrayList(actionJsList.keySet()));
 		for (Project proj : projList) {
 			ProjectTemplate temp = tempMap.get(proj.getTempId());
 			List<String> list = Lists.newArrayList( 
-					temp.getProjectInfo().getTaskMap().keySet()
-					.stream().map(actid -> actid.toString()).iterator());
+					temp.getProjectInfo().getTasks().stream()
+						.map(action -> action.getId() + "|" + action.getName())
+						.iterator());
 			list.add(0, "");
 			actionJsMap.put(proj.getId(), list);
 		}
@@ -658,17 +663,20 @@ public class SysController extends BaseController {
 		actionJsList.put("", "== 请选择 ==");
 		for (ProjectTemplate temp : tempList)
 			for (ProjectTemplate.Task action : temp.getProjectInfo().getTasks())
-				actionJsList.putIfAbsent(action.getId().toString(), action.getName());
+				actionJsList.putIfAbsent(
+						action.getId() + "|" + action.getName(),
+						action.getName());
 		
 		Map<Integer, List<String>> actionJsMap = Maps.newLinkedHashMap();
 		actionJsMap.put(0, Lists.newArrayList(actionJsList.keySet()));
 		for (Project proj : projList) {
 			ProjectTemplate temp = tempMap.get(proj.getTempId());
 			List<String> list = Lists.newArrayList( 
-					temp.getProjectInfo().getTaskMap().keySet()
-					.stream().map(actid -> actid.toString()).iterator());
+					temp.getProjectInfo().getTasks().stream()
+						.map(action -> action.getId() + "|" + action.getName())
+						.iterator());
 			list.add(0, "");
-			actionJsMap.put(temp.getId(), list);
+			actionJsMap.put(proj.getId(), list);
 		}
 
 		model.addAttribute("group", group);

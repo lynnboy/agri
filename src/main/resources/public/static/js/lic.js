@@ -371,6 +371,33 @@ function datePickerSettings() {
 	};
 }
 
+
+function fillSelect(sel, list, nestlist) {
+	var oldsel = $(sel).val();
+	$(sel).find("option").remove();
+	$.each(list, function(i, text) {
+		$(sel).append($('<option value="' + i + '">'+ text + '</option>'));
+	});
+	$(sel).val(oldsel);
+	if (Array.isArray(nestlist)) {
+	  $.each(nestlist, function(_, nest){
+		$(sel).change(function(){
+			if (nest.cond && !nest.cond()) return;
+			var ids = nest.map[$(this).val()];
+			var oldval = $(nest.sel).val();
+			$(nest.sel).find("option").remove();
+			$.each(ids, function(_, i) {
+				$(nest.sel).append($('<option value="' + i + '">'+ nest.list[i] + '</option>'));
+			});
+			$(nest.sel).val(oldval);
+			$(nest.sel).change();
+			$(nest.sel).valid();
+		});
+	  });
+	}
+}
+
+
 var Column = function(obj) { $.extend(this,{type:'VARCHAR(45)',isnull:true},obj); }
 Column.prototype.isText = function() { return /CHAR|TEXT/i.test(this.type); }
 Column.prototype.isInt = function() { return /INT/i.test(this.type); }

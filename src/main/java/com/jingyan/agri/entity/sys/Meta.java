@@ -153,7 +153,8 @@ public class Meta extends BaseEntity<Meta> {
 						.filter(key -> !list.contains(key))
 						.collect(Collectors.toList());
 			else
-				return list;
+				return schema.getColumns().stream()
+						.map(c -> c.getName()).collect(Collectors.toList());
 		}
 	}
 

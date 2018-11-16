@@ -2,32 +2,9 @@
 <%@ include file="/WEB-INF/views/common/common.jsp"%>
 <html>
 <head>
-<title>作物覆膜情况</title>
+<title>${isAdd?"添加":"修改"}地块</title>
 
 <script type="text/javascript">
-function save(data) {
-	console.log("save")
-}
-function ok(data) {
-	if ($("#inputForm").valid()) {
-		save({
-			作物代码:$("#作物代码").val(),
-			覆膜面积:$("#覆膜面积").val(),
-			覆膜比例:$("#覆膜比例").val(),
-			});
-		cancel();
-	}
-}
-function cancel() {
-	console.log("cancel")
-}
-function load(data) {
-	if (data) {
-		$("#作物代码").val(data.作物代码);
-		$("#覆膜面积").val(data.覆膜面积);
-		$("#覆膜比例").val(data.覆膜比例);
-	}
-}
 function fillSelect(sel, list, nestlist) {
 	$.each(list, function(i, text) {
 		$(sel).append($('<option value="' + i + '">'+ text + '</option>'));
@@ -200,7 +177,10 @@ $(document).ready(function() {
 	var 有无障碍层list = {0: '== 请选择 ==', 1: '有', 2: '无'};
 	var 障碍层类型list = {0: '== 请选择 ==', 1: '铁盘胶结层', 2: '粘盘层', 3: '潜育层', 4: '盐化层', 5: '碱化层', 6: '夹砂层', 7: '石膏盘层,⑧钙积层'};
 
-	fillSelect("#种植模式", 种植模式list);
+	fillSelect("#种植模式分区", 种植模式分区list, [
+		{ sel: "#地貌类型", list: 地貌类型list, map: 地貌类型map},
+		{ sel: "#种植模式", list: 种植模式list, map: 种植模式map1},
+	]);
 	fillSelect("#地貌类型", 地貌类型list, [
 		{ sel: "#地形", list: 地形list, map: 地形map},
 	]);
@@ -272,6 +252,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+	<ul class="nav nav-tabs">
+		<li><a href="${base}/agri/list">地块数据列表</a></li>
+		<li class="active"><a href="${base}/agri/${action}">${isAdd?"添加":"修改"}地块</a></li>
+	</ul>
 	<br />
 <%@include file="/WEB-INF/views/common/message.jsp"%>
 	<form id="inputForm" class="form-horizontal"
@@ -279,73 +263,279 @@ $(document).ready(function() {
 		<input id="id" name="id" type="hidden" value="${data.id}" />
 		
 		<div class="control-group">
-			<label for="作物代码" class="control-label">作物:</label>
+			<label for="地块编码" class="control-label">地块编码:</label>
 			<div class="controls">
-				<select id="作物代码" name="作物代码" class="reqselect span5">
-				<option value='0'>== 请选择 == </option>
-				<optgroup label="粮食作物">
-				<option value='LC01'>【LC01】 水稻</option>
-				<option value='LC02'>【LC02】 小麦</option>
-				<option value='LC03'>【LC03】 玉米</option>
-				<option value='LC04'>【LC04】 其他谷物</option>
-				<option value='LC05'>【LC05】 大豆</option>
-				<option value='LC06'>【LC06】 其他豆类</option>
-				<option value='LC07'>【LC07】 甘薯</option>
-				<option value='LC08'>【LC08】 马铃薯</option>
-				</optgroup>
-				<optgroup label="经济作物">
-				<option value='JC01'>【JC01】 棉花</option>
-				<option value='JC02'>【JC02】 麻类</option>
-				<option value='JC03'>【JC03】 桑类</option>
-				<option value='JC04'>【JC04】 籽用油菜</option>
-				<option value='JC05'>【JC05】 其他油料作物</option>
-				<option value='JC06'>【JC06】 甘蔗</option>
-				<option value='JC07'>【JC07】 甜菜</option>
-				<option value='JC08'>【JC08】 烟草</option>
-				<option value='JC09'>【JC09】 茶</option>
-				<option value='JC10'>【JC10】 花卉</option>
-				<option value='JC11'>【JC11】 药材</option>
-				<option value='JC12'>【JC12】 落叶果树</option>
-				<option value='JC13'>【JC13】 常绿果树</option>
-				<option value='JC14'>【JC14】 香蕉</option>
-				<option value='JC15'>【JC15】 其他果树</option>
-				<option value='JC16'>【JC16】 其他</option>
-				</optgroup>
-				<optgroup label="蔬菜作物">
-				<option value='SC01'>【SC01】 根茎叶类蔬菜</option>
-				<option value='SC02'>【SC02】 瓜果类蔬菜</option>
-				<option value='SC03'>【SC03】 水生蔬菜</option>
-				</optgroup>
-				</select>
+<c:choose>
+	<c:when test="${isAdd}">
+				<input id="地块编码" name="地块编码" class="required input-small" style="ime-mode:disabled"
+					type="text" value="" maxlength="8" /> <span class="help-inline"><font
+					color="red">*</font> </span>
+	</c:when>
+	<c:otherwise>
+				<input id="地块编码" name="地块编码" class="required input-small"
+					readonly type="text" value="${data.地块编码}" maxlength="50" />
+	</c:otherwise>
+</c:choose>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="地块地址" class="control-label">地块地址:</label>
+			<div class="controls">
+				<input id="地块地址" name="地块地址" class="required span5" type="text"
+					value="${data.地块地址}" maxlength="30" />
+					<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="农户姓名" class="control-label">农户姓名:</label>
+			<div class="controls">
+				<input id="农户姓名" name="农户姓名" type="text" value="${data.农户姓名}" maxlength="4" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="农户电话" class="control-label">农户电话:</label>
+			<div class="controls">
+				<input id="农户电话" name="农户电话" type="text" value="${data.农户电话}" class="phoneOrMobile" maxlength="15" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="负责人姓名" class="control-label">负责人姓名:</label>
+			<div class="controls">
+				<input id="负责人姓名" name="负责人姓名" type="text" value="${data.负责人姓名}" class="required" maxlength="4" />
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="覆膜面积" class="control-label">覆膜面积:</label>
+			<label for="负责人电话" class="control-label">负责人电话:</label>
+			<div class="controls">
+				<input id="负责人电话" name="负责人电话" type="text" class="required phoneOrMobile" value="${data.负责人电话}" maxlength="15" />
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="负责人Email" class="control-label">负责人Email:</label>
+			<div class="controls">
+				<input id="负责人Email" name="负责人Email" class="required email" type="text" value="${data.负责人Email}" maxlength="30" />
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="联系人姓名" class="control-label">联系人姓名:</label>
+			<div class="controls">
+				<input id="联系人姓名" name="联系人姓名" type="text" value="${data.联系人姓名}" class="required" maxlength="4" />
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="联系人电话" class="control-label">联系人电话:</label>
+			<div class="controls">
+				<input id="联系人电话" name="联系人电话" type="text" class="required phoneOrMobile" value="${data.联系人电话}" maxlength="15" />
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="联系人Email" class="control-label">联系人Email:</label>
+			<div class="controls">
+				<input id="联系人Email" name="联系人Email" class="required email" type="text" value="${data.联系人Email}" maxlength="30" />
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="经度" class="control-label">经度:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="覆膜面积" name="覆膜面积" class="required input-small" type="text" value="${data.覆膜面积}" maxlength="10" min="0" max="1000000" />
-				<span class="add-on">亩</span>
+				<input id="经度" name="经度" class="required input-small" type="text" value="${data.经度}" maxlength="10" min="73" max="136" />
+				<span class="add-on">°</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
-			<label for="覆膜比例" class="control-label">覆膜比例:</label>
+			<label for="经度" class="control-label">纬度:</label>
 			<div class="controls">
 				<span class="input-append">
-				<input id="覆膜比例" name="覆膜比例" class="required input-small" type="text" value="${data.覆膜比例}" maxlength="10" min="0" max="100" />
-				<span class="add-on">%</span>
+				<input id="纬度" name="纬度" class="required input-small" type="text" value="${data.纬度}" maxlength="10" min="73" max="136" />
+				<span class="add-on">°</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="经度" class="control-label">海拔:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="海拔" name="海拔" class="required input-small" type="text" value="${data.海拔}" maxlength="6" min="-1000" max="8000" />
+				<span class="add-on">m</span>
 				</span>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 
+		<div class="control-group">
+			<label for="种植模式分区" class="control-label">种植模式分区:</label>
+			<div class="controls">
+				<select id="种植模式分区" name="种植模式分区" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="地貌类型" class="control-label">地貌类型:</label>
+			<div class="controls">
+				<select id="地貌类型" name="地貌类型" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="地形" class="control-label">地形:</label>
+			<div class="controls">
+				<select id="地形" name="地形" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="是否梯田" class="control-label">是否梯田:</label>
+			<div class="controls">
+				<select id="是否梯田" name="是否梯田" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="最高地下水位" class="control-label">最高地下水位:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="最高地下水位" name="最高地下水位" class="required input-small" type="number" value="${data.最高地下水位}" maxlength="4" step='0.1' min="0" max="100" />
+				<span class="add-on">m</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="种植模式" class="control-label">种植模式:</label>
+			<div class="controls">
+				<select id="种植模式" name="种植模式" class="reqselect span5"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="种植方式" class="control-label">种植方式:</label>
+			<div class="controls">
+				<select id="种植方式" name="种植方式" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="坡向" class="control-label">坡向:</label>
+			<div class="controls">
+				<select id="坡向" name="坡向" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="坡度" class="control-label">坡度:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="坡度" name="坡度" class="required digits input-small" type="number" value="${data.坡度}" maxlength="2" min="0" max="90" />
+				<span class="add-on">°</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="土壤质地" class="control-label">土壤质地:</label>
+			<div class="controls">
+				<select id="土壤质地" name="土壤质地" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="土壤类型" class="control-label">土壤类型:</label>
+			<div class="controls">
+				<select id="土壤类型" name="土壤类型" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="地方土名" class="control-label">地方土名:</label>
+			<div class="controls">
+				<input id="地方土名" name="地方土名" class="" type="text" value="${data.地方土名}" maxlength="8" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="肥力水平" class="control-label">肥力水平:</label>
+			<div class="controls">
+				<select id="肥力水平" name="肥力水平" class=""></select>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="有无障碍层" class="control-label">有无障碍层:</label>
+			<div class="controls">
+				<select id="有无障碍层" name="有无障碍层" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="障碍层类型" class="control-label">障碍层类型:</label>
+			<div class="controls">
+				<select id="障碍层类型" name="障碍层类型" class="reqselect"></select>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="障碍层深度" class="control-label">障碍层深度:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="障碍层深度" name="障碍层深度" class="required digits input-small" type="number" value="${data.障碍层深度}" maxlength="2" min="0" max="90" />
+				<span class="add-on">cm</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="障碍层厚度" class="control-label">障碍层厚度:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="障碍层厚度" name="障碍层厚度" class="required digits input-small" type="number" value="${data.障碍层厚度}" maxlength="2" min="0" max="90" />
+				<span class="add-on">cm</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="监测小区长" class="control-label">监测小区长:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="监测小区长" name="监测小区长" class="required digits input-small" type="number" value="${data.监测小区长}" maxlength="4" min="0" max="9999" />
+				<span class="add-on">cm</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="监测小区宽" class="control-label">监测小区宽:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="监测小区宽" name="监测小区宽" class="required digits input-small" type="number" value="${data.监测小区宽}" maxlength="4" min="0" max="9999" />
+				<span class="add-on">cm</span>
+				</span>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="监测小区面积" class="control-label">监测小区面积:</label>
+			<div class="controls">
+				<span class="input-append">
+				<input id="监测小区面积" name="监测小区面积" readonly class="input-small" type="text" value="${data.监测小区面积}" />
+				<span class="add-on">cm<sup>2</sup></span>
+				</span>
+			</div>
+		</div>
+
 		<div class="form-actions">
 			<input id="btnSubmit" class="btn btn-primary" type="submit"
-				value="确 定" onclick="ok(); return false;" />&nbsp; 
-			<input id="btnCancel" class="btn" type="button"
-				value="取 消" onclick="cancel(); return false;" />
+				value="保 存" />&nbsp; <input id="btnCancel" class="btn" type="button"
+				value="返 回" onclick="history.go(-1)" />
 		</div>
 	</form>
 </body>

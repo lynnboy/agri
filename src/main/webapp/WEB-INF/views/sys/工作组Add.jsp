@@ -4,30 +4,6 @@
 <head>
 <title>工作组${isAdd?"添加":"修改"}</title>
 <script type="text/javascript">
-function fillSelect(sel, list, nestlist) {
-	var oldsel = $(sel).val();
-	$(sel).find("option").remove();
-	$.each(list, function(i, text) {
-		$(sel).append($('<option value="' + i + '">'+ text + '</option>'));
-	});
-	$(sel).val(oldsel);
-	if (Array.isArray(nestlist)) {
-	  $.each(nestlist, function(_, nest){
-		$(sel).change(function(){
-			if (nest.cond && !nest.cond()) return;
-			var ids = nest.map[$(this).val()];
-			var oldval = $(nest.sel).val();
-			$(nest.sel).find("option").remove();
-			$.each(ids, function(_, i) {
-				$(nest.sel).append($('<option value="' + i + '">'+ nest.list[i] + '</option>'));
-			});
-			$(nest.sel).val(oldval);
-			$(nest.sel).change();
-			$(nest.sel).valid();
-		});
-	  });
-	}
-}
 $(document).ready(function() {
 	var projList = JSON.parse('${projJsList}');
 	var actionList = JSON.parse('${actionJsList}');
@@ -35,6 +11,11 @@ $(document).ready(function() {
 	fillSelect("#projId", projList, [
 		{ sel: "#action", list: actionList, map: actionMap },
 	]);
+	$("#action").change(function() {
+		var actionkey = $("#action").val();
+		var action = actionkey ? actionkey.split('|')[0] : null;
+		$("#actionHidden").val(action);
+	});
 	
 	$("#condkey").change(function(){
 		var key = $(this).val();
@@ -125,14 +106,15 @@ $(document).ready(function() {
 		<div class="control-group">
 			<label for="action" class="control-label">任务:</label>
 			<div class="controls">
-				<select id="action" name="action" class="reqselect">
+				<select id="action" name="action_" class="reqselect">
 				<c:forEach items="${actionList}" var="action">
 				<option value="${action.key}"
-					<c:if test="${action.key == group.action}">selected</c:if>
+					<c:if test="${fn:startsWith(action.key, group.action)}">selected</c:if>
 					>${action.value}</option>
 				</c:forEach>
 				</select>
 				<span class="help-inline"><font color="red">*</font> </span>
+				<input id="actionHidden" name="action" type="hidden" value="${group.action}"></input>
 			</div>
 		</div>
 		<div class="control-group">

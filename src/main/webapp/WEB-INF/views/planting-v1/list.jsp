@@ -180,7 +180,8 @@ function withdraw(id, subject, tags, remarks) {
 		</c:when>
 		<c:when test="${colName == '模式面积'}">
 				<td>${row[colName]}
-					<a class="btn btn-primary btn-mini" href="${base}${basepath}sub2/${row['行政区划代码']}">打开</a>
+ 					<a class="btn btn-primary btn-mini"
+						href="${base}${basepath}sub2/${row['行政区划代码']}">打开</a>
 				</td>
 		</c:when>
 		<c:otherwise>

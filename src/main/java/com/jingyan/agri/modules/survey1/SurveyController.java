@@ -1,4 +1,4 @@
-package com.jingyan.agri.modules.planting1;
+package com.jingyan.agri.modules.survey1;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -68,14 +68,14 @@ import com.jingyan.agri.service.MetaService;
 import lombok.SneakyThrows;
 import lombok.val;
 
-@Controller(PlantingController.VERSION_NAME)
-@RequestMapping(value=PlantingController.VIEW_ROOT, produces = MediaType.TEXT_HTML_VALUE)
-public class PlantingController extends BaseController implements ProjectTemplateController {
+@Controller(SurveyController.VERSION_NAME)
+@RequestMapping(value=SurveyController.VIEW_ROOT, produces = MediaType.TEXT_HTML_VALUE)
+public class SurveyController extends BaseController implements ProjectTemplateController {
 	
-	static final String VIEW_ROOT = "/planting-v1";
-	static final String PATH_ROOT = "/planting-v1";
-	static final String VERSION_NAME = "planting-1.0.0";
-	static final String PREFIX = "planting1";
+	static final String VIEW_ROOT = "/survey-v1";
+	static final String PATH_ROOT = "/survey-v1";
+	static final String VERSION_NAME = "survey-1.0.0";
+	static final String PREFIX = "survey1";
 	static final int ACTION_ID_VIEW = 1;
 	
 	static final String META_KEY_DATA = "清查";
