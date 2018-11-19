@@ -118,6 +118,7 @@ public class MonitorController extends BaseController implements ProjectTemplate
 	static final String SUB_KEY = "id";
 	static final String YEAR_KEY = "监测年度";
 	static final String CODE_KEY = "处理编码";
+	static final String SEASON_KEY = "种植季";
 
 	static final String TITLE_LIST = "数据列表";
 	static final String TITLE_ADD = "添加新数据";
@@ -125,10 +126,60 @@ public class MonitorController extends BaseController implements ProjectTemplate
 	static final String TITLE_SUB1_2 = "土壤剖面";
 	static final String TITLE_SUB1_3 = "种植季与作物对应";
 	static final String TITLE_SUB2 = "处理";
+	static final String TITLE_CODES = "处理编码描述";
 	static final String TITLE_SUB3 = "记录";
 	static final String TITLE_IMAGE = "地块照片";
 	static final String TITLE_VIEW = "查看数据";
 	static final String TITLE_SUMMARY = "数据汇总";
+	
+	@SuppressWarnings({ "serial" })
+	static final Map<String, String> SUB_TITLE_SUB2 = new LinkedHashMap<>() {{
+		put("1", "耕作处理");
+		put("2", "施肥处理");
+		put("3", "灌溉、秸秆还田处理");
+		put("4", "地膜、植物篱处理");
+	}};
+	
+	@SuppressWarnings({ "serial" })
+	static final Map<String, String> SUB_TITLE_SUB3 = new LinkedHashMap<>() {{
+		put("1", "种植情况记录");
+		put("2", "植株产量记载及植株样品记录");
+		put("3", "施肥记录");
+		put("4", "降雨/灌溉水样记录");
+		put("5", "小区产流记载及水样品记录");
+		put("6", "基础土壤样品记录");
+		put("7", "监测期土壤样品记录");
+		put("8", "试验进程及操作记录");
+	}};
+	
+	@SuppressWarnings({ "serial" })
+	static final Map<String, String> META_KEY_SUB2 = new LinkedHashMap<>() {{
+		put("1", META_KEY_1_4_2);
+		put("2", META_KEY_1_4_3);
+		put("3", META_KEY_1_4_4);
+		put("4", META_KEY_1_4_5);
+	}};
+	
+	@SuppressWarnings({ "serial" })
+	static final Map<String, String> META_KEY_SUB3 = new LinkedHashMap<>() {{
+		put("1", META_KEY_2_1);
+		put("2", META_KEY_2_2);
+		put("3", META_KEY_3);
+		put("4", META_KEY_4_1);
+		put("5", META_KEY_4_2);
+		put("6", META_KEY_5_1);
+		put("7", META_KEY_5_2);
+		put("8", META_KEY_6);
+	}};
+	
+	@SuppressWarnings({ "serial" })
+	static final Map<String, String> CODE_KEY_SUB3 = new LinkedHashMap<>() {{
+		put("2", "植株样品编码");
+		put("4", "水样编码");
+		put("5", "产流水样编码");
+		put("6", "基础土壤样品编码");
+		put("7", "监测期土壤样品编码");
+	}};
 	
 	static final String[] defaultVisibleColumns = {
 			"地块编码", "承担单位", "地块地址", "种植模式", "种植季", "土壤", "监测小区", "处理", "记录"
@@ -537,16 +588,16 @@ public class MonitorController extends BaseController implements ProjectTemplate
 		for (val ent : initData.entrySet()) {
 			Map<String, Object> row = Maps.newLinkedHashMap();
 			row.put(keyName, keyValue);
-			row.put("处理编码", ent.getKey());
+			row.put(CODE_KEY, ent.getKey());
 			row.put("描述", ent.getValue());
-			metaService.addData(params, codeTable);
+			metaDao.add(row, codeTable.getTableName());
 		}
 		for (val code : List.of("A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3")) {
 			Map<String, Object> row = Maps.newLinkedHashMap();
 			row.put(keyName, keyValue);
 			row.put("小区编码", code);
-			row.put("处理编码", "CK");
-			metaService.addData(params, mapTable);
+			row.put(CODE_KEY, "CK");
+			metaDao.add(row, mapTable.getTableName());
 		}
 
 		metaService.addStatus(keyValue, params, proj, temp, task, user,
@@ -724,6 +775,46 @@ public class MonitorController extends BaseController implements ProjectTemplate
 		model.addAttribute("actions", actions);
 
 		return VIEW_ROOT + "/add";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/remove",
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	@Token(init = true)
+	@ResponseBody
+	@SneakyThrows
+	public String remove(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			ModelMap model, HttpSession session,
+			String id) {
+		try {
+			Pair<Project, ProjectTemplate> projPair =
+					metaService.checkProject(projId, taskId, VERSION_NAME,
+							Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+			Project proj = projPair.getLeft();
+			ProjectTemplate temp = projPair.getRight();
+			Task task = temp.getProjectInfo().getTaskMap().get(taskId);
+			Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+			List<Group> groups = metaService.checkUser(user, proj, taskId);
+			
+			if (task.getType() != Task.Type.填报) return "ok";
+
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
+			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
+			val keyName = dataTable.getFilterColumn();
+			val keyValue = id;
+			
+			metaDao.remove(keyName, id, dataTable.getTableName());
+			metaDao.remove(keyName, id, sub1Table.getTableName());
+			metaDao.remove(keyName, id, statusTable.getTableName());
+			metaDao.remove(keyName, id, taskTable.getTableName());
+
+			return "ok";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
 	}
 
 	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}", method = RequestMethod.GET)
@@ -1513,6 +1604,166 @@ public class MonitorController extends BaseController implements ProjectTemplate
 		return "ok";
 	}
 
+	@RequestMapping(value = "/{projId}/{taskId}/sub2/{id}/codes", method = RequestMethod.GET)
+	@Token(init = true)
+	public String codes(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+						Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+		
+		val mainpath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub2/" + id;
+		val basepath = mainpath + "/codes";
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+		
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		List<Map<String, Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+
+		val keyName = dataTable.getFilterColumn();
+		Meta codesTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4);
+
+		val list = metaDao.get(keyName, id, codesTable.getTableName());
+		val codes = list.stream().collect(Collectors.toMap(
+				row -> row.get(CODE_KEY), row -> row.getOrDefault("描述", "")));
+
+		model.addAttribute("id", id);
+		model.addAttribute("proj", proj);
+		model.addAttribute("temp", temp);
+		model.addAttribute("mode", mode);
+		model.addAttribute("basepath", basepath);
+		model.addAttribute("codes", codes);
+
+		List<ActionUrl> actions = new ArrayList<>();
+		ActionUrl listAction = new ActionUrl();
+		listAction.setActive(false);
+		listAction.setTitle(TITLE_LIST);
+		listAction.setUrl(PATH_ROOT + "/" + projId + "/" + taskId + "/list");
+		actions.add(listAction);
+
+		ActionUrl addAction = new ActionUrl();
+		addAction.setActive(false);
+		addAction.setTitle(TITLE_SUB2 + " - " + id);
+		addAction.setUrl(mainpath);
+		actions.add(addAction);
+
+		ActionUrl subAction = new ActionUrl();
+		subAction.setActive(true);
+		subAction.setTitle(TITLE_CODES);
+		if (mode == "view")
+			subAction.setIcon("icon-eye");
+		else
+			subAction.setIcon("icon-edit");
+		subAction.setUrl(basepath);
+		actions.add(subAction);
+
+		model.addAttribute("actions", actions);
+
+		return VIEW_ROOT + "/codes";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub2/{id}/codes", method = RequestMethod.POST)
+	@Token(init = true)
+	public String codes(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@RequestParam Map<String, String> params,
+			@PathVariable("id") String id,
+			ModelMap model, HttpSession session,
+			RedirectAttributes redirectModel) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta codesTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		val keyName = dataTable.getFilterColumn();
+		
+		try {
+			if (!divcodes.containsKey(id.substring(0, 6)))
+				throw new Exception("没有权限");
+
+			List<Map<String, Object>> find = metaDao.get(
+					MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+			if (find.isEmpty())
+				throw new Exception("没找到数据");
+			val statusObj = find.get(0);
+			val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+			if ((task.getType() != Task.Type.DEFAULT && task.getType() != Task.Type.填报) ||
+					wfitem.getSrcState() != stateid)
+				throw new Exception("不能修改数据");
+
+			val valkey = "描述";
+			val list = metaDao.get(keyName, id, codesTable.getTableName());
+			val codes = list.stream().collect(Collectors.toMap(
+					row -> row.get(CODE_KEY), row -> row.getOrDefault(valkey, "")));
+			val ids = list.stream().collect(Collectors.toMap(
+					row -> row.get(CODE_KEY), row -> row.get(SUB_KEY).toString()));
+
+			int count = 0;
+			for (val code : initData1.keySet()) {
+				if (!params.containsKey(code)) continue;
+				if (codes.containsKey(code)) {
+					if (!codes.get(code).equals(params.get(code))) {
+						Map<String, Object> row = Maps.newLinkedHashMap();
+						row.put(valkey, params.get(code));
+						metaDao.update(SUB_KEY, ids.get(code), row, codesTable.getTableName());
+						count ++;
+					}
+				} else {
+					Map<String, Object> row = Maps.newLinkedHashMap();
+					row.put(keyName, id);
+					row.put(CODE_KEY, code);
+					row.put(valkey, params.get(code));
+					metaDao.add(row, codesTable.getTableName());
+					count ++;
+				}
+			}
+
+			if (count > 0)
+				metaService.updateStatus(id, statusTable, user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("bubbleMessage", "修改数据失败: " + ex.getMessage());
+			model.addAttribute("bubbleType", "error");
+			return codes(projId, taskId, id, model, session);
+		}
+
+		redirectModel.addFlashAttribute("bubbleMessage", "已修改数据");
+		redirectModel.addFlashAttribute("bubbleType", "success");
+
+		return "redirect:" + PATH_ROOT + "/" + projId + "/" + taskId + "/sub2/" + id;
+	}
+
 	@RequestMapping(value = "/{projId}/{taskId}/sub3/{id}", method = RequestMethod.GET)
 	@Token(init = true)
 	public String sub3(@PathVariable("projId") int projId,
@@ -1628,6 +1879,446 @@ public class MonitorController extends BaseController implements ProjectTemplate
 		return VIEW_ROOT + "/sub3";
 	}
 
+	@RequestMapping(value = "/{projId}/{taskId}/sub{which1}/{id}/add{which2}",
+			method = RequestMethod.GET)
+	@Token(init = true)
+	public String subadd(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("which1") String which1,
+			@PathVariable("which2") String which2,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		if (!which1.equals("2") && !which1.equals("3"))
+				throw new Exception("invalid path");
+		if (which1.equals("2") && !SUB_TITLE_SUB2.containsKey(which2))
+			throw new Exception("invalid path");
+		if (which1.equals("3") && !SUB_TITLE_SUB3.containsKey(which2))
+			throw new Exception("invalid path");
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+
+		List<Map<String, Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+		val keyName = dataTable.getFilterColumn();
+		find = metaDao.get(keyName, id, dataTable.getTableName());
+		val maindata = find.get(0);
+
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+		if (!mode.equals("edit"))
+			throw new Exception("不能修改数据");
+
+		val mainpath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub" + which1 + "/" + id;
+		val basepath = mainpath + "/add" + which2;
+		
+		model.addAttribute("divcodes", divcodes);
+		model.addAttribute("divcode", divcodes.keySet().stream().findFirst().get());
+		model.addAttribute("proj", proj);
+		model.addAttribute("temp", temp);
+		model.addAttribute("mode", "add");
+		model.addAttribute("id", id);
+		model.addAttribute("basepath", basepath);
+		model.addAttribute("maindata", maindata);
+
+		List<ActionUrl> actions = new ArrayList<>();
+		ActionUrl listAction = new ActionUrl();
+		listAction.setActive(false);
+		listAction.setTitle(TITLE_LIST);
+		listAction.setUrl(PATH_ROOT + "/" + projId + "/" + taskId + "/list");
+		actions.add(listAction);
+
+		ActionUrl addAction = new ActionUrl();
+		addAction.setActive(false);
+		addAction.setTitle((which1.equals("2") ? TITLE_SUB2 : TITLE_SUB3) + " - " + id);
+		addAction.setUrl(mainpath);
+		actions.add(addAction);
+
+		ActionUrl subAction = new ActionUrl();
+		subAction.setActive(true);
+		subAction.setTitle((which1.equals("2") ? SUB_TITLE_SUB2 : SUB_TITLE_SUB3).get(which2));
+		subAction.setIcon("icon-plus");
+		subAction.setUrl(basepath);
+		actions.add(subAction);
+
+		model.addAttribute("actions", actions);
+
+		return VIEW_ROOT + "/sub" + which1 + "add" + which2;
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub{which1}/{id}/add{which2}",
+			method = RequestMethod.POST)
+	@Token(init = true)
+	public String subadd(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("which1") String which1,
+			@PathVariable("which2") String which2,
+			@RequestParam Map<String, String> params,
+			ModelMap model, HttpSession session,
+			RedirectAttributes redirectModel) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+
+		try {
+			doSubAdd(params, id, which1, which2, proj, temp, task, user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("bubbleMessage", "添加数据失败: " + ex.getMessage());
+			model.addAttribute("bubbleType", "error");
+			return add(projId, taskId, model, session);
+		}
+
+		redirectModel.addFlashAttribute("bubbleMessage", "已添加数据");
+		redirectModel.addFlashAttribute("bubbleType", "success");
+
+		return "redirect:" + PATH_ROOT + "/" + projId + "/" + taskId + "/sub" + which1 + "/" + id;
+	}
+
+	@Transactional
+	@SneakyThrows
+	public void doSubAdd(Map<String, String> params, String id, String which1, String which2,
+			Project proj, ProjectTemplate temp, Task task, Dealer user){
+
+		val info = temp.getProjectInfo();
+		val wfitem = info.getWorkflowMap().get(task.getId());
+		List<Group> groups = metaService.checkUser(user, proj, task.getId());
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		if (!which1.equals("2") && !which1.equals("3"))
+				throw new Exception("invalid path");
+		if (which1.equals("2") && !SUB_TITLE_SUB2.containsKey(which2))
+			throw new Exception("invalid path");
+		if (which1.equals("3") && !SUB_TITLE_SUB3.containsKey(which2))
+			throw new Exception("invalid path");
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+
+		val metaKey = which1.equals("2") ? META_KEY_SUB2.get(which2) : META_KEY_SUB3.get(which2);
+		
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+
+		val keyName = dataTable.getFilterColumn();
+
+		List<Map<String,Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+		if (!mode.equals("edit"))
+			throw new Exception("不能修改数据");
+
+		find = List.of();
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, metaKey);
+		if (which1.equals("2"))
+			find = metaDao.get4(keyName, id,
+					YEAR_KEY, params.get(YEAR_KEY),
+					CODE_KEY, params.get(CODE_KEY),
+					SEASON_KEY, params.get(SEASON_KEY),
+					subTable.getTableName());
+		else if (CODE_KEY_SUB3.containsKey(which2))
+			find = metaDao.get2(keyName, id,
+					CODE_KEY_SUB3.get(which2), params.get(CODE_KEY_SUB3.get(which2)),
+					subTable.getTableName());
+		if (!find.isEmpty())
+			throw new Exception("地块 " + id + " 中已经存在该条数据。");
+
+		params.remove(SUB_KEY);
+		params.put(keyName, id);
+		metaService.addData(params, subTable);
+
+		metaService.updateStatus(id, statusTable, user);
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub{which1}/{id}/modify{which2}/{subId}",
+			method = RequestMethod.GET)
+	@Token(init = true)
+	public String submodify(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("which1") String which1,
+			@PathVariable("which2") String which2,
+			@PathVariable("subId") String subId,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		if (!which1.equals("2") && !which1.equals("3"))
+				throw new Exception("invalid path");
+		if (which1.equals("2") && !SUB_TITLE_SUB2.containsKey(which2))
+			throw new Exception("invalid path");
+		if (which1.equals("3") && !SUB_TITLE_SUB3.containsKey(which2))
+			throw new Exception("invalid path");
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+
+		List<Map<String, Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+		if (!mode.equals("edit"))
+			throw new Exception("不能修改数据");
+
+		val keyName = dataTable.getFilterColumn();
+		find = metaDao.get(keyName, id, dataTable.getTableName());
+		val maindata = find.get(0);
+
+		val metaKey = which1.equals("2") ? META_KEY_SUB2.get(which2) : META_KEY_SUB3.get(which2);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, metaKey);
+
+		find = metaDao.get(SUB_KEY, subId, subTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val data = find.get(0);
+
+		val mainpath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub" + which1 + "/" + id;
+		val basepath = mainpath + "/modify" + which2 + "/" + subId;
+
+		model.addAttribute("divcodes", divcodes);
+		model.addAttribute("id", id);
+		model.addAttribute("divcode", id.substring(0, 6));
+		model.addAttribute("proj", proj);
+		model.addAttribute("temp", temp);
+		model.addAttribute("data", data);
+		model.addAttribute("status", statusObj);
+		model.addAttribute("mode", "modify");
+		model.addAttribute("basepath", basepath);
+		model.addAttribute("maindata", maindata);
+
+		List<ActionUrl> actions = new ArrayList<>();
+		ActionUrl listAction = new ActionUrl();
+		listAction.setActive(false);
+		listAction.setTitle(TITLE_LIST);
+		listAction.setUrl(PATH_ROOT + "/" + projId + "/" + taskId + "/list");
+		actions.add(listAction);
+
+		ActionUrl addAction = new ActionUrl();
+		addAction.setActive(false);
+		addAction.setTitle((which1.equals("2") ? TITLE_SUB2 : TITLE_SUB3) + " - " + id);
+		addAction.setUrl(mainpath);
+		actions.add(addAction);
+
+		ActionUrl subAction = new ActionUrl();
+		subAction.setActive(true);
+		subAction.setTitle((which1.equals("2") ? SUB_TITLE_SUB2 : SUB_TITLE_SUB3).get(which2));
+		subAction.setIcon("icon-edit");
+		subAction.setUrl(basepath);
+		actions.add(subAction);
+
+		model.addAttribute("actions", actions);
+
+		return VIEW_ROOT + "/sub" + which1 + "add" + which2;
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub{which1}/{id}/modify{which2}/{subId}",
+		method = RequestMethod.POST)
+	@Token(init = true)
+	public String submodify(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("which1") String which1,
+			@PathVariable("which2") String which2,
+			@PathVariable("subId") String subId,
+			@RequestParam Map<String, String> params,
+			ModelMap model, HttpSession session,
+			RedirectAttributes redirectModel) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+
+		try {
+			doSubModify(params, id, which1, which2, proj, temp, task, user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("bubbleMessage", "修改数据失败: " + ex.getMessage());
+			model.addAttribute("bubbleType", "error");
+			return modify(projId, taskId, id, model, session);
+		}
+
+		redirectModel.addFlashAttribute("bubbleMessage", "已修改数据");
+		redirectModel.addFlashAttribute("bubbleType", "success");
+
+		return "redirect:" + PATH_ROOT + "/" + projId + "/" + taskId + "/sub" + which1 + "/" + id;
+	}
+
+	@Transactional
+	@SneakyThrows
+	public void doSubModify(Map<String, String> params, String id, String which1, String which2,
+			Project proj, ProjectTemplate temp, Task task, Dealer user){
+
+		val info = temp.getProjectInfo();
+		val wfitem = info.getWorkflowMap().get(task.getId());
+		List<Group> groups = metaService.checkUser(user, proj, task.getId());
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		if (!which1.equals("2") && !which1.equals("3"))
+				throw new Exception("invalid path");
+		if (which1.equals("2") && !SUB_TITLE_SUB2.containsKey(which2))
+			throw new Exception("invalid path");
+		if (which1.equals("3") && !SUB_TITLE_SUB3.containsKey(which2))
+			throw new Exception("invalid path");
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+
+		val metaKey = which1.equals("2") ? META_KEY_SUB2.get(which2) : META_KEY_SUB3.get(which2);
+		
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+
+		val keyName = dataTable.getFilterColumn();
+		
+		List<Map<String,Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+		if (!mode.equals("edit"))
+			throw new Exception("不能修改数据");
+
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, metaKey);
+
+		val subId = params.get(SUB_KEY);
+		find = metaDao.get(SUB_KEY, subId, subTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+
+		metaService.updateData2(params, subTable, keyName, id, SUB_KEY, subId);
+
+		metaService.updateStatus(id, statusTable, user);
+	}
+	
+	@RequestMapping(value = "/{projId}/{taskId}/sub{which1}/{id}/remove{which2}",
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	@Token(init = true)
+	@ResponseBody
+	@SneakyThrows
+	public String subremove(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("which1") String which1,
+			@PathVariable("which2") String which2,
+			ModelMap model, HttpSession session,
+			String subId) {
+		try {
+			val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+					Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+			val proj = projPair.getLeft();
+			val temp = projPair.getRight();
+			val info = temp.getProjectInfo();
+			val task = info.getTaskMap().get(taskId);
+			val wfitem = info.getWorkflowMap().get(taskId);
+			val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+			List<Group> groups = metaService.checkUser(user, proj, taskId);
+			Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+			if (!which1.equals("2") && !which1.equals("3"))
+					throw new Exception("invalid path");
+			if (which1.equals("2") && !SUB_TITLE_SUB2.containsKey(which2))
+				throw new Exception("invalid path");
+			if (which1.equals("3") && !SUB_TITLE_SUB3.containsKey(which2))
+				throw new Exception("invalid path");
+			
+			if (!divcodes.containsKey(id.substring(0, 6)))
+				throw new Exception("没有权限");
+
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+
+			List<Map<String, Object>> find = metaDao.get(
+					MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+			if (find.isEmpty())
+				throw new Exception("没找到数据");
+			val statusObj = find.get(0);
+			val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+
+			String mode = "view";
+			if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+					wfitem.getSrcState() == stateid)
+				mode = "edit";
+			if (!mode.equals("edit"))
+				throw new Exception("不能修改数据");
+
+			if (task.getType() != Task.Type.填报) return "ok";
+
+			val metaKey = which1.equals("2") ? META_KEY_SUB2.get(which2) : META_KEY_SUB3.get(which2);
+			Meta subTable = metaService.getProjectTableMetaByKey(proj, metaKey);
+			
+			metaDao.remove(SUB_KEY, subId, dataTable.getTableName());
+
+			return "ok";
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed: " + ex.getMessage();
+		}
+	}
+
 	static String[] headerList1 = {
 		"种植模式",
 		"化肥 N 平均用量(公斤/亩)",
@@ -1718,46 +2409,6 @@ public class MonitorController extends BaseController implements ProjectTemplate
 	@RequestMapping(value = "/{projId}/{taskId}/newstatus/{id}")
 	public String newstatus(Model model) {
 		return VIEW_ROOT + "/newstatus";
-	}
-
-	@RequestMapping(value = "/{projId}/{taskId}/remove",
-			produces = MediaType.TEXT_PLAIN_VALUE)
-	@Token(init = true)
-	@ResponseBody
-	@SneakyThrows
-	public String remove(@PathVariable("projId") int projId,
-			@PathVariable("taskId") int taskId,
-			ModelMap model, HttpSession session,
-			String id) {
-		try {
-			Pair<Project, ProjectTemplate> projPair =
-					metaService.checkProject(projId, taskId, VERSION_NAME,
-							Task.Type.填报, Task.Type.审核, Task.Type.汇总);
-			Project proj = projPair.getLeft();
-			ProjectTemplate temp = projPair.getRight();
-			Task task = temp.getProjectInfo().getTaskMap().get(taskId);
-			Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
-			List<Group> groups = metaService.checkUser(user, proj, taskId);
-			
-			if (task.getType() != Task.Type.填报) return "ok";
-
-			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
-			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
-			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
-			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
-			val keyName = dataTable.getFilterColumn();
-			val keyValue = id;
-			
-			metaDao.remove(keyName, id, dataTable.getTableName());
-			metaDao.remove(keyName, id, sub1Table.getTableName());
-			metaDao.remove(keyName, id, statusTable.getTableName());
-			metaDao.remove(keyName, id, taskTable.getTableName());
-
-			return "ok";
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			return "failed";
-		}
 	}
 
 	@RequestMapping(value = "/{projId}/{taskId}/submit",

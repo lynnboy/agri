@@ -38,6 +38,15 @@ function search(){
 function sort(o){ $("#orderBy").val(o); return pageTo(1); }
 function refresh() { return pageTo($("#pageNo").val()); }
 
+function remove(which2, id){
+	confirmx('确认要删除该条数据吗？', function(){
+		$.post("${base}${basepath}remove" + which2, {id:id}, function(result,status){
+			alertx(result, function(){ refresh(); });
+		})
+	});
+	return false;
+}
+
 </script>
 </head>
 <body>
@@ -97,8 +106,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 				<td>${row.备注}</td>
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modifyrecord">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;removerecord(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify8/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(8, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -113,7 +122,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 <div>
-	<button id="btnAddLog" class="btn btn-primary" onclick="addrecord()">添加记录</button>
+	<a class="btn btn-primary" href="${base}${basepath}add8">添加记录</a>
 </div>
 </c:if>
 
@@ -161,8 +170,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify1">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove1(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify1/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(1, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -173,7 +182,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add1">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add1">添加记录</a>
 		</div>
 		<br/>
 </c:if>
@@ -228,8 +237,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify2">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove2(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify2/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(2, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -240,7 +249,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add2">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add2">添加记录</a>
 		</div>
 		<br/>
 </c:if>
@@ -300,8 +309,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify3">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove3(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify3/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(3, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -312,7 +321,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add3">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add3">添加记录</a>
 		</div>
 		<br/>
 </c:if>
@@ -371,8 +380,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify4">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove4(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify4/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(4, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -383,7 +392,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add4">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add4">添加记录</a>
 		</div>
 		<br/>
 </c:if>
@@ -436,8 +445,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify5">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove5(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify5/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(5, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -448,7 +457,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add5">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add5">添加记录</a>
 		</div>
 		<br/>
 </c:if>
@@ -499,8 +508,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify6">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove6(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify6/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(6, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -511,7 +520,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add6">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add6">添加记录</a>
 		</div>
 		<br/>
 </c:if>
@@ -575,8 +584,8 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify7">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove7(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify7/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(7, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -587,7 +596,7 @@ function refresh() { return pageTo($("#pageNo").val()); }
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add7">添加记录</a>
+			<a class="btn btn-primary" href="${base}${basepath}add7">添加记录</a>
 		</div>
 		<br/>
 </c:if>

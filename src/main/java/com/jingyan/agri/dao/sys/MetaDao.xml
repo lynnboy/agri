@@ -50,7 +50,7 @@
 			sortConfigText, searchConfigText, editConfigText, viewConfigText)
 		VALUES (
 			#{tableName}, #{tempId}, #{projId}, #{key}, #{filterColumn},
-			#{schemaText}, #{searchConfigText}, #{editConfigText}, #{viewConfigText})
+			#{schemaText}, #{sortConfigText}, #{searchConfigText}, #{editConfigText}, #{viewConfigText})
 	</insert>
 
 	<insert id="cloneTable">
@@ -60,8 +60,8 @@
 	<insert id="createTable" parameterType="Meta">
 		CREATE TABLE `${tableName}` (
 		<foreach item="col" collection="schema.columns" separator=", ">
-		`${col.name}` ${col.type} <if test="col.isnull">DEFAULT NULL</if><if test="!col.isnull">NOT NULL</if>
-		<if test="!col.isai">AUTO_INCREMENT</if>
+		${col.name} ${col.type} <if test="col.isnull">DEFAULT NULL</if><if test="!col.isnull">NOT NULL</if>
+		<if test="col.isai">AUTO_INCREMENT</if>
 		<if test="col.as != null and col.as != ''">AS (${col.as})</if>
 		</foreach>
 		<if test="schema.pk != null and !schema.pk.isEmpty()">
@@ -102,16 +102,16 @@
 		SELECT COUNT(*) FROM (
 			SELECT
 				<foreach item="i" collection="taskIds">
-					`task_${i}`.`status` as `status_${i}`,
-					`task_${i}`.`time` as `time_${i}`,
-					`user_${i}`.`name` as `userName_${i}`,
-					`organ_${i}`.`name` as `organName_${i}`,
+					`task_${i}`.`status` as status_${i},
+					`task_${i}`.`time` as time_${i},
+					`user_${i}`.`name` as userName_${i},
+					`organ_${i}`.`name` as organName_${i},
 				</foreach>
 				`status`.`datakey`,
 				`status`.`stateId`,
-				`modifyUser`.`name` as `modifyUserName`,
+				`modifyUser`.`name` as modifyUserName,
 				`status`.`modifyTime`,
-				`createUser`.`name` as `createUserName`,
+				`createUser`.`name` as createUserName,
 				`status`.`createTime`,
 				`status`.`remarks`,
 				`status`.`tags`,
@@ -139,16 +139,16 @@
 		SELECT * FROM (
 			SELECT
 				<foreach item="i" collection="taskIds">
-					`task_${i}`.`status` as `status_${i}`,
-					`task_${i}`.`time` as `time_${i}`,
-					`user_${i}`.`name` as `userName_${i}`,
-					`organ_${i}`.`name` as `organName_${i}`,
+					`task_${i}`.`status` as status_${i},
+					`task_${i}`.`time` as time_${i},
+					`user_${i}`.`name` as userName_${i},
+					`organ_${i}`.`name` as organName_${i},
 				</foreach>
 				`status`.`datakey`,
 				`status`.`stateId`,
-				`modifyUser`.`name` as `modifyUserName`,
+				`modifyUser`.`name` as modifyUserName,
 				`status`.`modifyTime`,
-				`createUser`.`name` as `createUserName`,
+				`createUser`.`name` as createUserName,
 				`status`.`createTime`,
 				`status`.`remarks`,
 				`status`.`tags`,
@@ -183,7 +183,7 @@
 	</select>
 
 	<select id="queryGroupCount" resultType="map">
-		SELECT `${keyName}`, COUNT(1) AS `count` FROM `${tableName}`
+		SELECT `${keyName}`, COUNT(1) AS count FROM `${tableName}`
 		WHERE `${filterKey}` IN
 			(<foreach item="key" collection="keys" separator=",">#{key}</foreach>)
 		GROUP BY `${keyName}`
@@ -191,7 +191,7 @@
 	</select>
 	
 	<select id="queryGroupSum" resultType="map">
-		SELECT `${keyName}`, SUM(`${colName}`) AS `${colName}` FROM `${tableName}`
+		SELECT `${keyName}`, SUM(`${colName}`) AS ${colName} FROM `${tableName}`
 		WHERE `${filterKey}` IN
 			(<foreach item="key" collection="keys" separator=",">#{key}</foreach>)
 		GROUP BY `${keyName}`
@@ -208,6 +208,12 @@
 
 	<select id="get3" resultType="map">
 		SELECT * FROM `${tableName}` WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} AND `${key3}` = #{id3} 
+	</select>
+
+	<select id="get4" resultType="map">
+		SELECT * FROM `${tableName}`
+		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2}
+		 AND `${key3}` = #{id3} AND `${key4}` = #{id4} 
 	</select>
 
 	<select id="getAll" resultType="map">

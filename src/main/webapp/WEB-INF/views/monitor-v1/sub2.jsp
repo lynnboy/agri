@@ -52,33 +52,9 @@ function editmap2(size) {
 }
 
 function refresh() { window.location.reload(); }
-function remove1(id){
+function remove(which2, id){
 	confirmx('确认要删除该条数据吗？', function(){
-		$.post("${base}${basepath}remove1", {id:id}, function(result,status){
-			alertx(result, function(){ refresh(); });
-		})
-	});
-	return false;
-}
-function remove2(id){
-	confirmx('确认要删除该条数据吗？', function(){
-		$.post("${base}${basepath}remove2", {id:id}, function(result,status){
-			alertx(result, function(){ refresh(); });
-		})
-	});
-	return false;
-}
-function remove3(id){
-	confirmx('确认要删除该条数据吗？', function(){
-		$.post("${base}${basepath}remove3", {id:id}, function(result,status){
-			alertx(result, function(){ refresh(); });
-		})
-	});
-	return false;
-}
-function remove4(id){
-	confirmx('确认要删除该条数据吗？', function(){
-		$.post("${base}${basepath}remove4", {id:id}, function(result,status){
+		$.post("${base}${basepath}remove" + which2, {id:id}, function(result,status){
 			alertx(result, function(){ refresh(); });
 		})
 	});
@@ -134,7 +110,7 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 <button class="btn btn-primary" onclick="editmap()">修改处理映射</button>
- <a class="btn btn-primary" href="#${base}${basepath}codes">编辑处理说明</a>
+ <a class="btn btn-primary" href="${base}${basepath}codes">编辑处理说明</a>
 </c:if>
 
 </div>
@@ -214,8 +190,8 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify1">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove1(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify1/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(1,${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -226,7 +202,7 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add1">添加处理</a>
+			<a class="btn btn-primary" href="${base}${basepath}add1">添加处理</a>
 		</div>
 		<br/>
 </c:if>
@@ -286,8 +262,8 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify2">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove2(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify2/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(2, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -298,7 +274,7 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add2">添加处理</a>
+			<a class="btn btn-primary" href="${base}${basepath}add2">添加处理</a>
 		</div>
 		<br/>
 </c:if>
@@ -356,8 +332,8 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify3">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove3(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify3/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(3, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -368,7 +344,7 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add3">添加处理</a>
+			<a class="btn btn-primary" href="${base}${basepath}add3">添加处理</a>
 		</div>
 		<br/>
 </c:if>
@@ -438,8 +414,8 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 				<td>
-			<a class="btn btn-primary btn-mini" href="#${base}${basepath}modify4">修改</a>
-			<a class="btn btn-primary" href="javascript:;" onclick="return;remove4(${row.id})">删除</a>
+			<a class="btn btn-primary btn-mini" href="${base}${basepath}modify4/${row.id}">修改</a>
+			<a class="btn btn-primary btn-mini" href="javascript:;" onclick="remove(4, ${row.id})">删除</a>
 				</td>
 </c:if>
 			</tr>
@@ -450,7 +426,7 @@ $(document).ready(function() {
 
 <c:if test="${mode == 'edit'}"> 
 		<div>
-			<a class="btn btn-primary" href="#${base}${basepath}add4">添加处理</a>
+			<a class="btn btn-primary" href="${base}${basepath}add4">添加处理</a>
 		</div>
 		<br/>
 </c:if>

@@ -89,6 +89,17 @@ public interface MetaDao {
 			@Param("id3") String id3,
 			@Param("tableName") String tableName);
 
+	List<Map<String, Object>>
+		get4(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
+			@Param("key3") String key3,
+			@Param("id3") String id3,
+			@Param("key4") String key4,
+			@Param("id4") String id4,
+			@Param("tableName") String tableName);
+
 	void add(@Param("data") Map<String, Object> data,
 			@Param("tableName") String tableName);
 

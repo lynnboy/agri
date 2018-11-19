@@ -11,6 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import lombok.SneakyThrows;
 
@@ -55,6 +56,7 @@ public class JsonUtils {
 	public static <T> String serialize(T obj)
 	{
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		String text;
 		try {
 			text = mapper.writeValueAsString(obj);
