@@ -83,7 +83,6 @@ $(document).ready(function() {
 	};
 	fillSelect("#模式代码", 种植模式list);
 	$("#模式代码").val('${data.模式代码}');
-	$("#模式面积").val('${data.模式面积}');
 
 	$("#inputForm").validate({
 		rules: {

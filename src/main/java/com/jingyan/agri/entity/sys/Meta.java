@@ -171,6 +171,8 @@ public class Meta extends BaseEntity<Meta> {
 			@Getter @Setter
 			private String key;
 			@Getter @Setter
+			private boolean searchable = true;
+			@Getter @Setter
 			private OptListMode optListMode = OptListMode.NONE;
 			@Getter @Setter
 			private String optListName = "";

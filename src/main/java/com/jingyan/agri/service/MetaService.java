@@ -681,7 +681,10 @@ public class MetaService extends BaseService {
 			ViewConfig subViewConfig = completeViewConfig(subTable);
 
 			schema = new Schema();
-			schema.getColumns().addAll(subSchema.getColumns());
+			schema.getColumns().addAll(
+					subSchema.getColumns().stream()
+						.filter(c -> !c.getName().equals(key))
+						.collect(Collectors.toList()));
 
 			searchConfig = new SearchConfig();
 			searchConfig.getItems().addAll(subSearchConfig.getItems());
@@ -697,7 +700,7 @@ public class MetaService extends BaseService {
 			boolean escapeInLiteral = isEscapeInSQLLiteral();
 			search.normalize(subTable, groups, isEscapeInSQLLiteral());
 
-			val column = schema.columnOf(key);
+			val column = subTable.getSchema().columnOf(key);
 			String sql = Op.EQ.sql(column, dataId, escapeInLiteral);
 			search.getConditions().add(sql);
 

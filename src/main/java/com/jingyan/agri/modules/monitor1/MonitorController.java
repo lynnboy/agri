@@ -1,4 +1,4 @@
-package com.jingyan.agri.modules.survey1;
+package com.jingyan.agri.modules.monitor1;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -75,37 +75,63 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.val;
 
-@Controller(SurveyController.VERSION_NAME)
-@RequestMapping(value=SurveyController.VIEW_ROOT, produces = MediaType.TEXT_HTML_VALUE)
-public class SurveyController extends BaseController implements ProjectTemplateController {
+@Controller(MonitorController.VERSION_NAME)
+@RequestMapping(value=MonitorController.VIEW_ROOT, produces = MediaType.TEXT_HTML_VALUE)
+public class MonitorController extends BaseController implements ProjectTemplateController {
 	
-	static final String VIEW_ROOT = "/survey-v1";
-	static final String PATH_ROOT = "/survey-v1";
-	static final String VERSION_NAME = "survey-1.0.0";
-	static final String PREFIX = "survey1";
+	static final String VIEW_ROOT = "/monitor-v1";
+	static final String PATH_ROOT = "/monitor-v1";
+	static final String VERSION_NAME = "monitor-1.0.0";
+	static final String PREFIX = "monitor1";
 	static final int ACTION_ID_VIEW = 1;
 	
-	static final String META_KEY_DATA = "地块";
-	static final String META_KEY_SUB1 = "全年作物施肥状况";
-	static final String META_KEY_IMAGE = "image";
+	static final String META_KEY_1 = "地块信息";
+	static final String META_KEY_1_2 = "土壤剖面描述";
+	static final String META_KEY_1_3 = "种植季与作物对应";
+	static final String META_KEY_1_4 = "处理编码";
+	static final String META_KEY_1_4_2 = "处理描述耕作";
+	static final String META_KEY_1_4_3 = "处理描述施肥";
+	static final String META_KEY_1_4_4 = "处理描述灌溉与秸秆";
+	static final String META_KEY_1_4_5 = "处理描述地膜与植物篱";
+	static final String META_KEY_1_5 = "小区编码与处理对应";
+	static final String META_KEY_2_1 = "种植记录";
+	static final String META_KEY_2_2 = "植株样品";
+	static final String META_KEY_3 = "施肥记录";
+	static final String META_KEY_4_1 = "降水灌溉水样品";
+	static final String META_KEY_4_2 = "产流样品";
+	static final String META_KEY_5_1 = "基础土壤样品";
+	static final String META_KEY_5_2 = "监测期土壤样品";
+	static final String META_KEY_6 = "试验进程及操作记录";
 	static final String META_KEY_STATUS = "status";
 	static final String META_KEY_TASK = "task";
 	static final String META_KEY_LOG = "log";
+	
+	static final String[] META_KEYS = {
+			META_KEY_1, META_KEY_1_2, META_KEY_1_3,	META_KEY_1_4,
+			META_KEY_1_4_2, META_KEY_1_4_3, META_KEY_1_4_4, META_KEY_1_4_5,
+			META_KEY_1_5,
+			META_KEY_2_1, META_KEY_2_2, META_KEY_3,
+			META_KEY_4_1, META_KEY_4_2, META_KEY_5_1, META_KEY_5_2,
+			META_KEY_6,
+	};
 
-	static final String SUB1_KEY = "序号";
-	static final String IMAGE_KEY = "id";
-	static final String IMAGE_FILENAME = "filename";
+	static final String SUB_KEY = "id";
+	static final String YEAR_KEY = "监测年度";
+	static final String CODE_KEY = "处理编码";
 
 	static final String TITLE_LIST = "数据列表";
 	static final String TITLE_ADD = "添加新数据";
 	static final String TITLE_MODIFY = "修改数据";
-	static final String TITLE_SUB1 = "全年作物施肥状况";
+	static final String TITLE_SUB1_2 = "土壤剖面";
+	static final String TITLE_SUB1_3 = "种植季与作物对应";
+	static final String TITLE_SUB2 = "处理";
+	static final String TITLE_SUB3 = "记录";
 	static final String TITLE_IMAGE = "地块照片";
 	static final String TITLE_VIEW = "查看数据";
 	static final String TITLE_SUMMARY = "数据汇总";
 	
 	static final String[] defaultVisibleColumns = {
-			"地块编码", "行政区划代码", "地址", "地块面积", "种植模式", "施肥状况", "照片"
+			"地块编码", "承担单位", "地块地址", "种植模式", "种植季", "土壤", "监测小区", "处理", "记录"
 	};
 
 	@Autowired
@@ -184,10 +210,27 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		
 		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/";
 		
+		val codeMap = metaService.getOptList("土壤类型代码");
+		
 		var handler = metaService.prepareSearch(proj, temp, groups,
-				META_KEY_DATA, META_KEY_STATUS, META_KEY_TASK);
+				META_KEY_1, META_KEY_STATUS, META_KEY_TASK);
 		List<Map<String, Object>> list = handler.search(search, view);
 		val keyName = handler.getDataTable().getFilterColumn();
+		List<String> keys = list.stream()
+				.map(r -> r.get(keyName).toString())
+				.collect(Collectors.toList());
+		if (!keys.isEmpty()) {
+			val sumlist = metaDao.queryGroupCount(keys, keyName, keyName,
+					metaService.getProjectTableMetaByKey(proj, META_KEY_1_3).getTableName());
+			Map<String, Object> sumMap = Maps.newHashMap();
+			for (val item : sumlist) {
+				sumMap.put(item.get(keyName).toString(), item.get("count"));
+			}
+			for (val item : list) {
+				String key = item.get(keyName).toString();
+				item.put("种植季Count", sumMap.getOrDefault(key, 0));
+			}
+		}
 
 		List<String> visibleColumns = new ArrayList<>();
 		visibleColumns.addAll(List.of(defaultVisibleColumns));
@@ -196,6 +239,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		model.addAttribute("proj", proj);
 		model.addAttribute("temp", temp);
 		model.addAttribute("divcodes", divcodes);
+		model.addAttribute("codeMap", codeMap);
 		model.addAttribute("taskHelper", new TaskHelper() {
 			public String stateNameOf(Integer val) {
 				return temp.getProjectInfo().getStateMap().get(val).getName();
@@ -449,26 +493,66 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		return "redirect:" + PATH_ROOT + "/" + projId + "/" + taskId + "/list";
 	}
 
+	@SuppressWarnings("serial")
+	static Map<String, String> initData1 = new LinkedHashMap<>() {{
+		put("CK", "常规对照处理");
+		put("KF", "主因子优化处理");
+		put("BMP", "综合优化处理");
+		put("TR1", "");
+		put("TR2", "");
+		put("TR3", "");
+		put("TR4", "");
+		put("TR5", "");
+		put("TR6", "");
+		put("TR7", "");
+		put("TR8", "");
+		put("TR9", "");
+		put("TR10", "");
+		put("TR11", "");
+		put("TR12", "");
+		put("TR13", "");
+		put("TR14", "");
+	}};
+	
 	@Transactional
 	@SneakyThrows
 	public void doAdd(Map<String, String> params,
 			Project proj, ProjectTemplate temp, Task task, Dealer user){
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta codeTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4);
+		Meta mapTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_5);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
 
 		val keyName = dataTable.getFilterColumn();
 		val keyValue = params.get(keyName);
-		
+
 		val list = metaDao.get(keyName, keyValue, dataTable.getTableName());
 		if (!list.isEmpty())
 			throw new Exception("已经存在" + keyName + "【" + keyValue + "】的数据。");
 
 		metaService.addData(params, dataTable);
+
+		val initData = initData1;
+		for (val ent : initData.entrySet()) {
+			Map<String, Object> row = Maps.newLinkedHashMap();
+			row.put(keyName, keyValue);
+			row.put("处理编码", ent.getKey());
+			row.put("描述", ent.getValue());
+			metaService.addData(params, codeTable);
+		}
+		for (val code : List.of("A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3")) {
+			Map<String, Object> row = Maps.newLinkedHashMap();
+			row.put(keyName, keyValue);
+			row.put("小区编码", code);
+			row.put("处理编码", "CK");
+			metaService.addData(params, mapTable);
+		}
+
 		metaService.addStatus(keyValue, params, proj, temp, task, user,
 				statusTable, taskTable);
 	}
-	
+
 	@RequestMapping(value = "/{projId}/{taskId}/modify/{id}", method = RequestMethod.GET)
 	@Token(init = true)
 	public String modify(@PathVariable("projId") int projId,
@@ -485,11 +569,11 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		Dealer user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
-		
+
 		if (!divcodes.containsKey(id.substring(0, 6)))
 			throw new Exception("没有权限");
-		
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		List<Map<String, Object>> list = metaDao.get(dataTable.getFilterColumn(), id, dataTable.getTableName());
 		if (list.isEmpty())
@@ -564,7 +648,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 	@SneakyThrows
 	public void doModify(Map<String, String> params,
 			Project proj, ProjectTemplate temp, Task task, Dealer user){
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 
 		val keyName = dataTable.getFilterColumn();
@@ -606,7 +690,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		if (!divcodes.containsKey(id.substring(0, 6)))
 			throw new Exception("没有权限");
 		
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		List<Map<String, Object>> list = metaDao.get(dataTable.getFilterColumn(), id, dataTable.getTableName());
 		if (list.isEmpty())
@@ -642,9 +726,9 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		return VIEW_ROOT + "/add";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/sub1/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}", method = RequestMethod.GET)
 	@Token(init = true)
-	public String sub1(@PathVariable("projId") int projId,
+	public String sub1_2(@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@PathVariable("id") String id,
 			Search search, ResultView view,
@@ -661,12 +745,12 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 		
-		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub1/" + id + "/";
+		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub1_2/" + id + "/";
 		
 		if (!divcodes.containsKey(id.substring(0, 6)))
 			throw new Exception("没有权限");
 		
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		List<Map<String, Object>> find = metaDao.get(
 				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
@@ -681,10 +765,10 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 
 		val keyName = dataTable.getFilterColumn();
 		var handler = metaService.prepareSubSearch(proj, temp, groups,
-				META_KEY_DATA, META_KEY_SUB1, keyName, id);
+				META_KEY_1, META_KEY_1_2, keyName, id);
 		List<Map<String, Object>> list = handler.search(search, view);
 
-		Set<String> hidden = Set.of(keyName, SUB1_KEY);
+		Set<String> hidden = Set.of(keyName, SUB_KEY);
 		List<String> visibleColumns = handler.getSchema().getColumns()
 				.stream().map(c -> c.getName())
 				.filter(n -> !hidden.contains(n))
@@ -717,7 +801,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 
 		ActionUrl addAction = new ActionUrl();
 		addAction.setActive(true);
-		addAction.setTitle(TITLE_SUB1 + " - " + id);
+		addAction.setTitle(TITLE_SUB1_2 + " - " + id);
 		if (mode == "view")
 			addAction.setIcon("icon-eye");
 		else
@@ -726,11 +810,11 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		actions.add(addAction);
 		model.addAttribute("actions", actions);
 
-		return VIEW_ROOT + "/sub1";
+		return VIEW_ROOT + "/sub1_2";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/sub1/{id}/add", method = RequestMethod.GET)
-	public String sub1add(
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}/add", method = RequestMethod.GET)
+	public String sub1_2add(
 			@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@PathVariable("id") String id,
@@ -738,14 +822,14 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 	{
 		model.addAttribute("id", id);
 		model.addAttribute("mode", "add");
-		return VIEW_ROOT + "/sub1add";
+		return VIEW_ROOT + "/sub1_2add";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/sub1/{id}/add",
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}/add",
 			method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Token(init = true)
 	@ResponseBody
-	public String sub1add(@PathVariable("projId") int projId,
+	public String sub1_2add(@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@RequestParam Map<String, String> params,
 			@PathVariable("id") String id,
@@ -762,8 +846,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		val keyName = dataTable.getFilterColumn();
 		
@@ -781,7 +865,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 					wfitem.getSrcState() != stateid)
 				throw new Exception("不能修改数据");
 
-			params.remove(SUB1_KEY);
+			params.remove(SUB_KEY);
 			
 			metaService.addData(params, subTable);
 
@@ -794,8 +878,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		return "ok";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/sub1/{id}/modify/{subId}", method = RequestMethod.GET)
-	public String sub1modify(
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}/modify/{subId}", method = RequestMethod.GET)
+	public String sub1_2modify(
 			@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@PathVariable("id") String id,
@@ -807,11 +891,11 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 						Task.Type.填报, Task.Type.审核, Task.Type.汇总);
 		Project proj = projPair.getLeft();
 		ProjectTemplate temp = projPair.getRight();
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 
 		val list = metaDao.get2(dataTable.getFilterColumn(), id,
-				SUB1_KEY, subId, subTable.getTableName());
+				SUB_KEY, subId, subTable.getTableName());
 		if (list.isEmpty())
 			throw new Exception("未找到数据");
 
@@ -819,14 +903,14 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		model.addAttribute("subId", subId);
 		model.addAttribute("mode", "modify");
 		model.addAttribute("data", list.get(0));
-		return VIEW_ROOT + "/sub1add";
+		return VIEW_ROOT + "/sub1_2add";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/sub1/{id}/modify/{subId}",
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}/modify/{subId}",
 			method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Token(init = true)
 	@ResponseBody
-	public String sub1modify(@PathVariable("projId") int projId,
+	public String sub1_2modify(@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@RequestParam Map<String, String> params,
 			@PathVariable("id") String id,
@@ -844,8 +928,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		val keyName = dataTable.getFilterColumn();
 		
@@ -863,7 +947,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 					wfitem.getSrcState() != stateid)
 				throw new Exception("不能修改数据");
 
-			metaService.updateData2(params, subTable, keyName, id, SUB1_KEY, subId);
+			metaService.updateData2(params, subTable, keyName, id, SUB_KEY, subId);
 
 			metaService.updateStatus(id, statusTable, user);
 		} catch (Exception ex) {
@@ -874,11 +958,11 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		return "ok";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/sub1/{id}/remove/{subId}",
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_2/{id}/remove/{subId}",
 			produces = MediaType.TEXT_PLAIN_VALUE)
 	@Token(init = true)
 	@ResponseBody
-	public String sub1remove(@PathVariable("projId") int projId,
+	public String sub1_2remove(@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@PathVariable("id") String id,
 			@PathVariable("subId") String subId,
@@ -895,8 +979,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		val keyName = dataTable.getFilterColumn();
 		
@@ -914,7 +998,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 					wfitem.getSrcState() != stateid)
 				throw new Exception("不能修改数据");
 			
-			metaDao.remove2(keyName, id, SUB1_KEY, subId, subTable.getTableName());
+			metaDao.remove2(keyName, id, SUB_KEY, subId, subTable.getTableName());
 
 			metaService.updateStatus(id, statusTable, user);
 		} catch (Exception ex) {
@@ -925,11 +1009,12 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		return "ok";
 	}
 
-	@RequestMapping(value = "/{projId}/{taskId}/image/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_3/{id}", method = RequestMethod.GET)
 	@Token(init = true)
-	public String image(@PathVariable("projId") int projId,
+	public String sub1_3(@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@PathVariable("id") String id,
+			Search search, ResultView view,
 			ModelMap model, HttpSession session) throws Exception
 	{
 		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
@@ -943,12 +1028,12 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 		
-		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/image/" + id + "/";
+		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub1_3/" + id + "/";
 		
 		if (!divcodes.containsKey(id.substring(0, 6)))
 			throw new Exception("没有权限");
 		
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		List<Map<String, Object>> find = metaDao.get(
 				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
@@ -962,9 +1047,15 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			mode = "edit";
 
 		val keyName = dataTable.getFilterColumn();
-		val imageTable = metaService.getProjectTableMetaByKey(proj, META_KEY_IMAGE);
+		var handler = metaService.prepareSubSearch(proj, temp, groups,
+				META_KEY_1, META_KEY_1_3, keyName, id);
+		List<Map<String, Object>> list = handler.search(search, view);
 
-		val list = metaDao.get(keyName, id, imageTable.getTableName());
+		Set<String> hidden = Set.of(keyName, SUB_KEY);
+		List<String> visibleColumns = handler.getSchema().getColumns()
+				.stream().map(c -> c.getName())
+				.filter(n -> !hidden.contains(n))
+				.collect(Collectors.toList());
 
 		model.addAttribute("id", id);
 		model.addAttribute("proj", proj);
@@ -972,6 +1063,17 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		model.addAttribute("mode", mode);
 		model.addAttribute("basepath", basepath);
 		model.addAttribute("list", list);
+		model.addAttribute("schema", handler.getSchema());
+		model.addAttribute("schemaJson", handler.getSchema().toJson());
+		model.addAttribute("viewConfig", handler.getViewConfig());
+		model.addAttribute("viewConfigJson", handler.getViewConfig().toJson());
+		model.addAttribute("searchConfig", handler.getSearchConfig());
+		model.addAttribute("searchConfigJson", handler.getSearchConfig().toJson());
+		model.addAttribute("sortConfig", handler.getSortConfig());
+		model.addAttribute("sortConfigJson", handler.getSortConfig().toJson());
+		model.addAttribute("pager", view);
+		model.addAttribute("query", JsonUtils.serialize(search.getQuery()));
+		model.addAttribute("visibleColumns", visibleColumns);
 
 		List<ActionUrl> actions = new ArrayList<>();
 		ActionUrl listAction = new ActionUrl();
@@ -982,7 +1084,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 
 		ActionUrl addAction = new ActionUrl();
 		addAction.setActive(true);
-		addAction.setTitle(TITLE_IMAGE + " - " + id);
+		addAction.setTitle(TITLE_SUB1_3 + " - " + id);
 		if (mode == "view")
 			addAction.setIcon("icon-eye");
 		else
@@ -991,161 +1093,30 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		actions.add(addAction);
 		model.addAttribute("actions", actions);
 
-		return VIEW_ROOT + "/image";
+		return VIEW_ROOT + "/sub1_3";
 	}
 
-	@RequestMapping(value="/{projId}/{taskId}/image/{id}/{imageId}", method = RequestMethod.GET)
-	public void downloadImage(HttpServletResponse response, HttpSession session,
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_3/{id}/add", method = RequestMethod.GET)
+	public String sub1_3add(
 			@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
 			@PathVariable("id") String id,
-			@PathVariable("imageId") String imageId) throws Exception
+			ModelMap model, HttpSession session) throws Exception
 	{
-		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
-				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
-		val proj = projPair.getLeft();
-		val temp = projPair.getRight();
-		val info = temp.getProjectInfo();
-		val task = info.getTaskMap().get(taskId);
-		val wfitem = info.getWorkflowMap().get(taskId);
-		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
-		List<Group> groups = metaService.checkUser(user, proj, taskId);
-		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
-
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta imageTable = metaService.getProjectTableMetaByKey(proj, META_KEY_IMAGE);
-		val keyName = dataTable.getFilterColumn();
-
-		val list = metaDao.get2(keyName, id, IMAGE_KEY, imageId, imageTable.getTableName());
-		if (list.isEmpty()) {
-			String errorMessage = "No such image.";
-			//logger.info(errorMessage);
-			OutputStream outputStream = response.getOutputStream();
-			outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
-			outputStream.close();
-			return;
-		}
-		
-		SettingValue setting = settingsDao.get(SettingsDao.KEY_DATA_DIR);
-
-		File dir = new File(setting.getValue());
-		String filename = list.get(0).get(IMAGE_FILENAME).toString();
-		File file = new File(dir.getAbsolutePath() +
-				File.separator + projId +
-				File.separator + id +
-				File.separator + filename);
-		if (!file.exists()){
-			String errorMessage = "Sorry. The file you are looking for does not exist";
-			//logger.info(errorMessage);
-			OutputStream outputStream = response.getOutputStream();
-			outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
-			outputStream.close();
-			return;
-		}
-		String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-		if (mimeType == null){
-			//logger.info("mimetype is not detectable, will take default");
-			mimeType = "application/octet-stream";
-		}
-		//System.out.println("mimetype : "+mimeType);
-		response.setContentType(mimeType);
-		//will direct opened in browser 
-		//response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() +"\""));
-		response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
-		response.setContentLength((int)file.length());
-		InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
-		FileCopyUtils.copy(inputStream, response.getOutputStream());
+		model.addAttribute("id", id);
+		model.addAttribute("mode", "add");
+		return VIEW_ROOT + "/sub1_3add";
 	}
 
-	@RequestMapping(value="/{projId}/{taskId}/image/{id}/add", method = RequestMethod.POST)
-	public String uploadImage(
-			@PathVariable("projId") int projId,
-			@PathVariable("taskId") int taskId,
-			@PathVariable("id") String id,
-			@RequestParam("file") MultipartFile file,
-			@RequestParam("拍摄日期") String date,
-			ModelMap model, HttpSession session,
-			RedirectAttributes redirectModel) throws Exception
-	{
-		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
-				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
-		val proj = projPair.getLeft();
-		val temp = projPair.getRight();
-		val info = temp.getProjectInfo();
-		val task = info.getTaskMap().get(taskId);
-		val wfitem = info.getWorkflowMap().get(taskId);
-		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
-		List<Group> groups = metaService.checkUser(user, proj, taskId);
-		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
-
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta imageTable = metaService.getProjectTableMetaByKey(proj, META_KEY_IMAGE);
-		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
-		val keyName = dataTable.getFilterColumn();
-
-		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/image/" + id;
-
-		try {
-			if (!divcodes.containsKey(id.substring(0, 6)))
-				throw new Exception("没有权限");
-
-			List<Map<String, Object>> find = metaDao.get(
-					MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
-			if (find.isEmpty())
-				throw new Exception("没找到数据");
-			val statusObj = find.get(0);
-			val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
-			if ((task.getType() != Task.Type.DEFAULT && task.getType() != Task.Type.填报) ||
-					wfitem.getSrcState() != stateid)
-				throw new Exception("不能修改数据");
-			
-			SettingValue setting = settingsDao.get(SettingsDao.KEY_DATA_DIR);
-			File dir = new File(setting.getValue());
-			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-			String filename = UUID.randomUUID().toString();
-			if (StringUtils.isNotEmpty(extension))
-				filename = filename + "." + extension.toLowerCase();
-
-			File targetFile = new File(dir.getAbsolutePath() +
-					File.separator + projId +
-					File.separator + id +
-					File.separator + filename);
-			File parent = targetFile.getParentFile();
-			if (!parent.exists()) parent.mkdirs();
-			file.transferTo(targetFile);
-
-			Map<String, String> row = Maps.newLinkedHashMap();
-			row.put(keyName, id);
-			row.put(IMAGE_FILENAME, filename);
-			if (StringUtils.isNotEmpty(date))
-				row.put("拍摄日期", date);
-			metaService.addData(row, imageTable);
-
-			metaService.updateStatus(id, statusTable, user);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			
-			redirectModel.addFlashAttribute("bubbleMessage", "上传照片失败： " + ex.getMessage());
-			redirectModel.addFlashAttribute("bubbleType", "success");
-
-			return "redirect:" + basepath;
-		}
-
-		redirectModel.addFlashAttribute("bubbleMessage", "上传照片成功");
-		redirectModel.addFlashAttribute("bubbleType", "success");
-
-		return "redirect:" + basepath;
-	}
-
-	@RequestMapping(value="/{projId}/{taskId}/image/{id}/remove/{imageId}",
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_3/{id}/add",
 			method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	public String removeImage(
-			@PathVariable("projId") int projId,
+	@Token(init = true)
+	@ResponseBody
+	public String sub1_3add(@PathVariable("projId") int projId,
 			@PathVariable("taskId") int taskId,
+			@RequestParam Map<String, String> params,
 			@PathVariable("id") String id,
-			@PathVariable("imageId") String imageId,
-			ModelMap model, HttpSession session,
-			RedirectAttributes redirectModel) throws Exception
+			ModelMap model, HttpSession session) throws Exception
 	{
 		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
 				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
@@ -1158,13 +1129,11 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-		Meta imageTable = metaService.getProjectTableMetaByKey(proj, META_KEY_IMAGE);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_3);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 		val keyName = dataTable.getFilterColumn();
-
-		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/image/" + id;
-
+		
 		try {
 			if (!divcodes.containsKey(id.substring(0, 6)))
 				throw new Exception("没有权限");
@@ -1178,33 +1147,485 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			if ((task.getType() != Task.Type.DEFAULT && task.getType() != Task.Type.填报) ||
 					wfitem.getSrcState() != stateid)
 				throw new Exception("不能修改数据");
-			
-			val list = metaDao.get2(keyName, id, IMAGE_KEY, imageId, imageTable.getTableName());
-			if (list.isEmpty())
-				throw new Exception("没有此照片");
-			
-			SettingValue setting = settingsDao.get(SettingsDao.KEY_DATA_DIR);
-	
-			File dir = new File(setting.getValue());
-			String filename = list.get(0).get(IMAGE_FILENAME).toString();
-			File file = new File(dir.getAbsolutePath() +
-					File.separator + projId +
-					File.separator + id +
-					File.separator + filename);
 
-			metaDao.remove2(keyName, id, IMAGE_KEY, imageId, imageTable.getTableName());
+			val KEY = "种植季";
+			val year = params.get(YEAR_KEY);
+			val n = params.get(KEY);
+			
+			find = metaDao.get3(keyName, id, YEAR_KEY, year, KEY, n, subTable.getTableName());
+			if (!find.isEmpty())
+				throw new Exception("已经存在" + YEAR_KEY + "为" + year +
+						"的【" + KEY + ":" + n + "】数据");
+			
+			params.remove(SUB_KEY);
+			
+			metaService.addData(params, subTable);
+
 			metaService.updateStatus(id, statusTable, user);
-
-			if (file.exists()){
-				file.delete();
-			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			
-			return "删除照片失败 " + ex.getMessage();
+			return "failed " + ex.getMessage();
 		}
 
 		return "ok";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_3/{id}/modify/{subId}", method = RequestMethod.GET)
+	public String sub1_3modify(
+			@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("subId") String subId,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		Pair<Project, ProjectTemplate> projPair =
+				metaService.checkProject(projId, taskId, VERSION_NAME,
+						Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		Project proj = projPair.getLeft();
+		ProjectTemplate temp = projPair.getRight();
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_3);
+
+		val list = metaDao.get2(dataTable.getFilterColumn(), id,
+				SUB_KEY, subId, subTable.getTableName());
+		if (list.isEmpty())
+			throw new Exception("未找到数据");
+
+		model.addAttribute("id", id);
+		model.addAttribute("subId", subId);
+		model.addAttribute("mode", "modify");
+		model.addAttribute("data", list.get(0));
+		return VIEW_ROOT + "/sub1_3add";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_3/{id}/modify/{subId}",
+			method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Token(init = true)
+	@ResponseBody
+	public String sub1_3modify(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@RequestParam Map<String, String> params,
+			@PathVariable("id") String id,
+			@PathVariable("subId") String subId,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_3);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		val keyName = dataTable.getFilterColumn();
+		
+		try {
+			if (!divcodes.containsKey(id.substring(0, 6)))
+				throw new Exception("没有权限");
+
+			List<Map<String, Object>> find = metaDao.get(
+					MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+			if (find.isEmpty())
+				throw new Exception("没找到数据");
+			val statusObj = find.get(0);
+			val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+			if ((task.getType() != Task.Type.DEFAULT && task.getType() != Task.Type.填报) ||
+					wfitem.getSrcState() != stateid)
+				throw new Exception("不能修改数据");
+
+			metaService.updateData2(params, subTable, keyName, id, SUB_KEY, subId);
+
+			metaService.updateStatus(id, statusTable, user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "ok";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub1_3/{id}/remove/{subId}",
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	@Token(init = true)
+	@ResponseBody
+	public String sub1_3remove(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			@PathVariable("subId") String subId,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_3);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		val keyName = dataTable.getFilterColumn();
+		
+		try {
+			if (!divcodes.containsKey(id.substring(0, 6)))
+				throw new Exception("没有权限");
+
+			List<Map<String, Object>> find = metaDao.get(
+					MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+			if (find.isEmpty())
+				throw new Exception("没找到数据");
+			val statusObj = find.get(0);
+			val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+			if ((task.getType() != Task.Type.DEFAULT && task.getType() != Task.Type.填报) ||
+					wfitem.getSrcState() != stateid)
+				throw new Exception("不能修改数据");
+			
+			metaDao.remove2(keyName, id, SUB_KEY, subId, subTable.getTableName());
+
+			metaService.updateStatus(id, statusTable, user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "ok";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub2/{id}", method = RequestMethod.GET)
+	@Token(init = true)
+	public String sub2(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+						Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+		
+		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub2/" + id + "/";
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+		
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		val keyName = dataTable.getFilterColumn();
+
+		List<Map<String, Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+
+		find = metaDao.get(keyName, id, dataTable.getTableName());
+		val maindata = find.get(0);
+
+		Meta codeTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4);
+		Meta blockTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_5);
+
+		val blocklist = metaDao.get(keyName, id, blockTable.getTableName());
+		val codelist = metaDao.get(keyName, id, codeTable.getTableName());
+		val codes = blocklist.stream()
+				.map(row -> row.get(CODE_KEY).toString())
+				.distinct()
+				.collect(Collectors.toSet());
+		val usedCodeList = codelist.stream()
+				.filter(row -> codes.contains(row.get(CODE_KEY)))
+				.collect(Collectors.toList());
+
+		Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4_2);
+		Meta sub2Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4_3);
+		Meta sub3Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4_4);
+		Meta sub4Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4_5);
+
+		val sublist1 = metaDao.get(keyName, id, sub1Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist2 = metaDao.get(keyName, id, sub2Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist3 = metaDao.get(keyName, id, sub3Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist4 = metaDao.get(keyName, id, sub4Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		
+		model.addAttribute("id", id);
+		model.addAttribute("proj", proj);
+		model.addAttribute("temp", temp);
+		model.addAttribute("mode", mode);
+		model.addAttribute("basepath", basepath);
+		model.addAttribute("maindata", maindata);
+
+		model.addAttribute("blocklist", blocklist);
+		model.addAttribute("usedCodeList", usedCodeList);
+
+		model.addAttribute("sublist1", sublist1);
+		model.addAttribute("sublist2", sublist2);
+		model.addAttribute("sublist3", sublist3);
+		model.addAttribute("sublist4", sublist4);
+
+		List<ActionUrl> actions = new ArrayList<>();
+		ActionUrl listAction = new ActionUrl();
+		listAction.setActive(false);
+		listAction.setTitle(TITLE_LIST);
+		listAction.setUrl(PATH_ROOT + "/" + projId + "/" + taskId + "/list");
+		actions.add(listAction);
+
+		ActionUrl addAction = new ActionUrl();
+		addAction.setActive(true);
+		addAction.setTitle(TITLE_SUB2 + " - " + id);
+		if (mode == "view")
+			addAction.setIcon("icon-eye");
+		else
+			addAction.setIcon("icon-edit");
+		addAction.setUrl(basepath);
+		actions.add(addAction);
+		model.addAttribute("actions", actions);
+
+		return VIEW_ROOT + "/sub2";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub2/{id}/blockmap1")
+	@Token(init = true)
+	public String blockmap1(
+			ModelMap model, HttpSession session) throws Exception
+	{
+
+		return VIEW_ROOT + "/blockmap1";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub2/{id}/blockmap2")
+	@Token(init = true)
+	public String blockmap2(int c, int r,
+			@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+
+		Meta codeTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_4);
+		val keyName = codeTable.getFilterColumn();
+		val codelist = metaDao.get(keyName, id, codeTable.getTableName());
+
+		List<String> blocks = Lists.newArrayList();
+		for (int i = 0; i < c; i++) {
+			blocks.add(String.valueOf((char)('A' + i)));
+		}
+		model.addAttribute("blocks", blocks);
+		model.addAttribute("count", c);
+		model.addAttribute("repeat", r);
+		model.addAttribute("codelist", codelist);
+
+		return VIEW_ROOT + "/blockmap2";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub2/{id}/blockmap",
+			method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Token(init = true)
+	@ResponseBody
+	public String blockmap(
+			@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@RequestParam Map<String, String> params,
+			@PathVariable("id") String id,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+				Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta blockTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_5);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		val keyName = dataTable.getFilterColumn();
+		
+		try {
+			if (!divcodes.containsKey(id.substring(0, 6)))
+				throw new Exception("没有权限");
+
+			List<Map<String, Object>> find = metaDao.get(
+					MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+			if (find.isEmpty())
+				throw new Exception("没找到数据");
+			val statusObj = find.get(0);
+			val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+			if ((task.getType() != Task.Type.DEFAULT && task.getType() != Task.Type.填报) ||
+					wfitem.getSrcState() != stateid)
+				throw new Exception("不能修改数据");
+
+			metaDao.remove(keyName, id, blockTable.getTableName());
+
+			val count = Integer.valueOf(params.getOrDefault("count","3"));
+			val repeat = Integer.valueOf(params.getOrDefault("repeat","3"));
+			for (int i = 0; i < count; i++) {
+				String block = String.valueOf((char)('A' + i));
+				val code = params.getOrDefault(block, "CK");
+				for (int j = 1; j <= repeat; j++) {
+					Map<String, Object> row = Maps.newLinkedHashMap();
+					row.put(keyName, id);
+					row.put("小区编码", block + j);
+					row.put("处理编码", code);
+					metaService.addData(row, blockTable);
+				}
+			}
+			
+			metaService.updateStatus(id, statusTable, user);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return "failed";
+		}
+
+		return "ok";
+	}
+
+	@RequestMapping(value = "/{projId}/{taskId}/sub3/{id}", method = RequestMethod.GET)
+	@Token(init = true)
+	public String sub3(@PathVariable("projId") int projId,
+			@PathVariable("taskId") int taskId,
+			@PathVariable("id") String id,
+			ModelMap model, HttpSession session) throws Exception
+	{
+		val projPair = metaService.checkProject(projId, taskId, VERSION_NAME,
+						Task.Type.填报, Task.Type.审核, Task.Type.汇总);
+		val proj = projPair.getLeft();
+		val temp = projPair.getRight();
+		val info = temp.getProjectInfo();
+		val task = info.getTaskMap().get(taskId);
+		val wfitem = info.getWorkflowMap().get(taskId);
+		val user = (Dealer)session.getAttribute(Constant.SYS_LOGIN_USER);
+		List<Group> groups = metaService.checkUser(user, proj, taskId);
+		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
+		
+		val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/sub3/" + id + "/";
+		
+		if (!divcodes.containsKey(id.substring(0, 6)))
+			throw new Exception("没有权限");
+		
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
+		val keyName = dataTable.getFilterColumn();
+
+		List<Map<String, Object>> find = metaDao.get(
+				MetaService.COL_STATUS_DATAKEY, id, statusTable.getTableName());
+		if (find.isEmpty())
+			throw new Exception("没找到数据");
+		val statusObj = find.get(0);
+		val stateid = (Integer)statusObj.get(MetaService.COL_STATUS_STATE);
+		String mode = "view";
+		if ((task.getType() == Task.Type.DEFAULT || task.getType() == Task.Type.填报) &&
+				wfitem.getSrcState() == stateid)
+			mode = "edit";
+
+		find = metaDao.get(keyName, id, dataTable.getTableName());
+		val maindata = find.get(0);
+
+		Meta recordTable = metaService.getProjectTableMetaByKey(proj, META_KEY_6);
+
+		val recordlist = metaDao.get(keyName, id, recordTable.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+
+		Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_2_1);
+		Meta sub2Table = metaService.getProjectTableMetaByKey(proj, META_KEY_2_1);
+		Meta sub3Table = metaService.getProjectTableMetaByKey(proj, META_KEY_3);
+		Meta sub4Table = metaService.getProjectTableMetaByKey(proj, META_KEY_4_1);
+		Meta sub5Table = metaService.getProjectTableMetaByKey(proj, META_KEY_4_2);
+		Meta sub6Table = metaService.getProjectTableMetaByKey(proj, META_KEY_5_1);
+		Meta sub7Table = metaService.getProjectTableMetaByKey(proj, META_KEY_5_2);
+
+		val sublist1 = metaDao.get(keyName, id, sub1Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist2 = metaDao.get(keyName, id, sub2Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist3 = metaDao.get(keyName, id, sub3Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist4 = metaDao.get(keyName, id, sub4Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist5 = metaDao.get(keyName, id, sub5Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist6 = metaDao.get(keyName, id, sub6Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		val sublist7 = metaDao.get(keyName, id, sub7Table.getTableName())
+				.stream().collect(Collectors.groupingBy(
+						row -> row.get(YEAR_KEY)));
+		
+		model.addAttribute("id", id);
+		model.addAttribute("proj", proj);
+		model.addAttribute("temp", temp);
+		model.addAttribute("mode", mode);
+		model.addAttribute("basepath", basepath);
+		model.addAttribute("maindata", maindata);
+
+		model.addAttribute("recordlist", recordlist);
+
+		model.addAttribute("sublist1", sublist1);
+		model.addAttribute("sublist2", sublist2);
+		model.addAttribute("sublist3", sublist3);
+		model.addAttribute("sublist4", sublist4);
+		model.addAttribute("sublist5", sublist5);
+		model.addAttribute("sublist6", sublist6);
+		model.addAttribute("sublist7", sublist7);
+
+		List<ActionUrl> actions = new ArrayList<>();
+		ActionUrl listAction = new ActionUrl();
+		listAction.setActive(false);
+		listAction.setTitle(TITLE_LIST);
+		listAction.setUrl(PATH_ROOT + "/" + projId + "/" + taskId + "/list");
+		actions.add(listAction);
+
+		ActionUrl addAction = new ActionUrl();
+		addAction.setActive(true);
+		addAction.setTitle(TITLE_SUB3 + " - " + id);
+		if (mode == "view")
+			addAction.setIcon("icon-eye");
+		else
+			addAction.setIcon("icon-edit");
+		addAction.setUrl(basepath);
+		actions.add(addAction);
+		model.addAttribute("actions", actions);
+
+		return VIEW_ROOT + "/sub3";
 	}
 
 	static String[] headerList1 = {
@@ -1233,9 +1654,9 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		List<Group> groups = metaService.checkUser(user, proj, taskId);
 		Map<String, String> divcodes = metaService.getDivCodeNamesFor(groups);
 		
-		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
+		Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
 		Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
-		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+		Meta subTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 		
 		val info = temp.getProjectInfo();
 		val wfitem = info.getWorkflowMap().get(task.getId());
@@ -1259,54 +1680,6 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		val sumCol = "模式面积";
 		List<Map<String,Object>> table1 = Lists.newArrayList();
 		if (!filteredids.isEmpty()) {
-			val glist = metaDao.getAll(dataTable.getTableName())
-					.stream()
-					.filter(row -> filteredids.contains(row.get(keyName).toString()))
-					.collect(Collectors.groupingBy(row -> row.get("种植模式").toString(),
-							Collectors.mapping(row -> row.get(keyName).toString(),
-									Collectors.toSet())));
-			val submap = metaDao.getAll(subTable.getTableName())
-					.stream()
-					//.filter(row -> filteredids.contains(row.get(keyName).toString()))
-					.collect(Collectors.groupingBy(row -> row.get(keyName).toString(),
-							Collectors.toList()));
-			glist.size();
-			submap.size();
-
-			glist.entrySet().stream()
-			.sorted(Map.Entry.comparingByKey())
-			.forEachOrdered(entry -> {
-				val code = entry.getKey();
-				val idset = entry.getValue();
-
-				val subrows = idset.stream()
-						.flatMap(id -> submap.getOrDefault(id, List.of()).stream())
-						.map(r -> new HelperSubRow(r))
-						.collect(Collectors.partitioningBy(r -> r.isFM()));
-				val F_N = subrows.get(false).stream()
-						.collect(Collectors.averagingDouble(r -> r.getN()));
-				val F_P2O5 = subrows.get(false).stream()
-						.collect(Collectors.averagingDouble(r -> r.getP2O5()));
-				val F_K2O = subrows.get(false).stream()
-						.collect(Collectors.averagingDouble(r -> r.getK2O()));
-				val FM_N = subrows.get(true).stream()
-						.collect(Collectors.averagingDouble(r -> r.getN()));
-				val FM_P2O5 = subrows.get(true).stream()
-						.collect(Collectors.averagingDouble(r -> r.getP2O5()));
-				val FM_K2O = subrows.get(true).stream()
-						.collect(Collectors.averagingDouble(r -> r.getK2O()));
-
-				Map<String,Object> row = Maps.newLinkedHashMap();
-				row.put(headerList1[0], code);
-				row.put(headerList1[1], F_N);
-				row.put(headerList1[2], F_P2O5);
-				row.put(headerList1[3], F_K2O);
-				row.put(headerList1[4], FM_N);
-				row.put(headerList1[5], FM_P2O5);
-				row.put(headerList1[6], FM_K2O);
-
-				table1.add(row);
-			});
 		}
 
 		Map<Integer, String> tablenames = Maps.newLinkedHashMap();
@@ -1319,7 +1692,7 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 		model.addAttribute("divcodes", divcodes);
 		model.addAttribute("proj", proj);
 		model.addAttribute("temp", temp);
-		model.addAttribute("tableids", List.of(1));
+		model.addAttribute("tableids", List.of());
 		model.addAttribute("tablenames", tablenames);
 		model.addAttribute("headers", headers);
 		model.addAttribute("tables", tables);
@@ -1368,9 +1741,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			
 			if (task.getType() != Task.Type.填报) return "ok";
 
-			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
-			Meta imageTable = metaService.getProjectTableMetaByKey(proj, META_KEY_IMAGE);
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
 			val keyName = dataTable.getFilterColumn();
@@ -1378,7 +1750,6 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			
 			metaDao.remove(keyName, id, dataTable.getTableName());
 			metaDao.remove(keyName, id, sub1Table.getTableName());
-			metaDao.remove(keyName, id, imageTable.getTableName());
 			metaDao.remove(keyName, id, statusTable.getTableName());
 			metaDao.remove(keyName, id, taskTable.getTableName());
 
@@ -1418,8 +1789,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			
 			if (!hasDst) return "ok";
 
-			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
 			
@@ -1482,8 +1853,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			
 			val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/";
 			
-			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
 			val keyName = MetaService.COL_STATUS_DATAKEY;
@@ -1550,8 +1921,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			
 			val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/";
 			
-			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
 			val keyName = MetaService.COL_STATUS_DATAKEY;
@@ -1616,8 +1987,8 @@ public class SurveyController extends BaseController implements ProjectTemplateC
 			
 			val basepath = PATH_ROOT + "/" + projId + "/" + taskId + "/";
 			
-			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_DATA);
-			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_SUB1);
+			Meta dataTable = metaService.getProjectTableMetaByKey(proj, META_KEY_1);
+			Meta sub1Table = metaService.getProjectTableMetaByKey(proj, META_KEY_1_2);
 			Meta statusTable = metaService.getProjectTableMetaByKey(proj, META_KEY_STATUS);
 			Meta taskTable = metaService.getProjectTableMetaByKey(proj, META_KEY_TASK);
 			val keyName = MetaService.COL_STATUS_DATAKEY;

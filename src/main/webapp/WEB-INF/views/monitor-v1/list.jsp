@@ -172,17 +172,37 @@ function withdraw(id, subject, tags, remarks) {
 <c:set var="column" value="${schema.columnOf(colName)}"/>
 
 		<c:choose>
+		<c:when test="${colName == '种植季'}">
+				<td>${row['种植季Count']} 季
+ 					<a class="btn btn-primary btn-mini"
+						href="${base}${basepath}sub1_3/${row['地块编码']}">打开</a>
+				</td>
+		</c:when>
+		<c:when test="${colName == '土壤'}">
+				<td>[${row['土壤质地']}]${codeMap[row['土壤类型']]}
+ 					<a class="btn btn-primary btn-mini"
+						href="${base}${basepath}sub1_2/${row['地块编码']}">剖面</a>
+				</td>
+		</c:when>
+		<c:when test="${colName == '监测小区'}">
+				<td>${row['监测小区面积']}m<sup>2</sup> (${row['监测小区长']}×${row['监测小区宽']})
+				</td>
+		</c:when>
+		<c:when test="${colName == '处理'}">
+				<td><a class="btn btn-primary btn-mini"
+						href="${base}${basepath}sub2/${row['地块编码']}">打开</a>
+				</td>
+		</c:when>
+		<c:when test="${colName == '记录'}">
+				<td><a class="btn btn-primary btn-mini"
+						href="${base}${basepath}sub3/${row['地块编码']}">打开</a>
+				</td>
+		</c:when>
 		<c:when test="${column.ext().isDate()}">
 				<td><fmt:formatDate pattern="yyyy-MM-dd" value='${row[column.name]}'/></td>
 		</c:when>
 		<c:when test="${column.ext().isDateTime()}">
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value='${row[column.name]}'/></td>
-		</c:when>
-		<c:when test="${colName == '模式面积'}">
-				<td>${row[colName]}
- 					<a class="btn btn-primary btn-mini"
-						href="${base}${basepath}sub2/${row['行政区划代码']}">打开</a>
-				</td>
 		</c:when>
 		<c:otherwise>
 				<td>${row[colName]}</td>

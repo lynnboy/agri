@@ -241,7 +241,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 				.map(r -> r.get(keyName).toString())
 				.collect(Collectors.toList());
 		if (!keys.isEmpty()) {
-			val sumlist = metaDao.querySum(keys, keyName, keyName, sumCol,
+			val sumlist = metaDao.queryGroupSum(keys, keyName, keyName, sumCol,
 					metaService.getProjectTableMetaByKey(proj, META_KEY_SUB2).getTableName());
 			Map<String, Object> sumMap = Maps.newHashMap();
 			for (val item : sumlist) {
@@ -500,12 +500,13 @@ public class PlantingController extends BaseController implements ProjectTemplat
 		try {
 			doAdd(params, proj, temp, task, user);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "添加数据失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return add(projId, taskId, model, session);
 		}
 
-		redirectModel.addFlashAttribute("bubbleMessage", "已修改项目");
+		redirectModel.addFlashAttribute("bubbleMessage", "已添加项目");
 		redirectModel.addFlashAttribute("bubbleType", "success");
 
 		return "redirect:" + PATH_ROOT + "/" + projId + "/" + taskId + "/list";
@@ -666,6 +667,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 		try {
 			doModify(params, proj, temp, task, user);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改数据失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return modify(projId, taskId, id, model, session);
@@ -964,7 +966,8 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			metaService.updateStatus(id, statusTable, user);
 		} catch (Exception ex) {
-			return "failed: " + ex.getMessage();
+			ex.printStackTrace();
+			return "failed";
 		}
 
 		return "ok";
@@ -1043,7 +1046,8 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			metaService.updateStatus(id, statusTable, user);
 		} catch (Exception ex) {
-			return "failed: " + ex.getMessage();
+			ex.printStackTrace();
+			return "failed";
 		}
 
 		return "ok";
@@ -1093,7 +1097,8 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			metaService.updateStatus(id, statusTable, user);
 		} catch (Exception ex) {
-			return "failed: " + ex.getMessage();
+			ex.printStackTrace();
+			return "failed";
 		}
 
 		return "ok";
@@ -1198,7 +1203,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 		headers2.add("模式面积");
 		List<Map<String,Object>> table2 = Lists.newArrayList();
 		if (!filteredids.isEmpty()) {
-			table2 = metaDao.querySum(filteredids, keyName,
+			table2 = metaDao.queryGroupSum(filteredids, keyName,
 					SUB2_KEY, sumCol, sub2Table.getTableName());
 		}
 
@@ -1287,6 +1292,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			return "ok";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "failed";
 		}
 	}
@@ -1363,6 +1369,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			return "ok";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "failed";
 		}
 	}
@@ -1553,6 +1560,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			return "ok";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "failed";
 		}
 	}
@@ -1623,6 +1631,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			return "ok";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "failed";
 		}
 	}
@@ -1688,6 +1697,7 @@ public class PlantingController extends BaseController implements ProjectTemplat
 
 			return "ok";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return "failed";
 		}
 	}

@@ -62,7 +62,7 @@ $(document).ready(function() {
 			<label for="作物代码" class="control-label">作物:</label>
 			<div class="controls">
 				<select id="作物代码" name="作物代码" class="reqselect span5">
-				<option value='0'>== 请选择 == </option>
+				<option value=''>== 请选择 == </option>
 				<optgroup label="粮食作物">
 				<option value='LC01'>【LC01】 水稻</option>
 				<option value='LC02'>【LC02】 小麦</option>

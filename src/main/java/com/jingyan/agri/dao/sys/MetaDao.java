@@ -51,7 +51,13 @@ public interface MetaDao {
 				@Param("taskTable") String taskTable);
 
 	List<Map<String, Object>>
-		querySum(@Param("keys") List<String> keys,
+		queryGroupCount(@Param("keys") List<String> keys,
+				@Param("filterKey") String filterKey,
+				@Param("keyName") String keyName,
+			@Param("tableName") String tableName);
+
+	List<Map<String, Object>>
+		queryGroupSum(@Param("keys") List<String> keys,
 				@Param("filterKey") String filterKey,
 				@Param("keyName") String keyName,
 				@Param("colName") String colName,
@@ -65,13 +71,22 @@ public interface MetaDao {
 			@Param("tableName") String tableName);
 
 	List<Map<String, Object>>
-	getAll(@Param("tableName") String tableName);
+		getAll(@Param("tableName") String tableName);
 
 	List<Map<String, Object>>
 		get2(@Param("key1") String key1,
 			@Param("id1") String id1,
 			@Param("key2") String key2,
 			@Param("id2") String id2,
+			@Param("tableName") String tableName);
+
+	List<Map<String, Object>>
+		get3(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
+			@Param("key3") String key3,
+			@Param("id3") String id3,
 			@Param("tableName") String tableName);
 
 	void add(@Param("data") Map<String, Object> data,
@@ -88,12 +103,31 @@ public interface MetaDao {
 			@Param("id2") String id2,
 			@Param("data") Map<String, Object> data,
 			@Param("tableName") String tableName);
+
+	void update3(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
+			@Param("key3") String key3,
+			@Param("id3") String id3,
+			@Param("data") Map<String, Object> data,
+			@Param("tableName") String tableName);
+
 	void remove(@Param("key") String key,
 			@Param("id") String id,
 			@Param("tableName") String tableName);
+
 	void remove2(@Param("key1") String key1,
 			@Param("id1") String id1,
 			@Param("key2") String key2,
 			@Param("id2") String id2,
+			@Param("tableName") String tableName);
+
+	void remove3(@Param("key1") String key1,
+			@Param("id1") String id1,
+			@Param("key2") String key2,
+			@Param("id2") String id2,
+			@Param("key3") String key3,
+			@Param("id3") String id3,
 			@Param("tableName") String tableName);
 }

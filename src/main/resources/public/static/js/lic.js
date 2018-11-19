@@ -383,7 +383,7 @@ function fillSelect(sel, list, nestlist) {
 	  $.each(nestlist, function(_, nest){
 		$(sel).change(function(){
 			if (nest.cond && !nest.cond()) return;
-			var ids = nest.map[$(this).val()];
+			var ids = nest.map[$(this).val() || 0];
 			var oldval = $(nest.sel).val();
 			$(nest.sel).find("option").remove();
 			$.each(ids, function(_, i) {
@@ -427,6 +427,9 @@ SearchConfig.prototype.hasOptList = function(key) {
 }
 SearchConfig.prototype.isTags = function(key) {
 	return key == "tags" && this.hasOptList(key);
+}
+SearchConfig.prototype.isSearchable = function(key) {
+	return !(key in this._map && this._map[key].searchable);
 }
 SearchConfig.prototype.optListOf = function(key) {
 	return this._map[key].optList;
@@ -473,6 +476,8 @@ var Searcher = function(div, schema, searchConfig, viewConfig, queryList) {
 	var $ul = $('<ul class="dropdown-menu">').appendTo($divbtn);
 
 	$.each(schema.colMap, function(key, column) {
+		if (searchConfig.isSearchable(key)) return;
+
 		if (searchConfig.isTags(key)) {
 			var $li = $('<li></li>').appendTo($ul);
 			$('<a href="javascript:;">' + viewConfig.headerOf(key) + '</a>').appendTo($li)

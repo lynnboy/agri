@@ -182,7 +182,15 @@
 		SELECT DISTINCT `${colName}` FROM `${tableName}` ORDER BY `${colName}`
 	</select>
 
-	<select id="querySum" resultType="map">
+	<select id="queryGroupCount" resultType="map">
+		SELECT `${keyName}`, COUNT(1) AS `count` FROM `${tableName}`
+		WHERE `${filterKey}` IN
+			(<foreach item="key" collection="keys" separator=",">#{key}</foreach>)
+		GROUP BY `${keyName}`
+		ORDER BY `${keyName}`
+	</select>
+	
+	<select id="queryGroupSum" resultType="map">
 		SELECT `${keyName}`, SUM(`${colName}`) AS `${colName}` FROM `${tableName}`
 		WHERE `${filterKey}` IN
 			(<foreach item="key" collection="keys" separator=",">#{key}</foreach>)
@@ -196,6 +204,10 @@
 
 	<select id="get2" resultType="map">
 		SELECT * FROM `${tableName}` WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} 
+	</select>
+
+	<select id="get3" resultType="map">
+		SELECT * FROM `${tableName}` WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} AND `${key3}` = #{id3} 
 	</select>
 
 	<select id="getAll" resultType="map">
@@ -229,6 +241,14 @@
 		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2}
 	</update>
 
+	<update id="update3">
+		UPDATE `${tableName}` SET
+		<foreach index="field" item="value" collection="data" separator=",">
+			`${field}` = #{value}
+		</foreach>
+		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} AND `${key3}` = #{id3}
+	</update>
+
 	<delete id="remove">
 		DELETE FROM `${tableName}`
 		WHERE `${key}` = #{id}
@@ -237,6 +257,11 @@
 	<delete id="remove2">
 		DELETE FROM `${tableName}`
 		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2}
+	</delete>
+
+	<delete id="remove3">
+		DELETE FROM `${tableName}`
+		WHERE `${key1}` = #{id1} AND `${key2}` = #{id2} AND `${key3}` = #{id3}
 	</delete>
 
 </mapper>

@@ -5,30 +5,7 @@
 <title>${mode == "add" ?"添加":"修改"}数据</title>
 
 <script type="text/javascript">
-function fillSelect(sel, list, nestlist) {
-	$.each(list, function(i, text) {
-		$(sel).append($('<option value="' + i + '">'+ text + '</option>'));
-	});
-	if (Array.isArray(nestlist)) {
-	  $.each(nestlist, function(_, nest){
-		$(sel).change(function(){
-			if (nest.cond && !nest.cond()) return;
-			var ids = nest.map[$(this).val()];
-			var oldval = $(nest.sel).val();
-			$(nest.sel).find("option").remove();
-			$.each(ids, function(_, i) {
-				$(nest.sel).append($('<option value="' + i + '">'+ nest.list[i] + '</option>'));
-			});
-			$(nest.sel).val(oldval);
-			$(nest.sel).change();
-			$(nest.sel).valid();
-		});
-	  });
-	}
-}
-
-
-
+var mode = '${mode}';
 function show1(data, func) {
 	top.$.jBox.open("iframe:${base}planting-v1/sub1add", "作物覆膜情况",
 			$(top.document).width()-320, 360,{
@@ -55,7 +32,6 @@ function show2(data, func) {
 	}, txt);
 	return;
 }
-var mode = '${mode}';
 function addRow(data, table, fname) {
 	for (var firstkey in data) break;
 	var exist = null;
@@ -380,8 +356,8 @@ $(document).ready(function() {
 	$("#tags").change(function() { updateTags(); });
 	updateTags();
 	
-	var mode = '${mode}';
 	if (mode == "view") {
+		$("select").attr('disabled', 'disabled');
 		$("input,textarea").attr('readonly', 'readonly');
 		$("span.help-inline").remove();
 	}

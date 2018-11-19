@@ -178,10 +178,20 @@ function withdraw(id, subject, tags, remarks) {
 		<c:when test="${column.ext().isDateTime()}">
 				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value='${row[column.name]}'/></td>
 		</c:when>
-		<c:when test="${colName == '模式面积'}">
+		<c:when test="${colName == '地址'}">
+			<c:set var="divcode" value="${fn:substring(row['行政区划代码'], 0, 6)}"/>
+				<td>${divcodes[divcode]} ${row['乡镇街道']} ${row['村']} ${row['组']}</td>
+		</c:when>
+		<c:when test="${colName == '施肥状况'}">
 				<td>${row[colName]}
  					<a class="btn btn-primary btn-mini"
-						href="${base}${basepath}sub2/${row['行政区划代码']}">打开</a>
+						href="${base}${basepath}sub1/${row['地块编码']}">打开</a>
+				</td>
+		</c:when>
+		<c:when test="${colName == '照片'}">
+				<td>${row[colName]}
+ 					<a class="btn btn-primary btn-mini"
+						href="${base}${basepath}image/${row['地块编码']}">打开</a>
 				</td>
 		</c:when>
 		<c:otherwise>

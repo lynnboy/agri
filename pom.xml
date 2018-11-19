@@ -5,7 +5,7 @@
 
 	<groupId>com.jingyan</groupId>
 	<artifactId>agri</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.2.18</version>
 
 	<name>agri</name>
 	<description>农业面源污染监控数据平台</description>
@@ -129,6 +129,11 @@
 		<dependency>
 		    <groupId>commons-codec</groupId>
 		    <artifactId>commons-codec</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.3</version>
 		</dependency>
 
 		<dependency>

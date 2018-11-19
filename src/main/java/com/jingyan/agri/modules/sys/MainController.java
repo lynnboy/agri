@@ -173,6 +173,7 @@ public class MainController extends BaseController {
 			redirectModel.addFlashAttribute("bubbleMessage", "修改成功");
 			redirectModel.addFlashAttribute("bubbleType", "success");
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			redirectModel.addFlashAttribute("bubbleMessage", "修改失败: " + ex.getMessage());
 			redirectModel.addFlashAttribute("bubbleType", "error");
 		}
@@ -214,6 +215,7 @@ public class MainController extends BaseController {
 
 		for (Group group : groups) {
 			Project proj = projMap.get(group.getProjId());
+			if (proj == null) continue;
 			ProjectTemplate temp = tempMap.get(proj.getTempId());
 			Integer actionId = group.getAction();
 			String actionName = temp.getProjectInfo().getTaskMap().get(actionId).getName();

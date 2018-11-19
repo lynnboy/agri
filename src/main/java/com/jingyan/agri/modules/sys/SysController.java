@@ -135,6 +135,7 @@ public class SysController extends BaseController {
 					ctx.getBean(temp.getVersion(), ProjectTemplateController.class);
 			controller.initProject(temp, params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "创建项目失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return projectAdd(params.getTempId(), model);
@@ -171,6 +172,7 @@ public class SysController extends BaseController {
 		try {
 			dao.updateProject(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改项目失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return projectModify(params.getTempId(), params.getId(), model);
@@ -250,6 +252,7 @@ public class SysController extends BaseController {
 		try {
 			managerDao.addOrgan(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "添加组织机构失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return userAdd(model);
@@ -280,6 +283,7 @@ public class SysController extends BaseController {
 		try {
 			managerDao.updateOrgan(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改组织机构失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return organModify(params.getId(), model);
@@ -379,6 +383,7 @@ public class SysController extends BaseController {
 		try {
 			managerService.addDealer(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "添加人员失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return userAdd(model);
@@ -423,6 +428,7 @@ public class SysController extends BaseController {
 		try {
 			managerService.updateDealer(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改人员失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return userModify(params.getId(), model);
@@ -633,6 +639,7 @@ public class SysController extends BaseController {
 		try {
 			dealerDao.addGroup(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "添加工作组失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return userAdd(model);
@@ -701,6 +708,7 @@ public class SysController extends BaseController {
 		try {
 			dealerDao.updateGroup(params);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改工作组失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return wgModify(params.getId(), model);
@@ -791,6 +799,7 @@ public class SysController extends BaseController {
 			if (ids.size() > 0)
 				dealerDao.addGroupMembers(id, ids);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改工作组成员失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return wgMember(id, model);
@@ -853,6 +862,7 @@ public class SysController extends BaseController {
 		try {
 			settingsDao.updateSettings(settings);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改系统设置失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return settings(model, request, null, null);
@@ -1096,6 +1106,7 @@ public class SysController extends BaseController {
 		try {
 			managerService.updateCustomerTenantId(id, tenantId);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "修改客户失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return customerForm(model, id);
@@ -1185,6 +1196,7 @@ public class SysController extends BaseController {
 
 			managerService.confirmOrder(id);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "订单确认失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return orderDeal(model, id);
@@ -1213,6 +1225,7 @@ public class SysController extends BaseController {
 		try {
 			managerService.finishOrder(id);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			model.addAttribute("bubbleMessage", "完成订单失败: " + ex.getMessage());
 			model.addAttribute("bubbleType", "error");
 			return orderDeal(model, id);
